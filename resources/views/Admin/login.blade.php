@@ -51,8 +51,8 @@
                             @csrf
                             <div class="login-user-info">
                                 <div class="login-heading">
-                                    <h4>Log In Heyram admin helooo </h4>
-                                    <p>Access The Admin</p>
+                                    <h4>Log In</h4>
+                                    <p>Access The Heyram Admin</p>
                                 </div>
                                 <div class="form-wrap">
                                     <label class="col-form-label">Email Address</label>
