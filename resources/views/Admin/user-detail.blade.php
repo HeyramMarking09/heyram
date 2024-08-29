@@ -500,7 +500,7 @@
                                                                                 class="form-label">First
                                                                                 name</label>
                                                                             <input type="text" name="name"
-                                                                                @if (isset($data) && !empty($data)) value="{{ $data->companyInformation->name }}" @endif
+                                                                                @if (isset($data) && !empty($data->companyInformation)) value="{{ $data->companyInformation->name }}" @endif
                                                                                 class="form-control"
                                                                                 id="basicpill-firstname-input">
                                                                         </div>
@@ -511,7 +511,7 @@
                                                                                 class="form-label">Last
                                                                                 name</label>
                                                                             <input type="text"
-                                                                                @if (isset($data) && !empty($data)) value="{{ $data->companyInformation->last_name }}" @endif
+                                                                                @if (isset($data) && !empty($data->companyInformation)) value="{{ $data->companyInformation->last_name }}" @endif
                                                                                 name="last_name" class="form-control"
                                                                                 id="basicpill-lastname-input">
                                                                         </div>
@@ -524,7 +524,7 @@
                                                                             <label for="basicpill-phoneno-input"
                                                                                 class="form-label">Phone</label>
                                                                             <input type="number"
-                                                                                @if (isset($data) && !empty($data)) value="{{ $data->companyInformation->phone }}" @endif
+                                                                                @if (isset($data) && !empty($data->companyInformation)) value="{{ $data->companyInformation->phone }}" @endif
                                                                                 minlength="10" maxlength="10"
                                                                                 name="phone" class="form-control"
                                                                                 id="basicpill-phoneno-input">
@@ -535,7 +535,7 @@
                                                                             <label for="basicpill-email-input"
                                                                                 class="form-label">Email</label>
                                                                             <input type="email"
-                                                                                @if (isset($data) && !empty($data)) value="{{ $data->companyInformation->email }}" @endif
+                                                                                @if (isset($data) && !empty($data->companyInformation)) value="{{ $data->companyInformation->email }}" @endif
                                                                                 name="email" class="form-control"
                                                                                 id="basicpill-email-input">
                                                                         </div>
@@ -546,7 +546,7 @@
                                                                                 class="form-label">Job
                                                                                 Title</label>
                                                                             <input type="text"
-                                                                                @if (isset($data) && !empty($data)) value="{{ $data->companyInformation->job_title }}" @endif
+                                                                                @if (isset($data) && !empty($data->companyInformation)) value="{{ $data->companyInformation->job_title }}" @endif
                                                                                 name="job_title" class="form-control"
                                                                                 id="basicpill-job_title-input">
                                                                         </div>
@@ -575,7 +575,7 @@
                                                                                 </label>
                                                                                 <input type="text"
                                                                                     name="company_legel_name"
-                                                                                    @if (isset($data) && !empty($data)) value="{{ $data->companyInformation->company_legel_name }}" @endif
+                                                                                    @if (isset($data) && !empty($data->companyInformation)) value="{{ $data->companyInformation->company_legel_name }}" @endif
                                                                                     class="form-control"
                                                                                     id="basicpill-pancard-input">
                                                                             </div>
@@ -588,7 +588,7 @@
                                                                                     Operating Name (if different from Legal
                                                                                     Name)</label>
                                                                                 <input type="text"
-                                                                                    @if (isset($data) && !empty($data)) value="{{ $data->companyInformation->company_operating_name }}" @endif
+                                                                                    @if (isset($data) && !empty($data->companyInformation)) value="{{ $data->companyInformation->company_operating_name }}" @endif
                                                                                     name="company_operating_name"
                                                                                     class="form-control"
                                                                                     id="basicpill-vatno-input">
@@ -602,7 +602,7 @@
                                                                                     class="form-label">CRA
                                                                                     Business Number</label>
                                                                                 <input type="text"
-                                                                                    @if (isset($data) && !empty($data)) value="{{ $data->companyInformation->cra_business_number }}" @endif
+                                                                                    @if (isset($data) && !empty($data->companyInformation)) value="{{ $data->companyInformation->cra_business_number }}" @endif
                                                                                     name="cra_business_number"
                                                                                     class="form-control"
                                                                                     id="basicpill-cstno-input">
@@ -615,7 +615,7 @@
                                                                                     class="form-label">Registered Business
                                                                                     Address</label>
                                                                                 <input type="text"
-                                                                                    @if (isset($data) && !empty($data)) value="{{ $data->companyInformation->registered_business_address }}" @endif
+                                                                                    @if (isset($data) && !empty($data->companyInformation)) value="{{ $data->companyInformation->registered_business_address }}" @endif
                                                                                     name="registered_business_address"
                                                                                     class="form-control"
                                                                                     id="basicpill-servicetax-input">
@@ -634,7 +634,7 @@
                                                                                         @foreach ($countries as $item)
                                                                                             <option
                                                                                                 value="{{ $item->id }}"
-                                                                                                @if (isset($data) && $item->id == $data->companyInformation->country) selected @endif>
+                                                                                                @if (isset($data) && !empty($data->companyInformation) && $item->id == $data->companyInformation->country) selected @endif>
                                                                                                 {{ $item->name }}
                                                                                             </option>
                                                                                         @endforeach
@@ -648,7 +648,7 @@
                                                                                     class="form-label">Province
                                                                                     (State)</label>
                                                                                 <input type="text"
-                                                                                    @if (isset($data) && !empty($data)) value="{{ $data->companyInformation->state }}" @endif
+                                                                                    @if (isset($data) && !empty($data->companyInformation)) value="{{ $data->companyInformation->state }}" @endif
                                                                                     name="state" class="form-control"
                                                                                     id="basicpill-state-input">
                                                                             </div>
@@ -658,7 +658,7 @@
                                                                                 <label for="basicpill-servicetax-input"
                                                                                     class="form-label">City</label>
                                                                                 <input type="text"
-                                                                                    @if (isset($data) && !empty($data)) value="{{ $data->companyInformation->city }}" @endif
+                                                                                    @if (isset($data) && !empty($data->companyInformation)) value="{{ $data->companyInformation->city }}" @endif
                                                                                     name="city" class="form-control"
                                                                                     id="basicpill-city-input">
                                                                             </div>
@@ -668,7 +668,7 @@
                                                                                 <label for="basicpill-servicetax-input"
                                                                                     class="form-label">Postal Code</label>
                                                                                 <input type="text"
-                                                                                    @if (isset($data) && !empty($data)) value="{{ $data->companyInformation->postal_code }}" @endif
+                                                                                    @if (isset($data) && !empty($data->companyInformation)) value="{{ $data->companyInformation->postal_code }}" @endif
                                                                                     name="postal_code"
                                                                                     class="form-control"
                                                                                     id="basicpill-postal_code-input">
@@ -684,7 +684,7 @@
                                                                                     class="form-label">Full
                                                                                     Time</label>
                                                                                 <input type="number"
-                                                                                    @if (isset($data) && !empty($data)) value="{{ $data->companyInformation->full_time }}" @endif
+                                                                                    @if (isset($data) && !empty($data->companyInformation)) value="{{ $data->companyInformation->full_time }}" @endif
                                                                                     name="full_time" class="form-control"
                                                                                     id="basicpill-full_time-input"
                                                                                     min="0">
@@ -696,7 +696,7 @@
                                                                                 <label for="basicpill-servicetax-input"
                                                                                     class="form-label">Part Time</label>
                                                                                 <input type="number"
-                                                                                    @if (isset($data) && !empty($data)) value="{{ $data->companyInformation->part_time }}" @endif
+                                                                                    @if (isset($data) && !empty($data->companyInformation)) value="{{ $data->companyInformation->part_time }}" @endif
                                                                                     name="part_time" class="form-control"
                                                                                     id="basicpill-part_time-input"
                                                                                     min="0">
@@ -710,7 +710,7 @@
                                                                                     class="form-label">Company
                                                                                     incorporation date</label>
                                                                                 <input type="date"
-                                                                                    @if (isset($data) && !empty($data)) value="{{ $data->companyInformation->company_incorporation_date }}" @endif
+                                                                                    @if (isset($data) && !empty($data->companyInformation)) value="{{ $data->companyInformation->company_incorporation_date }}" @endif
                                                                                     name="company_incorporation_date"
                                                                                     class="form-control"
                                                                                     id="basicpill-company_incorporation_date-input">
@@ -727,7 +727,7 @@
                                                                                 <div class="card-body">
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input"
-                                                                                            @if (isset($data) && $data->companyInformation->more_then_five_million == 1) checked @endif
+                                                                                            @if (isset($data) && !empty($data->companyInformation) && $data->companyInformation->more_then_five_million == 1) checked @endif
                                                                                             type="radio"
                                                                                             name="more_then_five_million"
                                                                                             value="1"
@@ -740,7 +740,7 @@
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input"
                                                                                             type="radio"
-                                                                                            @if (isset($data) && $data->companyInformation->more_then_five_million == 0) checked @endif
+                                                                                            @if (isset($data) && !empty($data->companyInformation) && $data->companyInformation->more_then_five_million == 0) checked @endif
                                                                                             name="more_then_five_million"
                                                                                             id="flexRadioDefault2"
                                                                                             value="0">
@@ -762,7 +762,7 @@
                                                                                 <div class="card-body">
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input"
-                                                                                            @if (isset($data) && $data->companyInformation->lmia_application_in_last_three_year == 1) checked @endif
+                                                                                            @if (isset($data) && !empty($data->companyInformation) && $data->companyInformation->lmia_application_in_last_three_year == 1) checked @endif
                                                                                             type="radio"
                                                                                             name="lmia_application_in_last_three_year"
                                                                                             id="flexRadioDefault3"
@@ -777,7 +777,7 @@
                                                                                         <input class="form-check-input"
                                                                                             type="radio"
                                                                                             name="lmia_application_in_last_three_year"
-                                                                                            @if (isset($data) && $data->companyInformation->lmia_application_in_last_three_year == 0) checked @endif
+                                                                                            @if (isset($data) && !empty($data->companyInformation) && $data->companyInformation->lmia_application_in_last_three_year == 0) checked @endif
                                                                                             id="flexRadioDefault4"
                                                                                             onclick="showHideJobTitle('2')"
                                                                                             value="0">
@@ -811,7 +811,7 @@
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <div class="col-md-6"
-                                                                                                    @if (isset($data) && $data->companyInformation->lmia_application_in_last_three_year == 0) style="display: none;" @endif>
+                                                                                                    @if (isset($data) && !empty($data->companyInformation) && $data->companyInformation->lmia_application_in_last_three_year == 0) style="display: none;" @endif>
                                                                                                     <div
                                                                                                         class="d-flex align-items-center">
                                                                                                         <div
@@ -879,7 +879,7 @@
                                                                                     activity at this work
                                                                                     location?</label>
                                                                                 <input type="text"
-                                                                                    @if (isset($data)) value="{{ $data->companyInformation->description }}" @endif
+                                                                                    @if (isset($data) && !empty($data->companyInformation) ) value="{{ $data->companyInformation->description }}" @endif
                                                                                     name="description"
                                                                                     class="form-control"
                                                                                     placeholder="description"
@@ -922,23 +922,29 @@
                                                     <div class="mb-3">
                                                         <label for="input-file" class="form-label">Certificate of
                                                             Incorporation</label>
-                                                        <span> <a style="color:red"
-                                                                href="{{ route('admin.download.file', ['filename' => $data->companyDoc->certificate_of_incorporation]) }}">
-                                                                Downlaod File</a></span>
+                                                            @if (isset($data) && !empty($data->companyDoc))
+                                                            <span> <a style="color:red"
+                                                                    href="{{ route('admin.download.file', ['filename' => $data->companyDoc->certificate_of_incorporation]) }}">
+                                                                    Downlaod File</a></span>
+                                                            @endif
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="input-file" class="form-label">Valid Business
                                                             License</label>
-                                                        <span> <a style="color:red"
-                                                                href="{{ route('admin.download.file', ['filename' => $data->companyDoc->valid_business_license]) }}">
-                                                                Downlaod File</a></span>
+                                                            @if (isset($data) && !empty($data->companyDoc))
+                                                            <span> <a style="color:red"
+                                                                    href="{{ route('admin.download.file', ['filename' => $data->companyDoc->valid_business_license]) }}">
+                                                                    Downlaod File</a></span>
+                                                            @endif
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="input-file" class="form-label">T4 Summary of the
                                                             Company</label>
-                                                        <span> <a style="color:red"
-                                                                href="{{ route('admin.download.file', ['filename' => $data->companyDoc->summary_of_company]) }}">
-                                                                Downlaod File</a></span>
+                                                            @if (isset($data) && !empty($data->companyDoc))
+                                                                <span> <a style="color:red"
+                                                                        href="{{ route('admin.download.file', ['filename' => $data->companyDoc->summary_of_company]) }}">
+                                                                        Downlaod File</a></span>
+                                                            @endif
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="disabledSelect" class="form-label">Please upload
@@ -977,9 +983,11 @@
                                                     <div class="mb-3">
                                                         <label for="disabledSelect" class="form-label">Following
                                                             File</label>
-                                                        <span> <a style="color:red"
-                                                                href="{{ route('admin.download.file', ['filename' => $data->companyDoc->following_document_file_one]) }}">
-                                                                Downlaod File</a></span>
+                                                            @if (isset($data) && !empty($data->companyDoc))
+                                                            <span> <a style="color:red"
+                                                                    href="{{ route('admin.download.file', ['filename' => $data->companyDoc->following_document_file_one]) }}">
+                                                                    Downlaod File</a></span>
+                                                            @endif
                                                     </div>
                                                     @if (isset($data->companyDoc->following_document_file_two) && !is_null($data->companyDoc->following_document_file_two))
                                                         <div class="mb-3" id="showHideDiv" style="display: none">
@@ -1332,7 +1340,7 @@
                                                                                     <input type="text"
                                                                                         class="text-container"
                                                                                         name="name_first"
-                                                                                        @if (isset($data)) value="{{ $data->retainerAgreements->name_first }}" @endif
+                                                                                        @if (isset($data) && !empty($data->retainerAgreements) ) value="{{ $data->retainerAgreements->name_first }}" @endif
                                                                                         placeholder="Name">(client
                                                                                     firstname
                                                                                     first word Lastname first
@@ -1435,7 +1443,7 @@
                                                                                     <input type="text"
                                                                                         class="text-container"
                                                                                         placeholder="Name"
-                                                                                        @if (isset($data)) value="{{ $data->retainerAgreements->second_name }}" @endif
+                                                                                        @if (isset($data) && !empty($data->retainerAgreements)) value="{{ $data->retainerAgreements->second_name }}" @endif
                                                                                         name="second_name">(client
                                                                                     firstname first word Lastname first
                                                                                     word)</b></p>
@@ -1504,7 +1512,7 @@
                                                                                     <input type="text"
                                                                                         class="text-container"
                                                                                         placeholder="Name"
-                                                                                        @if (isset($data)) value="{{ $data->retainerAgreements->third_name }}" @endif
+                                                                                        @if (isset($data) && !empty($data->retainerAgreements)) value="{{ $data->retainerAgreements->third_name }}" @endif
                                                                                         name="third_name">(client
                                                                                     firstname
                                                                                     first word Lastname first word)</b>
@@ -1881,7 +1889,7 @@
                                                                             <p class="client-sign">
                                                                             <div class="client-sign-1"><input
                                                                                     type="text" name="client_signature"
-                                                                                    @if (isset($data)) value="{{ $data->retainerAgreements->client_signature }}" @endif
+                                                                                    @if (isset($data) && !empty($data->retainerAgreements)) value="{{ $data->retainerAgreements->client_signature }}" @endif
                                                                                     id="client_signature"><br />
                                                                                 <b>Signature of Client </b>
                                                                             </div>

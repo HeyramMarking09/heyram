@@ -18,6 +18,10 @@ class RetainerAgreementService
     {
         try {
             unset($data['_token']);
+            unset($data['second_check']);
+            unset($data['third_check']);
+            unset($data['forth_check']);
+            unset($data['fifth_check']);
             $data['employer_id'] = Auth::user()->id;
             $data['date'] = date('d-m-Y');
             $this->RetainerAgreementRepository->create($data);
