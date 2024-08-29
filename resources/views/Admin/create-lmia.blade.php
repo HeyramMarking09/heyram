@@ -40,7 +40,7 @@
                                                 <div class="row">
                                                     <div class="row mb-3">
                                                         <label class="col-lg-12 col-form-label fw-bold">First need to select one of the options from the drop-down menu</label>
-                                                        <div class="col-lg-9">
+                                                        <div class="col-lg-6">
                                                             <select class="form-select" name="need_to_select_0" required>
                                                                 <option value="">--Select--</option>
                                                                 <option value="1">It is to only support for PR application of an employee and help them to get 50/200 points in express entry</option>
@@ -88,13 +88,15 @@
                                                             <div class="col-xl-6">
                                                                 <label class="col-lg-12 col-form-label fw-bold">What are their basic job duties in the company?</label>
                                                                 <div class="col-lg-12">
-                                                                    <input type="text" required class="form-control" name="job_duties_0">
+                                                                    {{-- <input type="text" required class="form-control" name="job_duties_0"> --}}
+                                                                    <textarea name="job_duties_0" required class="form-control" cols="30" rows="3"></textarea>
                                                                 </div>
                                                             </div>
                                                             <div class="col-xl-6">
                                                                 <label class="col-lg-12 col-form-label fw-bold">How did you happen to hire these persons in this company?</label>
                                                                 <div class="col-lg-12">
-                                                                    <input type="text" class="form-control" required name="hiring_reason_0">
+                                                                    {{-- <input type="text" class="form-control" required name="hiring_reason_0"> --}}
+                                                                    <textarea name="hiring_reason_0" required class="form-control" cols="30" rows="3"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -109,13 +111,13 @@
                                 </div>
                                 <div id="AnotherDetail" style="display: none">
                                     <div class="row mb-3">
-                                        <div class="col-xl-6">
+                                        <div class="col-xl-3">
                                             <label class="col-lg-12 col-form-label fw-bold">Suggested Job Title:</label>
                                             <div class="col-lg-12">
                                                 <input type="text" name="suggested_job_title" required class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-xl-6">
+                                        <div class="col-xl-3">
                                             <label class="col-lg-12 col-form-label fw-bold">Number of Vacancies :</label>
                                             <div class="col-lg-12">
                                                 <input type="number" min="0" required name="number_of_vacancies" class="form-control">
@@ -149,8 +151,8 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-lg-12 col-form-label fw-bold">How many TFWs are currently employed in the same occupation in which the LMIA(s) is/are requested?</label>
-                                        <div class="col-lg-12">
+                                        <label class="col-lg-9 col-form-label fw-bold">How many TFWs are currently employed in the same occupation in which the LMIA(s) is/are requested?</label>
+                                        <div class="col-lg-6">
                                             <input type="number" min="0" required name="same_occupation" class="form-control">
                                         </div>
                                     </div>
@@ -168,15 +170,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mb-3">
-                                    <label class="col-lg-12 col-form-label fw-bold">Total number of Canadian Citizen/ Permanent Residency in the same occupation in which LMIA is requested.</label>
-                                    <div class="col-lg-12">
+                                <div class="row mb-3 align-items-center">
+                                    <label class="col-lg-9 col-form-label fw-bold">Total number of Canadian Citizens/ Permanent Residents in the same occupation in which LMIA is requested:</label>
+                                    <div class="col-lg-6">
                                         <input type="number" min="0" maxlength="10" name="total_number_of_canadian" class="form-control">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label class="col-lg-12 col-form-label fw-bold">Choose Employee</label>
-                                    <div class="col-lg-9">
+                                    <label class="col-lg-9 col-form-label fw-bold">Choose Employer</label>
+                                    <div class="col-lg-6">
                                         <select class="form-select" name="employer_id" required>
                                             <option value="">--Select--</option>
                                             @if (isset($UserData) && count($UserData) >0)

@@ -2105,8 +2105,8 @@ $(document).ready(function () {
 		var signcontent = `
 			<div class="row sign-cont-lmia">
 				<div class="row mb-3">
-					<label class="col-lg-12 col-form-label fw-bold">First need to select one of the options from the drop-down menu</label>
-					<div class="col-lg-9">
+					<label class="col-lg-9 col-form-label fw-bold">First need to select one of the options from the drop-down menu</label>
+					<div class="col-lg-6">
 						<select class="form-select" name="need_to_select_${uniqueId}" required>
 							<option value="">--Select--</option>
 							<option value="1">It is to only support for PR application of an employee and help them to get 50/200 points in express entry</option>
@@ -2157,13 +2157,13 @@ $(document).ready(function () {
 							<div class="col-xl-6">
 								<label class="col-lg-12 col-form-label fw-bold">What are their basic job duties in the company?</label>
 								<div class="col-lg-12">
-									<input type="text" required class="form-control" name="job_duties_${uniqueId}">
+                                    <textarea name="job_duties_${uniqueId}" required class="form-control" cols="30" rows="3"></textarea>
 								</div>
 							</div>
 						<div class="col-xl-6">
 							<label class="col-lg-12 col-form-label fw-bold">How did you happen to hire these persons in this company?</label>
 							<div class="col-lg-12">
-								<input type="text" class="form-control" required name="hiring_reason_${uniqueId}">
+                                <textarea name="hiring_reason_${uniqueId}" required class="form-control" cols="30" rows="3"></textarea>
 							</div>
 						</div>
 					</div>
