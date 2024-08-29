@@ -235,7 +235,7 @@ class UserService
     public function getEmployees()
     {
         try {
-            return $this->userRepository->getEmployees(['role_id'=>2 , 'user_type'=>'employee']);
+            return $this->userRepository->getEmployees(['user_type'=>'employee']);
         } catch (\Exception $exception) {
             Log::error("Error in UserService.getEmployees() " . $exception->getLine() . ' ' . $exception->getMessage());
         }        
@@ -243,7 +243,7 @@ class UserService
     public function getEmployers()
     {
         try {
-            return $this->userRepository->getEmployees(['role_id'=>3 , 'user_type'=>'employer']);
+            return $this->userRepository->getEmployees(['user_type'=>'employer']);
         } catch (\Exception $exception) {
             Log::error("Error in UserService.getEmployers() " . $exception->getLine() . ' ' . $exception->getMessage());
         }        

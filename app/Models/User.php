@@ -49,7 +49,7 @@ class User extends Authenticatable implements Roleable
     }
     public function companyDoc()
     {
-        return $this->hasOne(companyDoc::class,'employer_id', 'id');
+        return $this->hasOne(CompanyDoc::class,'employer_id', 'id');
     }
     public function jobBank()
     {

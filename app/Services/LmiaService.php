@@ -89,7 +89,7 @@ class LmiaService
                 $users = $LmiaRepositoryData->where('employer_id', Auth::user()->id)->get();
             }
             // Format the data according to DataTables requirements
-            $getEmployees = $this->UserRepository->getEmployees(['role_id'=>2 , 'user_type'=>'employee']);
+            $getEmployees = $this->UserRepository->getEmployees(['user_type'=>'employee']);
             $formattedData  = $users->map(function ($user) use ($getEmployees) {
                 return [
                     'id' => $user->id,

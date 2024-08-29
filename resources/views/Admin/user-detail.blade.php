@@ -402,7 +402,8 @@
                                                                                     Delete</a><a class="dropdown-item"
                                                                                     href="#"><i
                                                                                         class="ti ti-clipboard-copy text-blue-light"></i>
-                                                                                    Clone</a></div>
+                                                                                    Clone</a>
+                                                                            </div>
                                                                         </div>
                                                                     </td>
                                                                 </tr>
@@ -1924,7 +1925,7 @@
                             </div>
                             <!-- /Retainer Agreement -->
 
-                              <!-- Job bank List -->
+                            <!-- Job bank List -->
                             <div class="tab-pane fade" id="jobBank">
                                 <div class="view-header">
                                     <h4>Job Bank</h4>
@@ -1952,19 +1953,19 @@
                                                                 rowspan="1" colspan="1"
                                                                 aria-label="Lead Status: activate to sort column ascending"
                                                                 style="width: 30px;">Location</th>
-                                                                <th class="sorting" tabindex="0" aria-controls="leads_list"
+                                                            <th class="sorting" tabindex="0" aria-controls="leads_list"
                                                                 rowspan="1" colspan="1"
                                                                 aria-label="Lead Status: activate to sort column ascending"
                                                                 style="width: 30px;">Start Date</th>
-                                                                <th class="sorting" tabindex="0" aria-controls="leads_list"
+                                                            <th class="sorting" tabindex="0" aria-controls="leads_list"
                                                                 rowspan="1" colspan="1"
                                                                 aria-label="Lead Status: activate to sort column ascending"
                                                                 style="width: 30px;">End Date</th>
-                                                                <th class="sorting" tabindex="0" aria-controls="leads_list"
+                                                            <th class="sorting" tabindex="0" aria-controls="leads_list"
                                                                 rowspan="1" colspan="1"
                                                                 aria-label="Lead Status: activate to sort column ascending"
                                                                 style="width: 30px;">Bank Job Ad Number</th>
-                                                                <th class="sorting" tabindex="0" aria-controls="leads_list"
+                                                            <th class="sorting" tabindex="0" aria-controls="leads_list"
                                                                 rowspan="1" colspan="1"
                                                                 aria-label="Lead Status: activate to sort column ascending"
                                                                 style="width: 30px;">Status</th>
@@ -1990,7 +1991,8 @@
                                                                             class="title-name">{{ $LISTNO1 }}</a>
                                                                     </td>
                                                                     <td><a href="leads-details.html"
-                                                                            class="title-name">{{ $item->job_title }}</a></td>
+                                                                            class="title-name">{{ $item->job_title }}</a>
+                                                                    </td>
                                                                     <td>
                                                                         <h2 class="table-avatar d-flex align-items-center">
                                                                             <a href="company-details.html"
@@ -2031,7 +2033,8 @@
                                                                                     Delete</a><a class="dropdown-item"
                                                                                     href="#"><i
                                                                                         class="ti ti-clipboard-copy text-blue-light"></i>
-                                                                                    Clone</a></div>
+                                                                                    Clone</a>
+                                                                            </div>
                                                                         </div>
                                                                     </td>
                                                                 </tr>
