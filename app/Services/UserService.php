@@ -7,7 +7,6 @@ use App\Models\Role;
 use App\Repositories\Eloquent\UserRepository;
 use Illuminate\Support\Facades\Log;
 use App\Services\SendMailService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserService
@@ -75,6 +74,9 @@ class UserService
             $usersQuery->whereIn('status', $statuses);
         }
         // Fetch data with potential pagination if needed
+        if(isset($data['user_type_get'])){
+            $usersQuery->where('user_type',$data['user_type_get']);
+        }
         $users = $usersQuery->get();
         // Format the data according to DataTables requirements
         $formattedData  = $users->map(function ($user) {
@@ -153,6 +155,19 @@ class UserService
             'recordsFiltered' => $users->count()
         ]);
     }
+    public function recoverUser(array $data)
+    {
+        try {
+            $checkData = $this->userRepository->getByWhereTrashed(['id' => $data['id']]);
+            if (!isset($checkData)) {
+                return ['status' => false, 'message' => "Something Went Wrong!"];
+            }
+            $checkData->restore();
+            return ['status' => true, 'message' => "User Recovered Successfully!"];
+        } catch (\Exception $exception) {
+            Log::error("Error in UserService.recoverUser() " . $exception->getLine() . ' ' . $exception->getMessage());
+        }
+    }
     public function updateUser(array $data)
     {
         try {
@@ -170,7 +185,7 @@ class UserService
             $this->userRepository->update(['id' => $data['id']],$data);
             return ['status' => true, 'message' => "User Updated Successfully!"];
         } catch (\Exception $exception) {
-            Log::error("Error in UserService.createUser() " . $exception->getLine() . ' ' . $exception->getMessage());
+            Log::error("Error in UserService.updateUser() " . $exception->getLine() . ' ' . $exception->getMessage());
         }
     }
     public function permanentDeleteRequest(array $data)
@@ -219,6 +234,27 @@ class UserService
     }
     public function getEmployees()
     {
-        
+        try {
+            return $this->userRepository->getEmployees(['role_id'=>2 , 'user_type'=>'employee']);
+        } catch (\Exception $exception) {
+            Log::error("Error in UserService.getEmployees() " . $exception->getLine() . ' ' . $exception->getMessage());
+        }        
+    }
+    public function getEmployers()
+    {
+        try {
+            return $this->userRepository->getEmployees(['role_id'=>3 , 'user_type'=>'employer']);
+        } catch (\Exception $exception) {
+            Log::error("Error in UserService.getEmployers() " . $exception->getLine() . ' ' . $exception->getMessage());
+        }        
+    }
+    public function userDetail($id, $user_type)
+    {
+        try {
+            $return = $this->userRepository->getAllDataOFFirst(['id'=>$id, 'user_type'=>$user_type]);
+            return $return;
+        } catch (\Exception $exception) {
+            Log::error("Error in UserService.userDetail() " . $exception->getLine() . ' ' . $exception->getMessage());
+        } 
     }
 }

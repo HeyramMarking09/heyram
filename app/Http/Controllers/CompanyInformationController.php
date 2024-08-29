@@ -28,17 +28,4 @@ class CompanyInformationController extends Controller
             Log::error("Error in ComapnyInformationController.createCompanyInformation() ". $th->getLine() .' '.$th->getMessage());
         }
     }
-    public function companyDocuments()
-    {
-        return view('Employer.company-documents');
-    }
-    public function createCompanyDocs(Request $request)
-    {
-        try {
-            dd($request->all());
-            return $this->CompanyInformationService->create($request->all());
-        } catch (\Exception $th) {
-            Log::error("Error in ComapnyInformationController.createCompanyDocs() ". $th->getLine() .' '.$th->getMessage());
-        }
-    }
 }

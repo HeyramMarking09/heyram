@@ -77,4 +77,12 @@ class CompanyInformationService
             Log::error('Error in CompanyInformationService.getBYID() '. $th->getLine() .' '.$th->getMessage());
         }
     }
+    public function getWhereById($id)
+    {
+        try {
+            return $this->CompanyInformationRepository->getById(['employer_id'=>$id]);
+        } catch (\Exception $th) {
+            Log::error('Error in CompanyInformationService.getBYID() '. $th->getLine() .' '.$th->getMessage());
+        }
+    }
 }

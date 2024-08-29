@@ -35,7 +35,9 @@
 
 	<!-- Custom Json Js -->	
 	<script src="{{ asset('assets/js/jsonscript.js') }}"></script>
-
+	
+	<!-- Datetimepicker JS -->
+	<script src="{{ asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
 	@stack('scripts')
 
 </body>

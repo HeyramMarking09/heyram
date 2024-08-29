@@ -147,6 +147,33 @@
         </div>
     </div>
     <!-- /Delete User -->
+    <!-- Delete User -->
+    <div class="modal custom-modal fade" id="recover_account">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 m-0 justify-content-end">
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="ti ti-x"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="success-message text-center">
+                        <div class="success-popup-icon">
+                            <i class="ti ti-trash-x"></i>
+                        </div>
+                        <h3>Do you wanna recover this account?</h3>
+                        <input type="hidden" id="recoverUserId">
+                        <p class="del-info">Are you sure you want to recover it.</p>
+                        <div class="col-lg-12 text-center modal-btn">
+                            <a href="#" class="btn btn-light" data-bs-dismiss="modal">Cancel</a>
+                            <button id="RecoverUser" class="btn btn-danger">Yes, Recover it</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Delete User -->
 
 
     </div>
@@ -214,8 +241,7 @@
                         },
                         {
                             "render": function(data, type, row) {
-                                return '<span class="badge badge-tag badge-success-light" data-bs-toggle="modal" onclick="getDelelePermanent(' +
-                                    row.id + ')" data-bs-target="#delete_account">Confirm</span>';
+                                return '<div class="dropdown table-action"><a href="#" class="action-icon" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete_account" onclick="getDelelePermanent(' +row.id +')"><i class="ti ti-eye text-blue-light"></i>Permanent Delete</a><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#recover_account" onclick="getDelelePermanent(' +row.id +')" ><i class="ti ti-trash text-blue-light"></i>Recover Again</a></div></div>';
                             }
                         },
                     ],
@@ -255,6 +281,7 @@
     <script>
         function getDelelePermanent(id) {
             $("#deleteUserId").val(id);
+            $("#recoverUserId").val(id);
         }
         $("#deletePermanentUser").on('click', function() {
             var id = $('#deleteUserId').val();
@@ -279,6 +306,42 @@
                     } else {
                         CallMesssage('error', response.message);
                         $('#deletePermanentUser').prop('disabled', false);
+                    }
+                },
+                error: function(xhr) {
+                    var response = JSON.parse(xhr.responseText);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: response.error ||
+                            'An unexpected error occurred.'
+                    });
+                }
+            });
+        })
+        $("#RecoverUser").on('click', function() {
+            var id = $('#recoverUserId').val();
+            $('#RecoverUser').prop('disabled', true);
+            $.ajax({
+                url: "{{ route('admin.recover-delete-request') }}",
+                method: "DELETE",
+                data: {
+                    id: id,
+                    _token: "{{ csrf_token() }}"
+                },
+
+                success: function(response) {
+                    if (response.status == true || response.status === 'true') {
+                        // Show a success message
+                        CallMesssage('success', response.message);
+
+                        $('.btn-close').click();
+                        $('#RecoverUser').prop('disabled', false);
+                        // Reload the DataTable
+                        $('#delete_request').DataTable().ajax.reload();
+                    } else {
+                        CallMesssage('error', response.message);
+                        $('#RecoverUser').prop('disabled', false);
                     }
                 },
                 error: function(xhr) {

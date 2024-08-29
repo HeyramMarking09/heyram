@@ -58,7 +58,7 @@
                     </button>
                 </div>
                 <div class="modal-body p-0">
-                    <video width="100%" controls>
+                    <video width="100%" controls autoplay loop>
                         <source src="{{ asset('assets/vidoes/employer-video.mp4') }}" type="video/mp4">
                     </video>
                     <div class="form-wrap">

@@ -49,7 +49,7 @@ class LmiaService
             }
             $insertData = [
                 'enployee_detail' => $jsonData,
-                'employer_id' => Auth::user()->id,
+                'employer_id' => isset($data['employer_id']) ? $data['employer_id']: Auth::user()->id,
                 'employee_already_working_in_the_company' => $data['employee_already_working_in_the_company'],
                 'total_number_of_canadian' => $data['total_number_of_canadian'],
                 'employee_currenty_in_same_occupation' => $data['employee_currenty_in_same_occupation'],
@@ -142,6 +142,79 @@ class LmiaService
             return ['status'=>true , 'message'=>"Change Status Successfully!"];
         } catch (\Exception $th) {
             Log::error('Error in LmiaService.changeStatus() ' . $th->getLine() . ' ' . $th->getMessage());
+        }
+    }
+    public function assignEmployee(array $data)
+    {
+        try {
+            $where = [
+                'id' =>$data['id']
+            ];
+            $getLmia = $this->LmiaRepository->getById($where);
+            if(!isset($getLmia)){
+                return ['status'=>false , 'message'=>"Something Went Wrong!"];
+            }
+            $updateWhere =  [
+                'job_title' => $data['job_title'],
+                'vacancies' => $data['vacancies'],
+                'mininum_education_requirement' => $data['mininum_education_requirement'],
+                'mininum_experience_requirement' => $data['mininum_experience_requirement'],
+                'expected_file_submission_date' => $data['expected_file_submission_date'],
+                'final_submission_date' => $data['final_submission_date'],
+                'job_location' => $data['job_location'],
+                'language' => $data['language'],
+                'description' => $data['description'],
+            ];
+            $updateData = [
+                'assign_employee_data'=>json_encode($updateWhere),
+                'file_assign_to_employee' =>$data['file_assign_to_employee']
+            ];
+            $this->LmiaRepository->update($data['id'],$updateData);
+            return ['status'=>true , 'message'=>"Assign Employee Successfully!"];
+        } catch (\Exception $th) {
+            Log::error('Error in LmiaService.assignEmployee() ' . $th->getLine() . ' ' . $th->getMessage());
+        }
+    }
+    public function lmiaApproved(array $data)
+    {
+        try {
+            $where = [
+                'id' =>$data['id']
+            ];
+            $getLmia = $this->LmiaRepository->getById($where);
+            if(!isset($getLmia)){
+                return ['status'=>false , 'message'=>"Something Went Wrong!"];
+            }
+            $updateWhere =  [
+                'status' => '10',
+                'date_of_approval' => $data['date_of_approval'],
+                'date_of_expiry' => $data['date_of_expiry'],
+                'number_of_lmia' => $data['number_of_lmia'],
+            ];
+            $this->LmiaRepository->update($data['id'],$updateWhere);
+            return ['status'=>true , 'message'=>"Lmia Approved Successfully!"];
+        } catch (\Exception $th) {
+            Log::error('Error in LmiaService.lmiaApproved() ' . $th->getLine() . ' ' . $th->getMessage());
+        }
+    }
+    public function lmiaInterviewSchedule(array $data)
+    {
+        try {
+            $where = [
+                'id' =>$data['id']
+            ];
+            $getLmia = $this->LmiaRepository->getById($where);
+            if(!isset($getLmia)){
+                return ['status'=>false , 'message'=>"Something Went Wrong!"];
+            }
+            $updateWhere =  [
+                'status' => '6',
+                'interview_date_time' => $data['interview_date_time']
+            ];
+            $this->LmiaRepository->update($data['id'],$updateWhere);
+            return ['status'=>true , 'message'=>"Lmia Interview Scheduled Successfully!"];
+        } catch (\Exception $th) {
+            Log::error('Error in LmiaService.lmiaInterviewSchedule() ' . $th->getLine() . ' ' . $th->getMessage());
         }
     }
 }

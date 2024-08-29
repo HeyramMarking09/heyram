@@ -2,13 +2,13 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Models\Lmia;
-use App\Repositories\Contracts\LmiaInterface;
+use App\Models\Lead;
+use App\Repositories\Contracts\LeadInterface;
 
-class LmiaRepository implements LmiaInterface
+class LeadRepository implements LeadInterface
 {
     protected $model;
-    public function __construct(Lmia $model)
+    public function __construct(Lead $model)
     {
         $this->model = $model;
     }
@@ -32,4 +32,9 @@ class LmiaRepository implements LmiaInterface
     {
         return $this->model->where('id', $id)->update($data);
     }
+    public function delete($id)
+    {
+        return $this->model->where('id', $id)->delete();
+    }
+
 }
