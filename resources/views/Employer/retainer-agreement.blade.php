@@ -17,19 +17,18 @@
             <div class="page-header">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h3 class="page-title">Form Wizard</h3>
+                        <h3 class="page-title">Retainer Agreement</h3>
                     </div>
                 </div>
             </div>
             <!-- /Page Header -->
 
             <div class="row">
-
                 <!-- Lightbox -->
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title mb-0">Basic Wizard</h4>
+                            {{-- <h4 class="card-title mb-0">Basic Wizard</h4> --}}
                         </div>
                         <div class="card-body">
                             <div id="basic-pills-wizard" class="twitter-bs-wizard">
@@ -85,55 +84,62 @@
 
                                 <div class="tab-content twitter-bs-wizard-tab-content">
                                     <div class="tab-pane show active" id="seller-details">
-                                        <div class="row">
-                                            <p class="lead"><b>RCIC Membership Number: R526789 <span
-                                                        style="float: right;"> Client File Number:
-                                                        {{ $users->id }}</span></b></p>
-                                            <div class="row w-100">
-                                                <div class="col-md-12">
-                                                    <p>This Initial Consultation Agreement is made on this <b>
-                                                            @if (isset($data))
-                                                                {{ $data->date }}
-                                                            @else
-                                                                {{ date('d-m-Y') }}
-                                                            @endif  </b>, for the Service purchased for <b>Post
-                                                            Graduation Work Permit</b> application,
-                                                    </p>
-                                                    <p>Between <b>Regulated Canadian Immigration Consultant (RCIC)
-                                                            <ul class="member-info">
-                                                                <li>Mr. Shivam Sharma </li>
-                                                                <li>Heyram Consulting Ltd. </li>
-                                                                <li>Address: 13370 78 Ave Unit 54, Surrey, BC V3W 0H6 </li>
-                                                                <li>Tel: (778) 664-8164 </li>
-                                                                <li>Email: info@heyram.ca</li>
-                                                            </ul>
-                                                        </b>
+                                        <form id="first-form">
+                                            @csrf
+                                            <div class="row">
+                                                <p class="lead"><b>RCIC Membership Number: R526789 <span
+                                                            style="float: right;"> Client File Number:
+                                                            {{ $users->id }}</span></b></p>
+                                                <div class="row w-100">
+                                                    <div class="col-md-12">
+                                                        <p>This Initial Consultation Agreement is made on this <b>
+                                                                @if (isset($data))
+                                                                    {{ $data->date }}
+                                                                @else
+                                                                    {{ date('d-m-Y') }}
+                                                                @endif
+                                                            </b>, for the Service purchased for <b>Post
+                                                                Graduation Work Permit</b> application,
+                                                        </p>
+                                                        <p>Between <b>Regulated Canadian Immigration Consultant (RCIC)
+                                                                <ul class="member-info">
+                                                                    <li>Mr. Shivam Sharma </li>
+                                                                    <li>Heyram Consulting Ltd. </li>
+                                                                    <li>Address: 13370 78 Ave Unit 54, Surrey, BC V3W 0H6
+                                                                    </li>
+                                                                    <li>Tel: (778) 664-8164 </li>
+                                                                    <li>Email: info@heyram.ca</li>
+                                                                </ul>
+                                                            </b>
 
-                                                        AND, CLIENT
-                                                    </p>
-                                                    <p><b>
-                                                            <ul class="member-info">
-                                                                <li>{{ $users->name }} </li>
-                                                                <li>Address: </li>
-                                                                <li>Tel: {{ $users->phone }} </li>
-                                                                <li>Email: {{ $users->email }} </li>
-                                                            </ul>
-                                                        </b>
-                                                    </p>
-                                                    <div class="form-check">
-                                                        <input disabled class="form-check-input" type="checkbox" checked
-                                                            id="flexCheckDefault">
-                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                            I accept
-                                                        </label>
+                                                            AND, CLIENT
+                                                        </p>
+                                                        <p><b>
+                                                                <ul class="member-info">
+                                                                    <li>{{ $users->name }} </li>
+                                                                    <li>Address: </li>
+                                                                    <li>Tel: {{ $users->phone }} </li>
+                                                                    <li>Email: {{ $users->email }} </li>
+                                                                </ul>
+                                                            </b>
+                                                        </p>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" required name="first_check" @if (isset($data))
+                                                                checked
+                                                            @endif
+                                                                type="checkbox" id="flexCheckDefault">
+                                                            <label class="form-check-label" for="flexCheckDefault">
+                                                                I accept
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <ul class="pager wizard twitter-bs-wizard-pager-link">
-                                            <li class="next"><a href="javascript: void(0);" class="btn btn-primary">Next
-                                                    <i class="bx bx-chevron-right ms-1"></i></a></li>
-                                        </ul>
+                                            <ul class="pager wizard twitter-bs-wizard-pager-link">
+                                                <li class="float-end"><button type="submit" class="btn btn-primary">Next <i
+                                                            class="bx bx-chevron-right ms-1"></i></button></li>
+                                            </ul>
+                                        </form>
                                     </div>
                                     <!-- tab pane -->
                                     <div class="tab-pane fade" id="company-document">
@@ -255,12 +261,16 @@
                                                                 terms
                                                                 of this section.
                                                                 <input type="text" class="text-container"
-                                                                    name="name_first" @if (isset($data)) value="{{ $data->name_first }}" @endif placeholder="Name">(client firstname
+                                                                    name="name_first"
+                                                                    @if (isset($data)) value="{{ $data->name_first }}" @endif
+                                                                    placeholder="Name" maxlength="9">(client firstname
                                                                 first word Lastname first
                                                                 word)</b></p>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" disabled type="checkbox" checked
-                                                                id="flexCheckDefault1">
+                                                            <input class="form-check-input" required type="checkbox" @if (isset($data))
+                                                                checked
+                                                            @endif
+                                                                name="second_check" id="flexCheckDefault1">
                                                             <label class="form-check-label" for="flexCheckDefault1">
                                                                 I accept
                                                             </label>
@@ -326,9 +336,9 @@
                                                         <p><b>The client acknowledges that they have properly read all the
                                                                 terms of this section.
                                                                 <input type="text" class="text-container"
-                                                                    placeholder="Name" @if (isset($data))
-                                                                        value="{{ $data->second_name }}" 
-                                                                    @endif name="second_name">(client
+                                                                    placeholder="Name"
+                                                                    @if (isset($data)) value="{{ $data->second_name }}" @endif
+                                                                    name="second_name" maxlength="9">(client
                                                                 firstname first word Lastname first word)</b></p>
                                                         <p><b>Important NOTES:</b></p>
                                                         <p><b>
@@ -366,13 +376,15 @@
                                                         <p><b>The client acknowledges that they have properly read all the
                                                                 terms of this section.
                                                                 <input type="text" class="text-container"
-                                                                    placeholder="Name"  @if (isset($data))
-                                                                    value="{{ $data->third_name }}"
-                                                                @endif  name="third_name">(client firstname
+                                                                    placeholder="Name"
+                                                                    @if (isset($data)) value="{{ $data->third_name }}" @endif
+                                                                    name="third_name" maxlength="9">(client firstname
                                                                 first word Lastname first word)</b></p>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" checked
-                                                                disabled>
+                                                            <input class="form-check-input" type="checkbox" required name="third_check"
+                                                            @if (isset($data))
+                                                                checked
+                                                            @endif>
                                                             <label class="form-check-label" for="flexCheckDefault2">
                                                                 I accept
                                                             </label>
@@ -484,26 +496,19 @@
                                                         </p>
                                                         <p><b>10. Governing Law</b></p>
                                                         <p>This Agreement shall be governed by the laws in effect in the
-                                                            Province/Territory of
-
-                                                            <b>(PENDDING)</b><input type="text" name="governing_law"
-                                                                id="governing_law"  @if (isset($data))
-                                                                    value="{{ $data->governing_law }}"
-                                                                @endif class="text-container">, and the
+                                                            Province/Territory of British Columbia, and the
                                                             federal laws of Canada applicable therein
                                                             and except for disputes pursuant to Section 9 hereof, any
                                                             dispute with respect to the terms
                                                             of this Agreement shall be decided by a court of competent
                                                             jurisdiction within the
-                                                            Province/Territory of <b>(PENDDING)</b><input type="text"
-                                                                name="governing_law1" @if (isset($data))
-                                                                value="{{ $data->governing_law1 }}"
-                                                            @endif  id="governing_law1"
-                                                                class="text-container">.
+                                                            Province/Territory of British Columbia.
                                                         </p>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" checked
-                                                                disabled>
+                                                            <input class="form-check-input" type="checkbox" required name="forth_check"
+                                                            @if (isset($data))
+                                                                checked
+                                                            @endif> 
                                                             <label class="form-check-label" for="flexCheckDefault3">
                                                                 I accept
                                                             </label>
@@ -632,9 +637,9 @@
                                                         </p>
                                                         <p class="client-sign">
                                                         <div class="client-sign-1"><input type="text"
-                                                                name="client_signature" @if (isset($data))
-                                                                value="{{ $data->client_signature }}"
-                                                            @endif id="client_signature"><br />
+                                                                name="client_signature"
+                                                                @if (isset($data)) value="{{ $data->client_signature }}" @endif
+                                                                id="client_signature" maxlength="20"><br />
                                                             <b>Signature of Client </b>
                                                         </div>
                                                         <div class="client-sign-2" style="float: right;">
@@ -645,8 +650,10 @@
                                                         </div>
                                                         </p>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" checked
-                                                                disabled>
+                                                            <input class="form-check-input" type="checkbox"  required name="fifth_check"
+                                                            @if (isset($data))
+                                                                checked                                                                
+                                                            @endif>
                                                             <label class="form-check-label" for="flexCheckDefault4">
                                                                 I accept
                                                             </label>
@@ -657,9 +664,7 @@
                                                     <li class="previous"><a href="javascript: void(0);"
                                                             class="btn btn-primary"><i
                                                                 class="bx bx-chevron-left me-1"></i> Previous</a></li>
-                                                    <li class="float-end"><button type="submit" @if (isset($data)) disabled @endif
-                                                            class="btn btn-primary">Save
-                                                            Changes</button></li>
+                                                    <li class="float-end">@if (!isset($data)) <button type="submit" class="btn btn-primary">Save Changes</button>@endif</li>
                                                 </ul>
                                             </form>
                                         </div>
@@ -685,15 +690,43 @@
     <script src="{{ asset('assets/plugins/twitter-bootstrap-wizard/form-wizard.js') }}"></script>
     <script>
         $(document).ready(function() {
+            $("#first-form").validate({
+                rules: {
+                    first_check: {
+                        required: true
+                    }
+                },
+                messages: {
+                    first_check: {
+                        required: "Please accept the terms"
+                    }
+                },
+                submitHandler: function(form) {
+                    // Add or remove classes as needed
+                    $('#company-document').addClass('show active');
+                    $('.secondLink').addClass('active');
+                    $('#seller-details').removeClass('show active');
+                    $('.firstList').removeClass('active');
+                }
+            });
+        });
+
+        $(document).ready(function() {
             $("#second-form").validate({
                 rules: {
                     name_first: {
                         required: true
+                    },
+                    second_check:{
+                        required:true
                     }
                 },
                 messages: {
                     name_first: {
                         required: "Please provide a name"
+                    },
+                    second_check:{
+                        required:"Please accept the terms"
                     }
                 },
                 submitHandler: function(form) {
@@ -712,6 +745,9 @@
                     },
                     third_name: {
                         required: true
+                    },
+                    third_check:{
+                        required: true
                     }
                 },
                 messages: {
@@ -720,6 +756,9 @@
                     },
                     third_name: {
                         required: "Please provide a name"
+                    },
+                    third_check: {
+                        required: "Please accept the terms"
                     }
                 },
                 submitHandler: function(form) {
@@ -733,19 +772,25 @@
         $(document).ready(function() {
             $("#fouth_form").validate({
                 rules: {
-                    governing_law: {
-                        required: true
-                    },
-                    governing_law1: {
+                    // governing_law: {
+                    //     required: true
+                    // },
+                    // governing_law1: {
+                    //     required: true
+                    // },
+                    forth_check:{
                         required: true
                     }
                 },
                 messages: {
-                    governing_law: {
-                        required: "Please provide a name"
-                    },
-                    governing_law1: {
-                        required: "Please provide a name"
+                    // governing_law: {
+                    //     required: "Please provide a name"
+                    // },
+                    // governing_law1: {
+                    //     required: "Please provide a name"
+                    // },
+                    forth_check:{
+                        required: 'Please accept the terms'
                     }
                 },
                 submitHandler: function(form) {
@@ -761,11 +806,17 @@
                 rules: {
                     client_signature: {
                         required: true
+                    },
+                    fifth_check:{
+                        required: true
                     }
                 },
                 messages: {
                     client_signature: {
                         required: "Please provide a signature"
+                    },
+                    fifth_check:{
+                        required: 'Please accept the terms'
                     }
                 },
                 submitHandler: function(form) {

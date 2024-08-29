@@ -86,7 +86,20 @@
                 <li>
                     <h6 class="submenu-hdr">LMIA</h6>
                     <ul>
+                        <li><a href="{{ route('admin.apply-for-an-lmia') }}"><i class="ti ti-users"></i><span>Apply For An Lmia</span></a></li>
                         <li><a href="{{ route('admin.lmia-request') }}"><i class="ti ti-users"></i><span>lmia request</span></a></li>
+                    </ul>
+                </li>
+                <li>
+                    <h6 class="submenu-hdr">Employer Dashboard</h6>
+                    <ul>
+                        <li><a href="{{ route('admin.employer-dashboard') }}"><i class="ti ti-users"></i><span>Employers List</span></a></li>
+                    </ul>
+                </li>
+                <li>
+                    <h6 class="submenu-hdr">Leads</h6>
+                    <ul>
+                        <li><a href="{{ route('admin.leads') }}"><i class="ti ti-users"></i><span>leads</span></a></li>
                     </ul>
                 </li>
             </ul>

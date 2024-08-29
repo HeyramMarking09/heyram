@@ -16,19 +16,18 @@
             <div class="page-header">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h3 class="page-title">COMPANY INFORMATION FORM</h3>
+                        <h3 class="page-title">COMPANY INFORMATION</h3>
                     </div>
                 </div>
             </div>
             <!-- /Page Header -->
 
             <div class="row">
-
                 <!-- Lightbox -->
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title mb-0">Create Company Information Form</h4>
+                            <h4 class="card-title mb-0">Company Information Form</h4>
                         </div>
                         <div class="card-body">
                             <div id="basic-pills-wizard" class="twitter-bs-wizard">

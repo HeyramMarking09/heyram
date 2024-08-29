@@ -2,13 +2,14 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Models\Lmia;
-use App\Repositories\Contracts\LmiaInterface;
+use App\Models\JobBank;
+use App\Models\Lead;
+use App\Repositories\Contracts\JobBankInterface;
 
-class LmiaRepository implements LmiaInterface
+class JobBankRepository implements JobBankInterface
 {
     protected $model;
-    public function __construct(Lmia $model)
+    public function __construct(JobBank $model)
     {
         $this->model = $model;
     }
@@ -32,4 +33,9 @@ class LmiaRepository implements LmiaInterface
     {
         return $this->model->where('id', $id)->update($data);
     }
+    public function delete($id)
+    {
+        return $this->model->where('id', $id)->delete();
+    }
+
 }

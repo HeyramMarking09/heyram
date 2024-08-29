@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Lmia extends Model
+class CompanyDoc extends Model
 {
     use HasFactory;
-    protected $table = 'lmias';
+    protected $table = 'company_docs';
     protected $guarded = [];
 
     public function users()

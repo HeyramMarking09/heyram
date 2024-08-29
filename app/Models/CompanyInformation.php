@@ -8,4 +8,9 @@ class CompanyInformation extends Model
 {
     protected $table = 'company_information';
     protected $guarded = [];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class,'employer_id', 'id');
+    }
 }

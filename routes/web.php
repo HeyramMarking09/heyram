@@ -2,14 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\JobBankController;
+use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Admin\LmiaController as AdminLmiaController;
 use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\CompanyInformationController;
 use App\Http\Controllers\Employer\AuthController as EmployerAuthController;
+use App\Http\Controllers\Employer\CompanyDocController;
 use App\Http\Controllers\Employer\LmiaController;
 use App\Http\Controllers\Employer\RetainerAgreementController;
+use App\Http\Controllers\FileDownloadController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -39,8 +43,9 @@ Route::namespace('Employer')->prefix('employer')->name('employer.')->group(funct
 
         Route::get('company-information', [CompanyInformationController::class , 'index'])->name('company-information');
         Route::post('create-company-information', [CompanyInformationController::class , 'createCompanyInformation'])->name('create-company-information');
-        Route::get('company-documents', [CompanyInformationController::class , 'companyDocuments'])->name('company-documents');
-        Route::post('create-company-docs', [CompanyInformationController::class , 'createCompanyDocs'])->name('create-company-docs');
+        
+        Route::get('company-documents', [CompanyDocController::class , 'index'])->name('company-documents');
+        Route::post('create-company-docs', [CompanyDocController::class , 'create'])->name('create-company-docs');
 
         Route::get('apply-for-an-lmia',[LmiaController::class , 'index'])->name('apply-for-an-lmia');
         Route::get('lmia',[LmiaController::class , 'lmiaListShow'])->name('lmia.list');
@@ -87,12 +92,38 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('delete-request', [ManageUserController::class, 'deleteRequest'])->name('delete-request');
         Route::get('get-delete-request', [ManageUserController::class, 'getDeleteRequest'])->name('get-delete-request');
         Route::delete('permanent-delete-request', [ManageUserController::class, 'permanentDeleteRequest'])->name('permanent-delete-request');
+        Route::delete('recover-delete-request', [ManageUserController::class, 'recoverDeleteRequest'])->name('recover-delete-request');
 
         // LMIA Request Route
         Route::get('lmia-request', [AdminLmiaController::class , 'index'])->name('lmia-request');
+        Route::get('apply-for-an-lmia', [AdminLmiaController::class , 'applyForAnLmia'])->name('apply-for-an-lmia');
         Route::get('get-list-of-lmias', [AdminLmiaController::class , 'getListOfLmias'])->name('get-list-of-lmias');
         Route::post('change-lmia-status', [AdminLmiaController::class , 'changeLmiaStatus'])->name('change-lmia-status');
+        Route::post('lmia-assign-employee', [AdminLmiaController::class , 'lmiaAssignEmployee'])->name('lmia-assign-employee');
+        Route::post('lmia-approved', [AdminLmiaController::class , 'lmiaApproved'])->name('lmia-approved');
+        Route::post('lmia-interview-schedule', [AdminLmiaController::class , 'lmiaInterviewSchedule'])->name('lmia-interview-schedule');
+        Route::post('lmia-form', [AdminLmiaController::class , 'lmiaForm'])->name('lmia-form');
 
+        // Lead Routes
+        // leads
+        Route::get('leads', [LeadController::class , 'index'])->name('leads');
+        Route::post('create-lead', [LeadController::class , 'createLead'])->name('create-lead');
+        Route::post('edit-lead', [LeadController::class , 'editLead'])->name('edit-lead');
+        Route::get('get-leads', [LeadController::class , 'getAll'])->name('get-leads');
+        Route::delete('lead-delete', [LeadController::class , 'deleteLead'])->name('lead-delete');
+
+        // Employers List
+        Route::get('employer-dashboard', [ManageUserController::class , 'employerDashboard'])->name('employer-dashboard');
+        Route::get('employers', [ManageUserController::class , 'employers'])->name('employers');
+        Route::get('employer-detail/{id}', [ManageUserController::class , 'employerDetail'])->name('employer-detail');
+
+        // download pdf and csv file
+        Route::get('download/file/{filename}', [FileDownloadController::class, 'download'])->name('download.file');
+        Route::get('/download-file/{type}', [FileDownloadController::class, 'downloadFileCompanyInformation'])->name('download.dynamic');
+        Route::get('/download-retainer_agreement/{type}', [FileDownloadController::class, 'downloadFileRetainerAgreement'])->name('download.retainer_agreement');
+
+        // Job Bank Routes
+        Route::post('create-job', [JobBankController::class , 'create'])->name('create-job');
 
     });
 });

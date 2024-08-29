@@ -35,4 +35,24 @@ class User extends Authenticatable implements Roleable
     {
         return $this->belongsTo(Role::class);
     }
+    public function companyInformation()
+    {
+        return $this->hasOne(CompanyInformation::class,'employer_id', 'id');
+    }
+    public function retainerAgreements()
+    {
+        return $this->hasOne(RetainerAgreement::class,'employer_id', 'id');
+    }
+    public function lmias()
+    {
+        return $this->hasMany(Lmia::class,'employer_id', 'id');
+    }
+    public function companyDoc()
+    {
+        return $this->hasOne(companyDoc::class,'employer_id', 'id');
+    }
+    public function jobBank()
+    {
+        return $this->hasMany(JobBank::class,'employer_id', 'id');
+    }
 }

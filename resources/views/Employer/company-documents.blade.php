@@ -28,15 +28,15 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label for="input-file" class="form-label">Certificate of Incorporation</label>
-                                    <input class="form-control" name="certificate_of_incorporation" type="file" id="input-file_1">
+                                    <input class="form-control" accept=".pdf,.doc,.docx" name="certificate_of_incorporation" type="file" id="input-file_1">
                                 </div>
                                 <div class="mb-3">
                                     <label for="input-file" class="form-label">Valid Business License</label>
-                                    <input class="form-control" name="valid_business_license" type="file" id="input-file_2">
+                                    <input class="form-control" name="valid_business_license" accept=".pdf,.doc,.docx" type="file" id="input-file_2">
                                 </div>
                                 <div class="mb-3">
                                     <label for="input-file" class="form-label">T4 Summary of the Company</label>
-                                    <input class="form-control" name="summary_of_company" type="file" id="input-file_3">
+                                    <input class="form-control" name="summary_of_company" type="file" id="input-file_3" accept=".pdf,.doc,.docx">
                                 </div>
                                 <div class="mb-3">
                                     <label for="disabledSelect" class="form-label">Please upload atleast one of the
@@ -64,10 +64,10 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" name="following_document_file_one" type="file" id="input-file_4">
+                                    <input class="form-control" name="following_document_file_one" type="file" id="input-file_4"  accept=".pdf,.doc,.docx">
                                 </div>
                                 <div class="mb-3" id="showHideDiv" style="display: none">
-                                    <input class="form-control" type="file" id="input-file_5" name="following_document_file_two">
+                                    <input class="form-control" type="file" id="input-file_5"  accept=".pdf,.doc,.docx" name="following_document_file_two">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
