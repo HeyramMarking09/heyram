@@ -11,7 +11,7 @@
     <title>hayeram Admin - Login</title>
     <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/heyram-logo.jfif') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/tabler-icons/tabler-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/fontawesome.min.css') }}">
@@ -45,7 +45,7 @@
                 <div class="container">
                     <div class="login-content user-login">
                         <div class="login-logo">
-                            <img src="{{ asset('assets/img/logo.svg') }}" class="img-fluid" alt="Logo">
+                            <img src="{{ asset('assets/img/heyram-logo.jfif') }}" class="img-fluid" alt="Logo">
                         </div>
                         <form id="loginForm">
                             @csrf

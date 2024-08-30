@@ -55,4 +55,8 @@ class User extends Authenticatable implements Roleable
     {
         return $this->hasMany(JobBank::class,'employer_id', 'id');
     }
+    public function AdditionalDocument()
+    {
+        return $this->hasMany(AdditionalDocument::class,'employer_id', 'id');
+    }
 }

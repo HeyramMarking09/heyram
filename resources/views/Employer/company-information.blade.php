@@ -46,7 +46,7 @@
                                             data-bs-toggle="tab" data-bs-target="#company-document">
                                             <div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top"
                                                 title="Company Document">
-                                                <i class="fas fa-map-pin"></i>
+                                                <i class="fa fa-arrow-circle-up"></i>
                                             </div>
                                         </a>
                                     </li>
@@ -56,14 +56,14 @@
                                 <div class="tab-content twitter-bs-wizard-tab-content">
                                     <div class="tab-pane" id="seller-details">
                                         <div class="mb-4">
-                                            <h5>Enter Your Personal Details</h5>
+                                            <h5>Detailed Of The Contact Person</h5>
                                         </div>
                                         <form id="mainInfo">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
-                                                        <label for="basicpill-firstname-input" class="form-label">First
+                                                        <label for="basicpill-firstname-input" class="form-label fw-bold">First
                                                             name</label>
                                                         <input type="text" name="name" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->name }}" @endif class="form-control"
                                                             id="basicpill-firstname-input">
@@ -71,7 +71,7 @@
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
-                                                        <label for="basicpill-lastname-input" class="form-label">Last
+                                                        <label for="basicpill-lastname-input" class="form-label fw-bold">Last
                                                             name</label>
                                                         <input type="text" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->last_name }}" @endif name="last_name" class="form-control"
                                                             id="basicpill-lastname-input">
@@ -83,21 +83,21 @@
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label for="basicpill-phoneno-input"
-                                                            class="form-label">Phone</label>
+                                                            class="form-label fw-bold">Phone</label>
                                                         <input type="number" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->phone }}" @endif  minlength="10" maxlength="10" name="phone"
                                                             class="form-control" id="basicpill-phoneno-input">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
-                                                        <label for="basicpill-email-input" class="form-label">Email</label>
+                                                        <label for="basicpill-email-input" class="form-label fw-bold">Email</label>
                                                         <input type="email" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->email }}" @endif name="email" class="form-control"
                                                             id="basicpill-email-input">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
-                                                        <label for="basicpill-email-input" class="form-label">Job
+                                                        <label for="basicpill-email-input" class="form-label fw-bold">Job
                                                             Title</label>
                                                         <input type="text" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->job_title }}" @endif name="job_title" class="form-control"
                                                             id="basicpill-job_title-input">
@@ -113,15 +113,12 @@
                                     <!-- tab pane -->
                                     <div class="tab-pane fade " id="company-document">
                                         <div>
-                                            <div class="mb-4">
-                                                <h5>Enter Your Address</h5>
-                                            </div>
                                             <form id="company-info">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
-                                                            <label for="basicpill-pancard-input" class="form-label">Company
+                                                            <label for="basicpill-pancard-input" class="form-label fw-bold">Company
                                                                 Legal Name
                                                             </label>
                                                             <input type="text" name="company_legel_name"
@@ -131,7 +128,7 @@
 
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
-                                                            <label for="basicpill-vatno-input" class="form-label">Company
+                                                            <label for="basicpill-vatno-input" class="form-label fw-bold">Company
                                                                 Operating Name (if different from Legal Name)</label>
                                                             <input type="text" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->company_operating_name }}" @endif name="company_operating_name"
                                                                 class="form-control" id="basicpill-vatno-input">
@@ -141,7 +138,7 @@
                                                 <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
-                                                            <label for="basicpill-cstno-input" class="form-label">CRA
+                                                            <label for="basicpill-cstno-input" class="form-label fw-bold">CRA
                                                                 Business Number</label>
                                                             <input type="text" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->cra_business_number }}" @endif name="cra_business_number"
                                                                 class="form-control" id="basicpill-cstno-input">
@@ -151,7 +148,7 @@
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label for="basicpill-servicetax-input"
-                                                                class="form-label">Registered Business Address</label>
+                                                                class="form-label fw-bold">Registered Business Address</label>
                                                             <input type="text" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->registered_business_address }}" @endif name="registered_business_address"
                                                                 class="form-control" id="basicpill-servicetax-input">
                                                         </div>
@@ -160,7 +157,7 @@
                                                 <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
-                                                            <label class="form-label">Country</label>
+                                                            <label class="form-label fw-bold">Country</label>
                                                             <select class="form-select" name="country">
                                                                 <option value="">Selct Country</option>
                                                                 @if (isset($countries) && count($countries) > 0)
@@ -175,7 +172,7 @@
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label for="basicpill-servicetax-input"
-                                                                class="form-label">Province (State)</label>
+                                                                class="form-label fw-bold">Province (State)</label>
                                                             <input type="text" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->state }}" @endif name="state" class="form-control"
                                                                 id="basicpill-state-input">
                                                         </div>
@@ -183,7 +180,7 @@
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label for="basicpill-servicetax-input"
-                                                                class="form-label">City</label>
+                                                                class="form-label fw-bold">City</label>
                                                             <input type="text" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->city }}" @endif name="city" class="form-control"
                                                                 id="basicpill-city-input">
                                                         </div>
@@ -191,17 +188,17 @@
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label for="basicpill-servicetax-input"
-                                                                class="form-label">Postal Code</label>
+                                                                class="form-label fw-bold">Postal Code</label>
                                                             <input type="text" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->postal_code }}" @endif name="postal_code" class="form-control"
                                                                 id="basicpill-postal_code-input">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <span>Total number of employees working under CRA business number</span>
+                                                    <span class="fw-bold">Total number of employees working under CRA business number</span>
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
-                                                            <label for="basicpill-cstno-input" class="form-label">Full
+                                                            <label for="basicpill-cstno-input" class="form-label fw-bold">Full
                                                                 Time</label>
                                                             <input type="number" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->full_time }}" @endif name="full_time" class="form-control"
                                                                 id="basicpill-full_time-input" min="0">
@@ -211,7 +208,7 @@
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label for="basicpill-servicetax-input"
-                                                                class="form-label">Part Time</label>
+                                                                class="form-label fw-bold">Part Time</label>
                                                             <input type="number" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->part_time }}" @endif name="part_time" class="form-control"
                                                                 id="basicpill-part_time-input" min="0">
                                                         </div>
@@ -221,7 +218,7 @@
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label for="basicpill-servicetax-input"
-                                                                class="form-label">Company incorporation date</label>
+                                                                class="form-label fw-bold">Company incorporation date</label>
                                                             <input type="date" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->company_incorporation_date }}" @endif name="company_incorporation_date"
                                                                 class="form-control"
                                                                 id="basicpill-company_incorporation_date-input">
@@ -288,7 +285,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row" id="showHideDiv">
+                                                <div class="row" id="showHideDiv"  @if (isset($companyInformation) && $companyInformation->lmia_application_in_last_three_year == 0) style="display: none;" @elseif (isset($companyInformation) && $companyInformation->lmia_application_in_last_three_year == 1) style="display: block;"  @else style="display: none"  @endif >
                                                     <div class="col-lg-12">
                                                         <div class="signature-wrap">
                                                             <div class="tab-content">
@@ -305,7 +302,7 @@
                                                                                         placeholder="Enter Job Title/Occupation">
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-6" @if (isset($companyInformation) && $companyInformation->lmia_application_in_last_three_year == 0) style="display: none;"  @endif >
+                                                                            <div class="col-md-6">
                                                                                 <div class="d-flex align-items-center">
                                                                                     <div
                                                                                         class="float-none form-wrap me-3 w-100">
@@ -361,7 +358,7 @@
                                                 <div class="row">
                                                     <div class="col-lg-11">
                                                         <div class="mb-3">
-                                                            <label for="basicpill-servicetax-input" class="form-label">
+                                                            <label for="basicpill-servicetax-input" class="form-label fw-bold">
                                                                 Describe in your own words and in as much details as
                                                                 possible, the principle business activity at this work
                                                                 location?</label>
@@ -376,9 +373,11 @@
                                                             class="btn btn-primary"><i
                                                                 class="bx bx-chevron-left me-1"></i> Previous</a>
                                                     </li>
-                                                    <li class="next"><button href="javascript: void(0);" @if (isset($companyInformation)) disabled @endif
-                                                            class="btn btn-primary" type="submit">Next <i
-                                                                class="bx bx-chevron-right ms-1"></i></button></li>
+                                                    @if (!isset($companyInformation))
+                                                        <li class="next"><button href="javascript: void(0);" 
+                                                                class="btn btn-primary" type="submit">Submit<i
+                                                                    class="bx bx-chevron-right ms-1"></i></button></li>
+                                                    @endif
                                                 </ul>
                                             </form>
                                         </div>

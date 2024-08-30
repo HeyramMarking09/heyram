@@ -12,7 +12,7 @@
     <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('assets/js/theme-script.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/heyram-logo.jfif') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/tabler-icons/tabler-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/fontawesome.min.css') }}">
@@ -54,11 +54,11 @@
             <!-- Logo -->
             <div class="header-left active">
                 <a href="{{ route('admin.dashboard') }}" class="logo logo-normal">
-                    <img src="{{ asset('assets/img/logo.svg') }}" alt="Logo">
-                    <img src="{{ asset('assets/img/white-logo.svg') }}" class="white-logo" alt="Logo">
+                    <img src="{{ asset('assets/img/heyram-logo.jfif') }}" alt="Logo" style="height: 60px; width:auto;">
+                    <img src="{{ asset('assets/img/heyram-logo.jfif') }}" class="white-logo" alt="Logo">
                 </a>
                 <a href="{{ route('admin.dashboard') }}" class="logo-small">
-                    <img src="{{ asset('assets/img/logo-small.svg') }}" alt="Logo">
+                    <img src="{{ asset('assets/img/heyram-logo.jfif') }}" alt="Logo">
                 </a>
                 <a id="toggle_btn" href="javascript:void(0);">
                     <i class="ti ti-arrow-bar-to-left"></i>

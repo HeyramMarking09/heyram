@@ -644,7 +644,7 @@
                                                         </div>
                                                         <div class="client-sign-2" style="float: right;">
                                                             <img style="width:80px"
-                                                                src="https://heyram.ca/visa_admin/public/assets/img/logo.png">
+                                                                src="{{ asset('assets/img/heyram-logo.jfif') }}">
                                                             <br>
                                                             <b>Signature of RCIC</b>
                                                         </div>
@@ -661,10 +661,12 @@
                                                     </div>
                                                 </div>
                                                 <ul class="pager wizard twitter-bs-wizard-pager-link">
-                                                    <li class="previous"><a href="javascript: void(0);"
-                                                            class="btn btn-primary"><i
-                                                                class="bx bx-chevron-left me-1"></i> Previous</a></li>
-                                                    <li class="float-end">@if (!isset($data)) <button type="submit" class="btn btn-primary">Save Changes</button>@endif</li>
+                                                    <li class="previous"><a href="javascript: void(0);" class="btn btn-primary"><i class="bx bx-chevron-left me-1"></i> Previous</a></li>
+                                                    @if (!isset($data))
+                                                        <li class="float-end"> 
+                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                        </li>
+                                                    @endif
                                                 </ul>
                                             </form>
                                         </div>

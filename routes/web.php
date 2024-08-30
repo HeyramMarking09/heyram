@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdditionalDocumentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\JobBankController;
@@ -46,12 +47,14 @@ Route::namespace('Employer')->prefix('employer')->name('employer.')->group(funct
         
         Route::get('company-documents', [CompanyDocController::class , 'index'])->name('company-documents');
         Route::post('create-company-docs', [CompanyDocController::class , 'create'])->name('create-company-docs');
+        Route::get('download/company_docs/{file}', [CompanyDocController::class , 'download'])->name('download.company_docs');
 
         Route::get('apply-for-an-lmia',[LmiaController::class , 'index'])->name('apply-for-an-lmia');
         Route::get('lmia',[LmiaController::class , 'lmiaListShow'])->name('lmia.list');
         Route::post('lmia-form', [LmiaController::class , 'lmiaForm'])->name('lmia-form');
         Route::get('get-list-of-lmias',[LmiaController::class , 'getLmiaList'])->name('get-list-of-lmias');
         Route::get('lmia-detail/{id}', [LmiaController::class , 'lmiaDetail'])->name('lmia-detail');
+        Route::post('upload-additional-docs',[AdditionalDocumentController::class, 'uploadAdditionalDocs'])->name('upload-additional-docs');
 
     });
 });
@@ -125,5 +128,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         // Job Bank Routes
         Route::post('create-job', [JobBankController::class , 'create'])->name('create-job');
 
+        // Additional Doc Routes
+        Route::post('add-additional-docs',[AdditionalDocumentController::class, 'addAdditionalDocs'])->name('add-additional-docs');
     });
 });
