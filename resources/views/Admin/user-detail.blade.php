@@ -79,8 +79,8 @@
                             </div>
                         </div>
                         <div class="contacts-action">
-                            <button class="btn btn-primary add-popup "><i class="ti ti-square-rounded-plus"></i>Job
-                                Add</button>
+                            <button class="btn btn-primary edit-popup me-2"><i class="ti ti-square-rounded-plus"></i>Addition Docs</button>
+                            <button class="btn btn-primary add-popup"><i class="ti ti-square-rounded-plus"></i>Job Add</button>
                         </div>
                     </div>
                     <!-- /Leads User -->
@@ -913,7 +913,7 @@
                                     <div class="row">
 
                                         <!-- Lightbox -->
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-12">
                                             <div class="card">
                                                 <div class="card-header">
                                                     <h5 class="card-title">Company Document</h5>
@@ -952,32 +952,12 @@
                                                             following document:</label>
                                                         <select id="disabledSelect" class="form-select">
                                                             <option value="">--Select--</option>
-                                                            <option value="1">Your most recent T2 Schedule 100 Balance
-                                                                sheet information
-                                                                and T2 Schedule 125 Income statement information</option>
-                                                            <option value="6">An attestation confirming that your
-                                                                business is in good
-                                                                financial standing and
-                                                                will be able to meet all financial obligations to any TFW
-                                                                you hire for the
-                                                                entire
-                                                                duration of their employment. </option>
-                                                            <option value="2">Your most recent T2042 Statement of
-                                                                farming activities
-                                                            </option>
-
-                                                            <option value="3">Your most recent T2125 Statement of
-                                                                business or professional
-                                                                activities</option>
-                                                            <option value="4">Your most recent T3010 Registered
-                                                                charity information return
-                                                            </option>
-                                                            <option value="5">Your most recent T4 or payroll records
-                                                                for a minimum of 6
-                                                                weeks immediately prior
-                                                                to the submission of this LMIA application if the temporary
-                                                                foreign worker (TFW)
-                                                                already works for you.</option>
+                                                            <option value="1"  @if (isset($data->companyDoc->following_document) && $data->companyDoc->following_document == 1) selected @endif>Your most recent T2 Schedule 100 Balance sheet information and T2 Schedule 125 Income statement information</option>
+                                                            <option value="6" @if (isset($data->companyDoc->following_document) && $data->companyDoc->following_document == 6) selected @endif>An attestation confirming that your business is in good financial standing and will be able to meet all financial obligations to any TFW you hire for the entire duration of their employment. </option>
+                                                            <option value="2" @if (isset($data->companyDoc->following_document) && $data->companyDoc->following_document == 2) selected @endif>Your most recent T2042 Statement of farming activities</option>
+                                                            <option value="3" @if (isset($data->companyDoc->following_document) && $data->companyDoc->following_document == 3) selected @endif>Your most recent T2125 Statement of business or professional activities</option>
+                                                            <option value="4" @if (isset($data->companyDoc->following_document) && $data->companyDoc->following_document == 4) selected @endif>Your most recent T3010 Registered charity information return </option>
+                                                            <option value="5" @if (isset($data->companyDoc->following_document) && $data->companyDoc->following_document == 5) selected @endif >Your most recent T4 or payroll records for a minimum of 6 weeks immediately prior to the submission of this LMIA application if the temporary foreign worker (TFW) already works for you.</option>
                                                         </select>
                                                     </div>
                                                     <div class="mb-3">
@@ -998,6 +978,66 @@
                                                                     Downlaod File</a></span>
                                                         </div>
                                                     @endif
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5 class="card-title">Requeired Document</h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="col-sm-12 table-responsive">
+                                                        <table class="table no-footer" style="width: 1241px;">
+                                                            <thead class="thead-light">
+                                                                <tr>
+                                                                    <th class="sorting" tabindex="0" aria-controls="leads_list"
+                                                                        rowspan="1" colspan="1"
+                                                                        aria-label="Lead Name: activate to sort column ascending"
+                                                                        style="width: 20px;">Id</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="leads_list"
+                                                                        rowspan="1" colspan="1"
+                                                                        aria-label="Lead Name: activate to sort column ascending"
+                                                                        style="width: 30px;">Name</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="leads_list"
+                                                                        rowspan="1" colspan="1"
+                                                                        aria-label="Company Name: activate to sort column ascending"
+                                                                        style="width: 93px;">Dead Line Date</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="leads_list"
+                                                                        rowspan="1" colspan="1"
+                                                                        aria-label="Created Date: activate to sort column ascending"
+                                                                        style="width: 35px;">Simple File</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="leads_list"
+                                                                        rowspan="1" colspan="1"
+                                                                        aria-label="Created Date: activate to sort column ascending"
+                                                                        style="width: 35px;">Docs File</th>
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @if (isset($data->AdditionalDocument))
+                                                                    @php
+                                                                        $LISTNO2 = 1;
+                                                                    @endphp
+                                                                    @foreach ($data->AdditionalDocument as $item)
+                                                                        <tr class="odd">
+                                                                            <td>{{ $LISTNO2 }}</td>
+                                                                            <td>{{ $item->name }}</td>
+                                                                            <td>{{ $item->dead_line_date }}</td>
+                                                                            <td><span> <a style="color:red" href="{{ route('admin.download.file', ['filename' => $item->simple_file]) }}"><i class="ti ti-download text-danger"></i> Downlaod File</a></span></td>
+                                                                            <td>
+                                                                                @if (!is_null($item->docs_file))
+                                                                                    <span> <a style="color:red" href="{{ route('admin.download.file', ['filename' => $item->docs_file]) }}"><i class="ti ti-download text-danger"></i> Downlaod File</a></span></td>
+                                                                                @else
+                                                                                    -
+                                                                                @endif
+                                                                        </tr>
+                                                                        @php
+                                                                            $LISTNO2++;
+                                                                        @endphp
+                                                                    @endforeach
+                                                                @endif
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1896,7 +1936,7 @@
                                                                             <div class="client-sign-2"
                                                                                 style="float: right;">
                                                                                 <img style="width:80px"
-                                                                                    src="https://heyram.ca/visa_admin/public/assets/img/logo.png">
+                                                                                    src="{{ asset('assets/img/heyram-logo.jfif') }}">
                                                                                 <br>
                                                                                 <b>Signature of RCIC</b>
                                                                             </div>
@@ -2164,6 +2204,58 @@
         </div>
     </div>
     <!-- /Add User -->
+     <!-- Edit User -->
+     <div class="toggle-popup1">
+        <div class="sidebar-layout">
+            <div class="sidebar-header">
+                <h4>Add Request For Additional Documents</h4>
+                <a href="#" class="sidebar-close1 toggle-btn"><i class="ti ti-x"></i></a>
+            </div>
+            <div class="toggle-body">
+                <div class="pro-create">
+                    <form id="AdditionalDocs" enctype="multipart/form-data">
+                        @csrf
+                        <div class="accordion-lists" id="list-accords">
+                            <!-- Basic Info -->
+                            <div class="manage-user-modal">
+                                <div class="manage-user-modals">
+                                    <input type="hidden" name="employer_id" value="{{ request()->id }}">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-wrap">
+                                                <label class="col-form-label">Document <span class="text-danger">*</span></label>
+                                                <input type="text" required name="name" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-wrap">
+                                                <label class="col-form-label">Dead Line To Upload The Document <span class="text-danger">*</span></label>
+                                                <input type="date" name="dead_line_date" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-wrap">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label class="col-form-label">Simple Fine <span class="text-danger">*</span></label>
+                                                </div>
+                                                <input type="file" name="simple_file" accept=".pdf,.doc,.docx" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Basic Info -->
+                        </div>
+                        <div class="submit-button text-end">
+                            <a href="#" class="btn btn-light sidebar-close1">Cancel</a>
+                            <button type="submit" id="DocumentSubmitButton" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit User -->
 @endsection
 @push('scripts')
     <!-- Wizard JS -->
@@ -2268,6 +2360,71 @@
                             } else {
                                 CallMesssage('error', response.message);
                                 $('#createUserSubmitButton').prop('disabled', false);
+                            }
+                        },
+                        error: function(xhr) {
+                            var response = JSON.parse(xhr.responseText);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.error ||
+                                    'An unexpected error occurred.'
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+     <script>
+        $(document).ready(function() {
+            $("#AdditionalDocs").validate({
+                rules: {
+                    name: {
+                        required: true
+                    },
+                    dead_line_date: {
+                        required: true
+                    },
+                    simple_file: {
+                        required: true
+                    }
+                },
+                messages: {
+                    name: {
+                        required: "This field is required.",
+                    },
+                    dead_line_date: {
+                        required: "This field is required."
+                    },
+                    simple_file: {
+                        required: "This field is required."
+                    }
+                },
+                submitHandler: function(form) {
+                    $('#DocumentSubmitButton').prop('disabled', true);
+                    var AdditionalDocsData = new FormData($("#AdditionalDocs")[0]);
+
+                    $.ajax({
+                        url: "{{ route('admin.add-additional-docs') }}",
+                        method: "POST",
+                        data: AdditionalDocsData,
+                        processData: false, // Prevent jQuery from automatically processing the data
+                        contentType: false, 
+
+                        success: function(response) {
+                            if (response.status == true || response.status === 'true') {
+                                // Show a success message
+                                CallMesssage('success', response.message);
+
+                                $('.sidebar-close1').click();
+                                // Reset the form
+                                $('#AdditionalDocs')[0].reset();
+                                $('#DocumentSubmitButton').prop('disabled', false);
+                                window.location.reload();
+                            } else {
+                                CallMesssage('error', response.message);
+                                $('#DocumentSubmitButton').prop('disabled', false);
                             }
                         },
                         error: function(xhr) {

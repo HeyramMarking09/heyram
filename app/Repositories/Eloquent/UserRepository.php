@@ -62,6 +62,6 @@ class UserRepository implements UserRepositoryInterface
     }
     public function getAllDataOFFirst($whereBy)
     {
-        return $this->model->with('companyInformation','retainerAgreements','lmias','companyDoc', 'jobBank')->where($whereBy)->first();
+        return $this->model->with('companyInformation','retainerAgreements','lmias','companyDoc', 'jobBank','AdditionalDocument')->where($whereBy)->first();
     }
 }

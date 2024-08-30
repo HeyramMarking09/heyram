@@ -251,8 +251,7 @@ class UserService
     public function userDetail($id, $user_type)
     {
         try {
-            $return = $this->userRepository->getAllDataOFFirst(['id'=>$id, 'user_type'=>$user_type]);
-            return $return;
+            return $this->userRepository->getAllDataOFFirst(['id'=>$id, 'user_type'=>$user_type]);
         } catch (\Exception $exception) {
             Log::error("Error in UserService.userDetail() " . $exception->getLine() . ' ' . $exception->getMessage());
         } 

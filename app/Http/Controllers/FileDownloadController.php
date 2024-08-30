@@ -18,10 +18,15 @@ class FileDownloadController extends Controller
     {
         // Define the path to the folder where your files are stored
         $filePath = public_path('company_docs/' . $filename);
+
+        $filePath_second = public_path('required_docs/' . $filename);
         // Check if the file exists
         if (file_exists($filePath)) {
             // Return the download response
             return response()->download($filePath);
+        }else if (file_exists($filePath_second)) {
+            // Return the download response
+            return response()->download($filePath_second);
         } else {
             // If the file does not exist, show an error message
             return redirect()->back()->with('error', 'File not found.');
