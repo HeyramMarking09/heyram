@@ -28,10 +28,10 @@
                             </ul>
                         </li>
                         <li class="submenu">
-                            <a href="javascript:void(0);"><i class="ti ti-brand-airtable"></i><span>Application</span><span class="menu-arrow"></span></a>
-                            <ul>
-                                <li><a href="{{ route('employer.company-information') }}">Company Information</a></li>
-                                <li><a href="{{ route('employer.company-documents') }}">Company Documents</a></li>
+                            {{-- <a href="javascript:void(0);"><i class="ti ti-brand-airtable"></i><span>Application</span><span class="menu-arrow"></span></a>
+                            <ul> --}}
+                                <li><a href="{{ route('employer.company-information') }}"><i class="ti ti-server"></i> Company Information</a></li>
+                                <li><a href="{{ route('employer.company-documents') }}"><i class="ti ti-server"></i> Company Documents</a></li>
                                 {{-- <li class="submenu submenu-two">
                                     <a href="javascript:void(0);">Call<span class="menu-arrow inside-submenu"></span></a>
                                     <ul>
@@ -45,7 +45,7 @@
                                 <li><a href="todo.html">To Do</a></li>
                                 <li><a href="notes.html">Notes</a></li>
                                 <li><a href="file-manager.html">File Manager</a></li> --}}
-                            </ul>
+                            {{-- </ul> --}}
                         </li>
                     </ul>
                 </li>

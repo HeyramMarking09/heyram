@@ -90,6 +90,7 @@ class UserService
                 'email' => $user->email,
                 'created' => $user->created_at->format('d M Y, h:i a'),
                 'status' => $user->status,
+                'employee_assign' => $user->assign_employee,
                 'Action' => '' // You can add any action buttons here if needed
             ];
         });
@@ -255,5 +256,13 @@ class UserService
         } catch (\Exception $exception) {
             Log::error("Error in UserService.userDetail() " . $exception->getLine() . ' ' . $exception->getMessage());
         } 
+    }
+    public function update(array $data)
+    {
+        try {
+            return $this->userRepository->update($data['id'],['assign_employee'=>$data['assign_employee']]);
+        } catch (\Exception $exception) {
+            Log::error("Error in UserService.update() " . $exception->getLine() . ' ' . $exception->getMessage());
+        }
     }
 }

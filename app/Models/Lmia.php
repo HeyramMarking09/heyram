@@ -15,4 +15,8 @@ class Lmia extends Model
     {
         return $this->belongsTo(User::class,'employer_id', 'id');
     }
+    public function companyInfo()
+    {
+        return $this->hasOne(CompanyInformation::class,'employer_id', 'employer_id');
+    }
 }

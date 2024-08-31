@@ -22,7 +22,7 @@ class LmiaRepository implements LmiaInterface
     }
     public function getAll($sortOrder)
     {
-        return $this->model->orderBy('id', $sortOrder)->newQuery();
+        return $this->model->with('users','companyInfo')->orderBy('id', $sortOrder)->newQuery();
     }
     public function updateStatus(array $data)
     {
@@ -31,5 +31,9 @@ class LmiaRepository implements LmiaInterface
     public function update($id, array $data)
     {
         return $this->model->where('id', $id)->update($data);
+    }
+    public function lmiaDetail(array $whereBy)
+    {
+        return $this->model->with('users')->where($whereBy)->first();
     }
 }

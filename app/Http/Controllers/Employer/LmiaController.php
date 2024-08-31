@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Employer;
 
 use App\Http\Controllers\Controller;
 use App\Services\LmiaService;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class LmiaController extends Controller
 {
     protected $LmiaService;
-    public function __construct(LmiaService $LmiaService)
+    protected $UserService;
+    public function __construct(LmiaService $LmiaService,UserService $UserService)
     {
         $this->LmiaService = $LmiaService;
+        $this->UserService = $UserService;
     }
     public function index()
     {
@@ -42,9 +45,10 @@ class LmiaController extends Controller
     public function lmiaDetail($id)
     {
         try {
-            $detail = $this->LmiaService->getByID($id);
-            if(isset($detail) && !empty($detail)){
-                return view('Employer.lmia-detail', compact('detail'));
+            $data = $this->LmiaService->getByID($id);
+            if(isset($data) && !empty($data)){
+                $UserData = $this->UserService->getEmployees();
+                return view('Employer.lmia-detail', compact('data','UserData'));
             }
             return redirect()->back();
         } catch (\Exception $th) {

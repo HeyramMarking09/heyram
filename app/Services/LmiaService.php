@@ -93,9 +93,9 @@ class LmiaService
             $formattedData  = $users->map(function ($user) use ($getEmployees) {
                 return [
                     'id' => $user->id,
-                    'employee_currenty_in_same_occupation' => $user->employee_currenty_in_same_occupation,
-                    'employee_already_working_in_the_company' => $user->employee_already_working_in_the_company,
-                    'total_number_of_canadian' => $user->total_number_of_canadian,
+                    'name' => $user->users->name,
+                    'email' => $user->users->email,
+                    'company_legel_name' => $user->companyInfo->company_legel_name,
                     'created' => $user->created_at->format('d M Y, h:i a'),
                     'status' => $user->status,
                     'EmployesData' => $getEmployees,
@@ -165,9 +165,15 @@ class LmiaService
                 'language' => $data['language'],
                 'description' => $data['description'],
             ];
+            if(isset($data['file_assign_to_employee']))
+            {
+                $file_assign_to_employee = $data['file_assign_to_employee'];
+            }else{
+                $file_assign_to_employee = 0;
+            }
             $updateData = [
                 'assign_employee_data'=>json_encode($updateWhere),
-                'file_assign_to_employee' =>$data['file_assign_to_employee']
+                'file_assign_to_employee' => $file_assign_to_employee, 
             ];
             $this->LmiaRepository->update($data['id'],$updateData);
             return ['status'=>true , 'message'=>"Assign Employee Successfully!"];
@@ -215,6 +221,14 @@ class LmiaService
             return ['status'=>true , 'message'=>"Lmia Interview Scheduled Successfully!"];
         } catch (\Exception $th) {
             Log::error('Error in LmiaService.lmiaInterviewSchedule() ' . $th->getLine() . ' ' . $th->getMessage());
+        }
+    }
+    public function lmiaDetail($id)
+    {
+        try {
+            return $this->LmiaRepository->lmiaDetail(['id'=>$id]);
+        } catch (\Exception $th) {
+            Log::error('Error in LmiaService.lmiaDetail() ' . $th->getLine() . ' ' . $th->getMessage());
         }
     }
 }

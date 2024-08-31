@@ -22,6 +22,20 @@ class LmiaController extends Controller
         $UserData = $this->UserService->getEmployees();
         return view('Admin.lmia',compact('UserData'));
     }
+    public function lmiaDetail($id)
+    {
+        try {
+            $data = $this->LmiaService->lmiaDetail($id);
+            if(!isset($data)){
+                return redirect()->back();
+            }else{
+                $UserData = $this->UserService->getEmployees();
+                return view('Admin.lmia-detail', compact('data', 'UserData'));
+            }
+        } catch (\Exception $th) {
+            Log::error('Error in LmiaController.lmiaDetail() '. $th->getLine() . ' ' .$th->getMessage());
+        }
+    }
     public function applyForAnLmia()
     {
         $UserData = $this->UserService->getEmployers();
@@ -49,7 +63,7 @@ class LmiaController extends Controller
         try {
             return $this->LmiaService->assignEmployee($request->all());
         } catch (\Exception $th) {
-            Log::error('Error in LmiaController.getLmiaList() '. $th->getLine() . ' ' .$th->getMessage());
+            Log::error('Error in LmiaController.lmiaAssignEmployee() '. $th->getLine() . ' ' .$th->getMessage());
         }
     }
     public function lmiaApproved(Request $request)

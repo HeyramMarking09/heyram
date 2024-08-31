@@ -144,7 +144,8 @@
                                                                 class="form-control" id="basicpill-cstno-input">
                                                         </div>
                                                     </div>
-
+                                                </div>
+                                                <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label for="basicpill-servicetax-input"
@@ -153,8 +154,6 @@
                                                                 class="form-control" id="basicpill-servicetax-input">
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label class="form-label fw-bold">Country</label>
@@ -211,6 +210,40 @@
                                                                 class="form-label fw-bold">Part Time</label>
                                                             <input type="number" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->part_time }}" @endif name="part_time" class="form-control"
                                                                 id="basicpill-part_time-input" min="0">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label for="basicpill-servicetax-input" class="form-label fw-bold">Is yout mailing address as same as businees address?</label>
+                                                            <div class="mb-3">
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" @if (isset($companyInformation) && $companyInformation->same_as_business_address == 1) checked @else checked @endif  type="radio" onclick="clickMailingAddress('1')" name="same_as_business_address" id="same_as_business_address_yes" value="1">
+                                                                    <label class="form-check-label" for="same_as_business_address_yes">Yes</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" @if (isset($companyInformation) && $companyInformation->same_as_business_address == 0) checked @endif type="radio" onclick="clickMailingAddress('0')" name="same_as_business_address" id="same_as_business_address_no" value="0">
+                                                                    <label class="form-check-label" for="same_as_business_address_no"> No</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-6" id="mailing_address_one" @if (isset($companyInformation) && $companyInformation->same_as_business_address == 0)  style="display: none" @endif>
+                                                        <div class="mb-3">
+                                                            <label for="basicpill-servicetax-input"
+                                                                class="form-label fw-bold">Mailing Email Address</label>
+                                                            <input type="email" value="{{ Auth::user()->email }}" name="mailing_email_address"  @if (isset($companyInformation) && $companyInformation->same_as_business_address == 1) disabled @else disabled @endif class="form-control"
+                                                                id="basicpill-part_time-input">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6" id="mailing_address_two" @if (isset($companyInformation) && $companyInformation->same_as_business_address == 1)  style="display: none" @endif >
+                                                        <div class="mb-3">
+                                                            <label for="basicpill-servicetax-input"
+                                                                class="form-label fw-bold">Mailing Email Address</label>
+                                                            <input type="email" required name="mailing_email_address_two" class="form-control"  @if (isset($companyInformation) && $companyInformation->same_as_business_address == 0) value="{{ $companyInformation->mailing_email_address }}"  @endif
+                                                                id="basicpill-part_time-input"> 
                                                         </div>
                                                     </div>
                                                 </div>
@@ -362,9 +395,7 @@
                                                                 Describe in your own words and in as much details as
                                                                 possible, the principle business activity at this work
                                                                 location?</label>
-                                                                    <input type="text" @if (isset($companyInformation)) value="{{ $companyInformation->description }}" @endif   name="description" class="form-control"
-                                                                placeholder="description"
-                                                                id="basicpill-description-input">
+                                                            <textarea cols="30" rows="3" name="description" class="form-control" placeholder="description" id="basicpill-description-input">@if (isset($companyInformation)) {{ $companyInformation->description }} @endif</textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -587,6 +618,18 @@
                 icon: icon,
                 title: title
             });
+        }
+    </script>
+    <script>
+        function clickMailingAddress(type)
+        {
+            if(type == 0 || type == '0'){
+                $('#mailing_address_two').show();
+                $('#mailing_address_one').hide();
+            }else{
+                $('#mailing_address_one').show();
+                $('#mailing_address_two').hide();
+            }
         }
     </script>
 @endpush

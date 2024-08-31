@@ -184,9 +184,9 @@
                                     <thead class="thead-light">
                                         <tr>
                                             <th>Id</th>
-                                            <th>Employee Currenty In Same Occupation</th>
-                                            <th>Employee Already Working In The Company</th>
-                                            <th>Total Number Of Canadian</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Company Name</th>
                                             <th>Created At</th>
                                             <th>Status</th>
                                             <th>Change Status</th>
@@ -321,11 +321,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        {{-- <div class="col-md-6">
                                             <div class="form-wrap">
                                                 <label class="col-form-label"> File assign to employee <span
                                                         class="text-danger">*</span></label>
-                                                <select class="select" required name="file_assign_to_employee">
+                                                <select class="select" name="file_assign_to_employee">
                                                     <option value="">-Select-</option>
                                                     @if (isset($UserData) && count($UserData) > 0)
                                                         @foreach ($UserData as $item)
@@ -335,7 +335,7 @@
                                                     @endif
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="col-md-6">
                                             <div class="form-wrap">
                                                 <label class="col-form-label">Job Location <span
@@ -375,7 +375,7 @@
                         <div class="submit-button text-end">
                             <a href="#" class="btn btn-light sidebar-close">Cancel</a>
                             <button type="submit" id="assignEmployeeSubmitButton"
-                                class="btn btn-primary">Assign</button>
+                                class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -507,26 +507,23 @@
                         },
                         {
                             "render": function(data, type, row) {
-                                if (row['employee_currenty_in_same_occupation'] == "0") {
-                                    var status_name = "No"
-                                } else {
-                                    var status_name = "Yes"
-                                }
-                                return status_name;
+                                var lmiaDetail = "{{ route('admin.lmia-detail', ['id' => '__ID__']) }}".replace('__ID__', row.id);
+                                return '<a href="'+lmiaDetail+'">'+ row['name'] +' </a>';
+                                // return row['name'];
                             }
                         },
                         {
                             "render": function(data, type, row) {
-                                if (row['employee_already_working_in_the_company'] == "0") {
-                                    var status_name = "No"
-                                } else {
-                                    var status_name = "Yes"
-                                }
-                                return status_name;
+                                // return row['email'];
+                                var lmiaDetail = "{{ route('admin.lmia-detail', ['id' => '__ID__']) }}".replace('__ID__', row.id);
+                                return '<a href="'+lmiaDetail+'">'+ row['email'] +' </a>';
+
                             }
                         },
                         {
-                            "data": "total_number_of_canadian"
+                            "render": function(data, type, row) {
+                                return row['company_legel_name'];
+                            }
                         },
                         {
                             "data": "created"
@@ -554,19 +551,26 @@
                                     "{{ route('employer.lmia-detail', ['id' => '__ID__']) }}"
                                     .replace('__ID__', row.id);
                                 var ID = row.id;
+                                // return `<div class="dropdown table-action">
+                                //             <a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                //             <div class="dropdown-menu dropdown-menu-right">
+                                //                 <a class="dropdown-item" onclick="changeStatus('1', '${ID}')" href="javascript:void(0);">1. Request received and approved</a>
+                                //                 <a class="dropdown-item" onclick="changeStatus('2', '${ID}')" href="javascript:void(0);">2. LMIA submitted</a>
+                                //                 <a class="dropdown-item" onclick="changeStatus('3', '${ID}')" href="javascript:void(0);">3. Payment deducted</a>
+                                //                 <a class="dropdown-item" onclick="changeStatus('4', '${ID}')" href="javascript:void(0);">4. Queued for assessment</a>
+                                //                 <a class="dropdown-item" onclick="changeStatus('5', '${ID}')" href="javascript:void(0);">5. LMIA assigned to the LMIA officer and assessment in progress</a>
+                                //                 <a class="dropdown-item" onclick="InterViewSchedule('6', '${ID}')" href="javascript:void(0);">6. Interview Schedule</a>
+                                //                 <a class="dropdown-item" onclick="changeStatus('7', '${ID}')" href="javascript:void(0);">7. LMIA officer requested information/documents</a>
+                                //                 <a class="dropdown-item" onclick="changeStatus('8', '${ID}')" href="javascript:void(0);">8. LMIA process started, and job vacancy advertised</a>
+                                //                 <a class="dropdown-item" onclick="changeStatus('9', '${ID}')" href="javascript:void(0);">9. Other</a>
+                                //                 <a class="dropdown-item" onclick="InterViewSchedule('10', '${ID}')" href="javascript:void(0);">10. LMIA Approved</a>
+                                //             </div>
+                                //         </div>`;
                                 return `<div class="dropdown table-action">
                                             <a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <a class="dropdown-item" onclick="changeStatus('1', '${ID}')" href="javascript:void(0);">1. Request received and approved</a>
-                                                <a class="dropdown-item" onclick="changeStatus('2', '${ID}')" href="javascript:void(0);">2. LMIA submitted</a>
-                                                <a class="dropdown-item" onclick="changeStatus('3', '${ID}')" href="javascript:void(0);">3. Payment deducted</a>
-                                                <a class="dropdown-item" onclick="changeStatus('4', '${ID}')" href="javascript:void(0);">4. Queued for assessment</a>
-                                                <a class="dropdown-item" onclick="changeStatus('5', '${ID}')" href="javascript:void(0);">5. LMIA assigned to the LMIA officer and assessment in progress</a>
-                                                <a class="dropdown-item" onclick="InterViewSchedule('6', '${ID}')" href="javascript:void(0);">6. Interview Schedule</a>
-                                                <a class="dropdown-item" onclick="changeStatus('7', '${ID}')" href="javascript:void(0);">7. LMIA officer requested information/documents</a>
-                                                <a class="dropdown-item" onclick="changeStatus('8', '${ID}')" href="javascript:void(0);">8. LMIA process started, and job vacancy advertised</a>
-                                                <a class="dropdown-item" onclick="changeStatus('9', '${ID}')" href="javascript:void(0);">9. Other</a>
-                                                <a class="dropdown-item" onclick="InterViewSchedule('10', '${ID}')" href="javascript:void(0);">10. LMIA Approved</a>
+                                                <a class="dropdown-item" onclick="InterViewSchedule('11', '${ID}')" href="javascript:void(0);">2. LMIA Denied</a>
                                             </div>
                                         </div>`;
                             }
@@ -596,9 +600,9 @@
                         {
                             "render": function(data, type, row) {
                                 var lmiaDetail =
-                                    "{{ route('employer.lmia-detail', ['id' => '__ID__']) }}"
+                                    "{{ route('admin.lmia-detail', ['id' => '__ID__']) }}"
                                     .replace('__ID__', row.id);
-                                return '<div class="dropdown table-action"><a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item edit-popup" href="javascript:void(0);"><i class="ti ti-edit text-blue"></i> Edit</a><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_contact"><i class="ti ti-trash text-danger"></i> Delete</a><a class="dropdown-item" href="' +
+                                return '<div class="dropdown table-action"><a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="' +
                                     lmiaDetail +
                                     '"><i class="ti ti-eye text-blue-light"></i> Preview</a></div></div>';
                             }
@@ -676,17 +680,17 @@
                     job_title: {
                         required: true
                     },
-                    file_assign_to_employee: {
-                        required: true
-                    }
+                    // file_assign_to_employee: {
+                    //     required: true
+                    // }
                 },
                 messages: {
                     job_title: {
                         required: "This field is required.",
                     },
-                    file_assign_to_employee: {
-                        required: "This field is required.",
-                    }
+                    // file_assign_to_employee: {
+                    //     required: "This field is required.",
+                    // }
                 },
                 submitHandler: function(form) {
                     $('#assignEmployeeSubmitButton').prop('disabled', true);

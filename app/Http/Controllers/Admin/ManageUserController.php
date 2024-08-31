@@ -85,7 +85,8 @@ class ManageUserController extends Controller
     }
     public function employerDashboard()
     {
-        return view('Admin.employer-dashboard');
+        $UserData = $this->UserService->getEmployees();
+        return view('Admin.employer-dashboard',compact('UserData'));
     }
     public function employers(Request $request)
     {
@@ -108,6 +109,15 @@ class ManageUserController extends Controller
             return redirect()->back();
         } catch (\Exception $exception) {
             Log::error("Error in ManageUserController.employers()" . $exception->getLine() . ' ' . $exception->getMessage());
+        }
+    }
+    public function assignEmployee(Request $request)
+    {
+        try {
+            $this->UserService->update($request->all());
+            return redirect()->back()->with(['status'=>true, 'message'=>'Employee Assigned']);
+        } catch (\Exception $exception) {
+            Log::error("Error in ManageUserController.assignEmployee()" . $exception->getLine() . ' ' . $exception->getMessage());
         }
     }
 }
