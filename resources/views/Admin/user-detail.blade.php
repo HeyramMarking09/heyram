@@ -80,6 +80,7 @@
                         </div>
                         <div class="contacts-action">
                             <button class="btn btn-primary edit-popup me-2"><i class="ti ti-square-rounded-plus"></i>Addition Docs</button>
+                            {{-- <button class="btn btn-primary me-2 add-popups"><i class="ti ti-square-rounded-plus"></i>Job Edit</button> --}}
                             <button class="btn btn-primary add-popup"><i class="ti ti-square-rounded-plus"></i>Job Add</button>
                         </div>
                     </div>
@@ -350,7 +351,7 @@
                                                                     <td>
                                                                         <h2 class="table-avatar d-flex align-items-center">
                                                                             <a href="company-details.html"
-                                                                                class="profile-split d-flex flex-column">{{ $data->companyInformation->company_legel_name }}</a>
+                                                                                class="profile-split d-flex flex-column">{{ $data->companyInformation->company_legel_name??null }}</a>
                                                                         </h2>
                                                                     </td>
                                                                     <td>
@@ -2048,19 +2049,19 @@
                                                                         </h2>
                                                                     </td>
                                                                     <td>
-                                                                        <span>{{ $item->location }}</span>
+                                                                        <span>{{ $item->location??'-' }}</span>
                                                                     </td>
                                                                     <td>
-                                                                        <span>{{ $item->start_date }}</span>
+                                                                        <span>{{ $item->start_date??'-' }}</span>
                                                                     </td>
                                                                     <td>
-                                                                        <span>{{ $item->end_date }}</span>
+                                                                        <span>{{ $item->end_date??'-' }}</span>
                                                                     </td>
                                                                     <td>
-                                                                        <span>{{ $item->bank_job_ad_number }}</span>
+                                                                        <span>{{ $item->bank_job_ad_number??'0' }}</span>
                                                                     </td>
                                                                     <td>
-                                                                        <span>{{ $item->status }}</span>
+                                                                        <span>{{ $item->status??"Pending" }}</span>
                                                                     </td>
                                                                     <td>{{ $item->created_at->format('d M Y, h:i a') }}
                                                                     </td>
@@ -2071,17 +2072,14 @@
                                                                                 aria-expanded="false"><i
                                                                                     class="fa fa-ellipsis-v"></i></a>
                                                                             <div class="dropdown-menu dropdown-menu-right">
-                                                                                <a class="dropdown-item edit-popup"
+                                                                                <a class="dropdown-item add-popups"
                                                                                     href="#"><i
                                                                                         class="ti ti-edit text-blue"></i>
                                                                                     Edit</a><a class="dropdown-item"
                                                                                     href="#" data-bs-toggle="modal"
-                                                                                    data-bs-target="#delete_contact"><i
+                                                                                    data-bs-target="#bank_job_delete_contact"><i
                                                                                         class="ti ti-trash text-danger"></i>
-                                                                                    Delete</a><a class="dropdown-item"
-                                                                                    href="#"><i
-                                                                                        class="ti ti-clipboard-copy text-blue-light"></i>
-                                                                                    Clone</a>
+                                                                                    Delete</a>
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -2118,7 +2116,7 @@
     <div class="toggle-popup" id="userPopup">
         <div class="sidebar-layout">
             <div class="sidebar-header">
-                <h4>Add New User</h4>
+                <h4>Add Job</h4>
                 <a href="#" class="sidebar-close toggle-btn"><i class="ti ti-x"></i></a>
             </div>
             <div class="toggle-body">
@@ -2140,8 +2138,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-wrap">
-                                                <label class="col-form-label">Number Of Vacancies <span
-                                                        class="text-danger">*</span></label>
+                                                <label class="col-form-label">Number Of Vacancies</label>
                                                 <input type="number" min="0" name="number_of_vacancies"
                                                     class="form-control">
                                             </div>
@@ -2149,38 +2146,33 @@
                                         <div class="col-md-6">
                                             <div class="form-wrap">
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <label class="col-form-label">Location <span
-                                                            class="text-danger">*</span></label>
+                                                    <label class="col-form-label">Location</label>
                                                 </div>
                                                 <input type="text" name="location" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-wrap">
-                                                <label class="col-form-label">Start Date<span
-                                                        class="text-danger">*</span></label>
-                                                <input type="date" name="start_date" class="form-control">
+                                                <label class="col-form-label">Start Date</label>
+                                                <input type="text"  name="start_date" class="form-control datepicker">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-wrap">
-                                                <label class="col-form-label">End Date <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="date" name="end_date" class="form-control">
+                                                <label class="col-form-label">End Date</label>
+                                                <input type="text"  name="end_date" class="form-control datepicker">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-wrap">
-                                                <label class="col-form-label">Bank Job ad Number <span
-                                                        class="text-danger">*</span></label>
+                                                <label class="col-form-label">Bank Job ad Number </label>
                                                 <input type="number" min="0" name="bank_job_ad_number"
                                                     class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-wrap">
-                                                <label class="col-form-label"> Status <span
-                                                        class="text-danger">*</span></label>
+                                                <label class="col-form-label"> Status</label>
                                                 <select class="select" name="status">
                                                     <option value="">-Select-</option>
                                                     <option value="advertised">Advertised</option>
@@ -2196,7 +2188,7 @@
                         </div>
                         <div class="submit-button text-end">
                             <a href="#" class="btn btn-light sidebar-close">Cancel</a>
-                            <button type="submit" id="createUserSubmitButton" class="btn btn-primary">Create</button>
+                            <button type="submit" id="createUserSubmitButton" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -2223,20 +2215,20 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-wrap">
-                                                <label class="col-form-label">Document <span class="text-danger">*</span></label>
+                                                <label class="col-form-label">Document </label>
                                                 <input type="text" required name="name" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-wrap">
-                                                <label class="col-form-label">Dead Line To Upload The Document <span class="text-danger">*</span></label>
+                                                <label class="col-form-label">Dead Line To Upload The Document </label>
                                                 <input type="date" name="dead_line_date" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-wrap">
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <label class="col-form-label">Simple Fine <span class="text-danger">*</span></label>
+                                                    <label class="col-form-label">Simple Fine </label>
                                                 </div>
                                                 <input type="file" name="simple_file" accept=".pdf,.doc,.docx" class="form-control">
                                             </div>
@@ -2248,7 +2240,7 @@
                         </div>
                         <div class="submit-button text-end">
                             <a href="#" class="btn btn-light sidebar-close1">Cancel</a>
-                            <button type="submit" id="DocumentSubmitButton" class="btn btn-primary">Save</button>
+                            <button type="submit" id="DocumentSubmitButton" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -2256,6 +2248,90 @@
         </div>
     </div>
     <!-- /Edit User -->
+    <!-- Add User -->
+    <div class="toggle-popup2" id="userPopup2">
+        <div class="sidebar-layout">
+            <div class="sidebar-header">
+                <h4>Update Job</h4>
+                <a href="#" class="sidebar-close toggle-btn"><i class="ti ti-x"></i></a>
+            </div>
+            <div class="toggle-body">
+                <div class="pro-create">
+                    <form id="manageUserForm">
+                        @csrf
+                        <div class="accordion-lists" id="list-accord">
+                            <!-- Basic Info -->
+                            <input type="hidden" name="employer_id" value="{{ request()->id }}">
+                            <div class="manage-user-modal">
+                                <div class="manage-user-modals">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-wrap">
+                                                <label class="col-form-label">Job Title <span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" name="job_title" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-wrap">
+                                                <label class="col-form-label">Number Of Vacancies</label>
+                                                <input type="number" min="0" name="number_of_vacancies"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-wrap">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label class="col-form-label">Location</label>
+                                                </div>
+                                                <input type="text" name="location" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-wrap">
+                                                <label class="col-form-label">Start Date</label>
+                                                <input type="text"  name="start_date" class="form-control datepicker">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-wrap">
+                                                <label class="col-form-label">End Date</label>
+                                                <input type="text"  name="end_date" class="form-control datepicker">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-wrap">
+                                                <label class="col-form-label">Bank Job ad Number </label>
+                                                <input type="number" min="0" name="bank_job_ad_number"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-wrap">
+                                                <label class="col-form-label"> Status</label>
+                                                <select class="select" name="status">
+                                                    <option value="">-Select-</option>
+                                                    <option value="advertised">Advertised</option>
+                                                    <option value="pending">Pending</option>
+                                                    <option value="decline">Decline</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Basic Info -->
+                        </div>
+                        <div class="submit-button text-end">
+                            <a href="#" class="btn btn-light sidebar-close">Cancel</a>
+                            <button type="submit" id="createUserSubmitButton" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add User -->
 @endsection
 @push('scripts')
     <!-- Wizard JS -->
@@ -2298,47 +2374,47 @@
                     job_title: {
                         required: true
                     },
-                    number_of_vacancies: {
-                        required: true
-                    },
-                    location: {
-                        required: true
-                    },
-                    start_date: {
-                        required: true
-                    },
-                    end_date: {
-                        required: true
-                    },
-                    bank_job_ad_number: {
-                        required: true
-                    },
-                    status: {
-                        required: true
-                    }
+                    // number_of_vacancies: {
+                    //     required: true
+                    // },
+                    // location: {
+                    //     required: true
+                    // },
+                    // start_date: {
+                    //     required: true
+                    // },
+                    // end_date: {
+                    //     required: true
+                    // },
+                    // bank_job_ad_number: {
+                    //     required: true
+                    // },
+                    // status: {
+                    //     required: true
+                    // }
                 },
                 messages: {
                     job_title: {
                         required: "This Field is required.",
                     },
-                    number_of_vacancies: {
-                        required: "This Field is required."
-                    },
-                    location: {
-                        required: "This Field is required."
-                    },
-                    start_date: {
-                        required: "This Field is required."
-                    },
-                    end_date: {
-                        required: "This Field is required."
-                    },
-                    bank_job_ad_number: {
-                        required: "This Field is required."
-                    },
-                    status: {
-                        required: "This Field is required.",
-                    }
+                    // number_of_vacancies: {
+                    //     required: "This Field is required."
+                    // },
+                    // location: {
+                    //     required: "This Field is required."
+                    // },
+                    // start_date: {
+                    //     required: "This Field is required."
+                    // },
+                    // end_date: {
+                    //     required: "This Field is required."
+                    // },
+                    // bank_job_ad_number: {
+                    //     required: "This Field is required."
+                    // },
+                    // status: {
+                    //     required: "This Field is required.",
+                    // }
                 },
                 submitHandler: function(form) {
                     $('#createUserSubmitButton').prop('disabled', true);
@@ -2458,6 +2534,22 @@
                 icon: icon,
                 title: title
             });
+        }
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Initialize the date picker
+            $('.datepicker').datepicker({
+                dateFormat: 'mm/dd/yy', // Set the date format (e.g., mm/dd/yyyy)
+                showAnim: 'slideDown'   // Choose an animation for the date picker (optional)
+            });
+        });
+    </script>
+    <script>
+        function getPopUp()
+        {
+           $('#userPopup2').show();
+           $('#userPopup2').addClass('sidebar-popup');
         }
     </script>
 @endpush

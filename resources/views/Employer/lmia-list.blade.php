@@ -164,7 +164,7 @@
 
                             <!-- Contact List -->
                             <div class="table-responsive custom-table">
-                                <table class="table" id="companieslist">
+                                <table class="table" id="companieslist_employer">
                                     <thead class="thead-light">
                                         <tr>
                                             <th>Id</th>
@@ -234,8 +234,8 @@
     <script>
         $(document).ready(function() {
             // Companies List
-            if ($('#companieslist').length > 0) {
-                $('#companieslist').DataTable({
+            if ($('#companieslist_employer').length > 0) {
+                $('#companieslist_employer').DataTable({
                     "bFilter": false,
                     "bInfo": false,
                     "autoWidth": true,
@@ -338,21 +338,21 @@
 
                 $('#searchByAsc').click(function() {
                     window.sortOrder = 'asc';
-                    $('#companieslist').DataTable().ajax.reload();
+                    $('#companieslist_employer').DataTable().ajax.reload();
                 });
 
                 $('#searchByDesc').click(function() {
                     window.sortOrder = 'desc';
-                    $('#companieslist').DataTable().ajax.reload();
+                    $('#companieslist_employer').DataTable().ajax.reload();
                 });
 
                 // Event listener for the search input
                 $('#searchByDate').on('change', function() {
-                    $('#companieslist').DataTable().ajax
+                    $('#companieslist_employer').DataTable().ajax
                 .reload(); // Reload table data with new search parameter
                 });
                 $('#searchByStatus').on('click', function() {
-                    $('#companieslist').DataTable().ajax
+                    $('#companieslist_employer').DataTable().ajax
                 .reload(); // Reload table data with new search parameter
                     $('.filter-dropdown-menu').removeClass('show');
                 });

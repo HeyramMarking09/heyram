@@ -17,6 +17,8 @@ class JobBankService
     {
         try {
             unset($data['_token']);
+            $data['number_of_vacancies'] = $data['number_of_vacancies']??0;
+            $data['bank_job_ad_number'] = $data['bank_job_ad_number']??0;
             $this->JobBankRepository->create($data);
             return ['status' => true, 'message' => "Job Bank Created Successfully!"];
         } catch (\Exception $exception) {

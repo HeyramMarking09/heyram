@@ -216,7 +216,6 @@ $(document).ready(function () {
 			}
 		});
 	}
-
 	// Datetimepicker - Time
 
 	if ($('.datetimepicker-time').length > 0) {
@@ -2149,7 +2148,7 @@ $(document).ready(function () {
 							<div class="col-xl-6">
 								<label class="col-lg-12 col-form-label fw-bold">Start Date</label>
 								<div class="col-lg-12">
-									<input type="date" name="start_date_${uniqueId}" required class="form-control">
+									<input type="text" name="start_date_${uniqueId}" required class="form-control datepicker-data" placeholder="m/d/Y">
 								</div>
 							</div>
 						</div>
@@ -2173,9 +2172,14 @@ $(document).ready(function () {
 				</div>
 			</div>`;
 		$(".sign-content").append(signcontent);
+
+		// Initialize the date picker for the newly added fields
+		$(".datepicker-data").datepicker({
+			dateFormat: 'mm/dd/yy',
+			showAnim: 'slideDown'
+		});
 		return false;
 	});
-
 
 	// Add Comment
 

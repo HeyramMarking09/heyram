@@ -254,7 +254,7 @@
     <div class="toggle-popup" id="userPopup">
         <div class="sidebar-layout">
             <div class="sidebar-header">
-                <h4>Assign Employee</h4>
+                <h4>Assign</h4>
                 <a href="#" class="sidebar-close toggle-btn"><i class="ti ti-x"></i></a>
             </div>
             <div class="toggle-body">
@@ -305,8 +305,8 @@
                                                         class="text-danger">*</span></label>
                                                 <div class="icon-form-end">
                                                     <span class="form-icon"></span>
-                                                    <input type="date" name="expected_file_submission_date"
-                                                        class="form-control">
+                                                    <input type="text" name="expected_file_submission_date"
+                                                        class="form-control datepicker-input">
                                                 </div>
                                             </div>
                                         </div>
@@ -316,8 +316,8 @@
                                                         class="text-danger">*</span></label>
                                                 <div class="icon-form-end">
                                                     <span class="form-icon"></span>
-                                                    <input type="date" name="final_submission_date"
-                                                        class="form-control">
+                                                    <input type="text" name="final_submission_date"
+                                                        class="form-control datepicker-input">
                                                 </div>
                                             </div>
                                         </div>
@@ -375,7 +375,7 @@
                         <div class="submit-button text-end">
                             <a href="#" class="btn btn-light sidebar-close">Cancel</a>
                             <button type="submit" id="assignEmployeeSubmitButton"
-                                class="btn btn-primary">Submit</button>
+                                class="btn btn-primary">Assign</button>
                         </div>
                     </form>
                 </div>
@@ -590,7 +590,7 @@
                                 var ID = row.id;
                                 if (row['status'] == "1") {
                                     return `<div class="dropdown table-action">
-                                            <a href="#" class="btn btn-primary" onclick="assignEmployees('${ID}')">Assign Employee</a></div>`;
+                                            <a href="#" class="btn btn-primary" onclick="assignEmployees('${ID}')">Assign</a></div>`;
                                 } else {
                                     return '-';
                                 }
@@ -880,6 +880,15 @@
                         }
                     });
                 }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Initialize the date picker
+            $('.datepicker-input').datepicker({
+                dateFormat: 'mm/dd/yy', // Set the date format (e.g., mm/dd/yyyy)
+                showAnim: 'slideDown'   // Choose an animation for the date picker (optional)
             });
         });
     </script>

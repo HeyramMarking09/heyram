@@ -29,22 +29,25 @@
                                     <label for="input-file" class="form-label fw-bold">Certificate of Incorporation</label>
                                     @if (isset($userData->companyDoc->certificate_of_incorporation))
                                         <span style="color: red"><a style="color: red" href="{{ route('employer.download.company_docs', ['file'=>$userData->companyDoc->certificate_of_incorporation]) }}">Download File</a></span>
+                                    @else
+                                        <input class="form-control" accept=".pdf,.doc,.docx" name="certificate_of_incorporation" type="file" id="input-file_1">
                                     @endif
-                                    <input class="form-control" accept=".pdf,.doc,.docx" name="certificate_of_incorporation" type="file" id="input-file_1">
                                 </div>
                                 <div class="mb-3 col-lg-6">
                                     <label for="input-file" class="form-label fw-bold">Valid Business License</label>
                                     @if (isset($userData->companyDoc->valid_business_license))
                                         <span style="color: red"><a style="color: red" href="{{ route('employer.download.company_docs', ['file'=>$userData->companyDoc->valid_business_license]) }}">Download File</a></span>
+                                    @else
+                                        <input class="form-control" name="valid_business_license" accept=".pdf,.doc,.docx" type="file" id="input-file_2">
                                     @endif
-                                    <input class="form-control" name="valid_business_license" accept=".pdf,.doc,.docx" type="file" id="input-file_2">
                                 </div>
                                 <div class="mb-3 col-lg-6">
                                     <label for="input-file" class="form-label fw-bold">T4 Summary of the Company</label>
                                     @if (isset($userData->companyDoc->summary_of_company))
                                         <span style="color: red"><a style="color: red" href="{{ route('employer.download.company_docs', ['file'=>$userData->companyDoc->summary_of_company]) }}">Download File</a></span>
+                                    @else
+                                        <input class="form-control" name="summary_of_company" type="file" id="input-file_3" accept=".pdf,.doc,.docx">
                                     @endif
-                                    <input class="form-control" name="summary_of_company" type="file" id="input-file_3" accept=".pdf,.doc,.docx">
                                 </div>
                                 <div class="mb-3 col-lg-6">
                                     <label for="disabledSelect" class="form-label fw-bold">Please upload atleast one of the
@@ -75,15 +78,17 @@
                                     <label for="input-file" class="form-label fw-bold">Following Document</label>
                                     @if (isset($userData->companyDoc->following_document_file_one))
                                         <span style="color: red"><a style="color: red" href="{{ route('employer.download.company_docs', ['file'=>$userData->companyDoc->following_document_file_one]) }}">Download File</a></span>
+                                    @else
+                                        <input class="form-control" name="following_document_file_one" type="file" id="input-file_4"  accept=".pdf,.doc,.docx">
                                     @endif
-                                    <input class="form-control" name="following_document_file_one" type="file" id="input-file_4"  accept=".pdf,.doc,.docx">
                                 </div>
                                 <div class="mb-3 col-lg-6" id="showHideDiv" @if (isset($userData->companyDoc->following_document) && $userData->companyDoc->following_document == 1)  style="display: block" @else  style="display: none" @endif >
                                     <label for="input-file" class="form-label fw-bold">Following Document</label>
                                     @if (isset($userData->companyDoc->following_document_file_two))
                                         <span style="color: red"><a style="color: red" href="{{ route('employer.download.company_docs', ['file'=>$userData->companyDoc->following_document_file_two]) }}">Download File</a></span>
+                                    @else
+                                        <input class="form-control" type="file" id="input-file_5"  accept=".pdf,.doc,.docx" name="following_document_file_two">
                                     @endif
-                                    <input class="form-control" type="file" id="input-file_5"  accept=".pdf,.doc,.docx" name="following_document_file_two">
                                 </div>
                                 @if (!isset($userData->companyDoc))
                                     <button type="submit" class="btn btn-primary">Submit</button>

@@ -93,9 +93,12 @@ class LmiaService
             $formattedData  = $users->map(function ($user) use ($getEmployees) {
                 return [
                     'id' => $user->id,
+                    'employee_currenty_in_same_occupation' => $user->employee_currenty_in_same_occupation,
+                    'total_number_of_canadian' => $user->total_number_of_canadian,
+                    'employee_already_working_in_the_company' => $user->employee_already_working_in_the_company,
                     'name' => $user->users->name,
                     'email' => $user->users->email,
-                    'company_legel_name' => $user->companyInfo->company_legel_name,
+                    'company_legel_name' => $user->companyInfo->company_legel_name??NULL,
                     'created' => $user->created_at->format('d M Y, h:i a'),
                     'status' => $user->status,
                     'EmployesData' => $getEmployees,

@@ -151,13 +151,13 @@
                                                             <label for="basicpill-servicetax-input"
                                                                 class="form-label fw-bold">Registered Business Address</label>
                                                             <input type="text" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->registered_business_address }}" @endif name="registered_business_address"
-                                                                class="form-control" id="basicpill-servicetax-input">
+                                                                class="form-control" id="registered_business_address">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label class="form-label fw-bold">Country</label>
-                                                            <select class="form-select" name="country">
+                                                            <select class="form-select" name="country" id="country">
                                                                 <option value="">Selct Country</option>
                                                                 @if (isset($countries) && count($countries) > 0)
                                                                     @foreach ($countries as $item)
@@ -173,7 +173,7 @@
                                                             <label for="basicpill-servicetax-input"
                                                                 class="form-label fw-bold">Province (State)</label>
                                                             <input type="text" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->state }}" @endif name="state" class="form-control"
-                                                                id="basicpill-state-input">
+                                                                id="state">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6">
@@ -181,7 +181,7 @@
                                                             <label for="basicpill-servicetax-input"
                                                                 class="form-label fw-bold">City</label>
                                                             <input type="text" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->city }}" @endif name="city" class="form-control"
-                                                                id="basicpill-city-input">
+                                                                id="city">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6">
@@ -189,7 +189,125 @@
                                                             <label for="basicpill-servicetax-input"
                                                                 class="form-label fw-bold">Postal Code</label>
                                                             <input type="text" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->postal_code }}" @endif name="postal_code" class="form-control"
-                                                                id="basicpill-postal_code-input">
+                                                                id="postal_code">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label for="basicpill-servicetax-input" class="form-label fw-bold">Is yout mailing address as same as businees address?</label>
+                                                            <div class="mb-3">
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" @if (isset($companyInformation) && $companyInformation->same_as_business_address == 0) checked @else checked @endif type="radio" onclick="clickMailingAddress('0')" name="same_as_business_address" id="same_as_business_address_no" value="0">
+                                                                    <label class="form-check-label" for="same_as_business_address_no"> No</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" @if (isset($companyInformation) && $companyInformation->same_as_business_address == 1) checked @endif  type="radio" onclick="clickMailingAddress('1')" name="same_as_business_address" id="same_as_business_address_yes" value="1">
+                                                                    <label class="form-check-label" for="same_as_business_address_yes">Yes</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="mailing_address_no" @if (isset($companyInformation) && $companyInformation->same_as_business_address == 1) style="display: none" @endif>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <div class="mb-3">
+                                                                    <label for="basicpill-servicetax-input"
+                                                                        class="form-label fw-bold">Registered Business Address</label>
+                                                                    <input type="text" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->mailing_business_address }}" @endif required name="mailing_registered_business_address"
+                                                                        class="form-control" id="basicpill-servicetax-input">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label fw-bold">Country</label>
+                                                                    <select class="form-select" name="mailing_country" required>
+                                                                        <option value="">Selct Country</option>
+                                                                        @if (isset($countries) && count($countries) > 0)
+                                                                            @foreach ($countries as $item)
+                                                                                <option value="{{ $item->id }}" @if (isset($companyInformation) && $item->id == $companyInformation->mailing_country) selected @endif >
+                                                                                    {{ $item->name }}</option>
+                                                                            @endforeach
+                                                                        @endif
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="mb-3">
+                                                                    <label for="basicpill-servicetax-input"
+                                                                        class="form-label fw-bold">Province (State)</label>
+                                                                    <input type="text" required @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->mailing_state }}" @endif name="mailing_state" class="form-control"
+                                                                        id="basicpill-state-input">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="mb-3">
+                                                                    <label for="basicpill-servicetax-input"
+                                                                        class="form-label fw-bold">City</label>
+                                                                    <input type="text" required @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->mailing_city }}" @endif name="mailing_city" class="form-control"
+                                                                        id="basicpill-city-input">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="mb-3">
+                                                                    <label for="basicpill-servicetax-input"
+                                                                        class="form-label fw-bold">Postal Code</label>
+                                                                    <input type="text" required @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->mailing_postal_code }}" @endif name="mailing_postal_code" class="form-control"
+                                                                        id="basicpill-postal_code-input">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="mailing_address_yes" @if (isset($companyInformation) && $companyInformation->same_as_business_address == 1)  style="display: block" @else style="display:none" @endif >
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <div class="mb-3">
+                                                                    <label for="basicpill-servicetax-input"
+                                                                        class="form-label fw-bold">Registered Business Address</label>
+                                                                    <input type="text" disabled @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->mailing_business_address }}" @endif id="yes_registered_business_address"
+                                                                        class="form-control" id="basicpill-servicetax-input">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label fw-bold">Country</label>
+                                                                    <select class="form-select" id="id_country" disabled>
+                                                                        <option value="">Selct Country</option>
+                                                                        @if (isset($countries) && count($countries) > 0)
+                                                                            @foreach ($countries as $item)
+                                                                                <option value="{{ $item->id }}" @if (isset($companyInformation) && $item->id == $companyInformation->mailing_country) selected @endif >
+                                                                                    {{ $item->name }}</option>
+                                                                            @endforeach
+                                                                        @endif
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="mb-3">
+                                                                    <label for="basicpill-servicetax-input"
+                                                                        class="form-label fw-bold">Province (State)</label>
+                                                                    <input disabled type="text" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->mailing_state }}" @endif id="yes_state" class="form-control"
+                                                                        id="basicpill-state-input">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="mb-3">
+                                                                    <label for="basicpill-servicetax-input"
+                                                                        class="form-label fw-bold">City</label>
+                                                                    <input disabled type="text" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->mailing_city }}" @endif id="yes_city" class="form-control"
+                                                                        id="basicpill-city-input">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="mb-3">
+                                                                    <label for="basicpill-servicetax-input"
+                                                                        class="form-label fw-bold">Postal Code</label>
+                                                                    <input disabled type="text" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->mailing_postal_code }}" @endif id="yes_postal_code" class="form-control"
+                                                                        id="basicpill-postal_code-input">
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -216,45 +334,11 @@
                                                 <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
-                                                            <label for="basicpill-servicetax-input" class="form-label fw-bold">Is yout mailing address as same as businees address?</label>
-                                                            <div class="mb-3">
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" @if (isset($companyInformation) && $companyInformation->same_as_business_address == 1) checked @else checked @endif  type="radio" onclick="clickMailingAddress('1')" name="same_as_business_address" id="same_as_business_address_yes" value="1">
-                                                                    <label class="form-check-label" for="same_as_business_address_yes">Yes</label>
-                                                                </div>
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" @if (isset($companyInformation) && $companyInformation->same_as_business_address == 0) checked @endif type="radio" onclick="clickMailingAddress('0')" name="same_as_business_address" id="same_as_business_address_no" value="0">
-                                                                    <label class="form-check-label" for="same_as_business_address_no"> No</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-6" id="mailing_address_one" @if (isset($companyInformation) && $companyInformation->same_as_business_address == 0)  style="display: none" @endif>
-                                                        <div class="mb-3">
-                                                            <label for="basicpill-servicetax-input"
-                                                                class="form-label fw-bold">Mailing Email Address</label>
-                                                            <input type="email" value="{{ Auth::user()->email }}" name="mailing_email_address"  @if (isset($companyInformation) && $companyInformation->same_as_business_address == 1) disabled @else disabled @endif class="form-control"
-                                                                id="basicpill-part_time-input">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6" id="mailing_address_two" @if (isset($companyInformation) && $companyInformation->same_as_business_address == 1)  style="display: none" @endif >
-                                                        <div class="mb-3">
-                                                            <label for="basicpill-servicetax-input"
-                                                                class="form-label fw-bold">Mailing Email Address</label>
-                                                            <input type="email" required name="mailing_email_address_two" class="form-control"  @if (isset($companyInformation) && $companyInformation->same_as_business_address == 0) value="{{ $companyInformation->mailing_email_address }}"  @endif
-                                                                id="basicpill-part_time-input"> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="mb-3">
                                                             <label for="basicpill-servicetax-input"
                                                                 class="form-label fw-bold">Company incorporation date</label>
-                                                            <input type="date" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->company_incorporation_date }}" @endif name="company_incorporation_date"
+                                                            <input type="text" @if (isset($companyInformation) && !empty($companyInformation)) value="{{ $companyInformation->company_incorporation_date }}" @endif name="company_incorporation_date"
                                                                 class="form-control"
-                                                                id="basicpill-company_incorporation_date-input">
+                                                                id="datepicker">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -624,12 +708,26 @@
         function clickMailingAddress(type)
         {
             if(type == 0 || type == '0'){
-                $('#mailing_address_two').show();
-                $('#mailing_address_one').hide();
+                $('#mailing_address_no').show();
+                $('#mailing_address_yes').hide();
             }else{
-                $('#mailing_address_one').show();
-                $('#mailing_address_two').hide();
+                $('#mailing_address_yes').show();
+                $('#mailing_address_no').hide();
+                $('#yes_postal_code').val($('#postal_code').val());
+                $('#yes_city').val($('#city').val());
+                $('#yes_state').val($('#state').val());
+                $('#yes_registered_business_address').val($('#registered_business_address').val());
+                $('#id_country').val($('#country').val());
             }
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Initialize the date picker
+            $('#datepicker').datepicker({
+                dateFormat: 'mm/dd/yy', // Set the date format (e.g., mm/dd/yyyy)
+                showAnim: 'slideDown'   // Choose an animation for the date picker (optional)
+            });
+        });
     </script>
 @endpush
