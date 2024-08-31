@@ -40,6 +40,20 @@ class CompanyInformationService
             }else{
                 $createData = null;
             }
+            if($data['same_as_business_address'] == 1)
+            {
+                $mailing_business_address = $data['registered_business_address'];
+                $mailing_country = $data['country'];
+                $mailing_state = $data['state'];
+                $mailing_city = $data['city'];
+                $mailing_postal_code = $data['postal_code'];
+            }else{
+                $mailing_business_address = $data['mailing_registered_business_address'];
+                $mailing_country = $data['mailing_country'];
+                $mailing_state = $data['mailing_state'];
+                $mailing_city = $data['mailing_city'];
+                $mailing_postal_code = $data['mailing_postal_code'];
+            }
             $confirmData = [
                 'employer_id' => Auth::user()->id,
                 'name' => $data['name'],
@@ -63,7 +77,13 @@ class CompanyInformationService
                 'description' => $data['description'],
                 'job_title_occupation' => isset($createData) && !is_null($createData) ? json_encode($createData) : null ,
                 'same_as_business_address' => $data['same_as_business_address'],
-                'mailing_email_address' => $data['same_as_business_address'] == 1 ? Auth::user()->email : $data['mailing_email_address_two'],
+
+                'mailing_business_address' => $mailing_business_address,
+                'mailing_country' => $mailing_country,
+                'mailing_state' => $mailing_state,
+                'mailing_city' => $mailing_city,
+                'mailing_postal_code' => $mailing_postal_code,
+
             ];
             $this->CompanyInformationRepository->create($confirmData);
             return ['status'=>true , 'message'=>'Company Information Created Successfully!'];

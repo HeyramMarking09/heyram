@@ -15,4 +15,8 @@ class JobBank extends Model
     {
         return $this->belongsTo(User::class,'employer_id', 'id');
     }
+    public function lmias()
+    {
+        return $this->belongsTo(Lmia::class,'employer_id', 'employer_id');
+    }
 }

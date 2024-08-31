@@ -390,10 +390,10 @@
                                                                                                     class="col-lg-12 col-form-label fw-bold">Start
                                                                                                     Date</label>
                                                                                                 <div class="col-lg-12">
-                                                                                                    <input type="date"
+                                                                                                    <input type="text"
                                                                                                         name="start_date_0"
                                                                                                         value="{{ $item->start_date }}"
-                                                                                                        class="form-control">
+                                                                                                        class="form-control datepicker-input">
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
@@ -589,8 +589,8 @@
                                                                             class="text-danger">*</span></label>
                                                                     <div class="icon-form-end">
                                                                         <span class="form-icon"></span>
-                                                                        <input type="date" name="expected_file_submission_date"
-                                                                            class="form-control" value="{{ is_null($AssignData->expected_file_submission_date) ? '' : $AssignData->expected_file_submission_date  }}">
+                                                                        <input type="text" name="expected_file_submission_date"
+                                                                            class="form-control datepicker-input" value="{{ is_null($AssignData->expected_file_submission_date) ? '' : $AssignData->expected_file_submission_date  }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -600,8 +600,8 @@
                                                                             class="text-danger">*</span></label>
                                                                     <div class="icon-form-end">
                                                                         <span class="form-icon"></span>
-                                                                        <input type="date" name="final_submission_date"
-                                                                            class="form-control" value="{{ is_null($AssignData->final_submission_date) ? '' : $AssignData->final_submission_date  }}">
+                                                                        <input type="text" name="final_submission_date"
+                                                                            class="form-control datepicker-input" value="{{ is_null($AssignData->final_submission_date) ? '' : $AssignData->final_submission_date  }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -622,12 +622,8 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-wrap">
-                                                                    <label class="col-form-label">Job Location <span
-                                                                            class="text-danger">*</span></label>
-                                                                    <select class="select" name="job_location">
-                                                                        <option value="1" @if ($AssignData->job_location == 1) selected @endif>Active</option>
-                                                                        <option value="0" @if ($AssignData->job_location == 0) selected @endif>Inactive</option>
-                                                                    </select>
+                                                                    <label class="col-form-label">Job Location <span class="text-danger">*</span></label>
+                                                                    <input type="text" name="job_location" class="form-control datepicker-input" value="{{ is_null($AssignData->job_location) ? '' : $AssignData->job_location  }}">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -1137,5 +1133,14 @@
                 title: title
             });
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Initialize the date picker
+            $('.datepicker-input').datepicker({
+                dateFormat: 'mm/dd/yy', // Set the date format (e.g., mm/dd/yyyy)
+                showAnim: 'slideDown'   // Choose an animation for the date picker (optional)
+            });
+        });
     </script>
 @endpush

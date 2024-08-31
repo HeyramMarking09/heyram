@@ -80,7 +80,7 @@
                                                             <div class="col-xl-6">
                                                                 <label class="col-lg-12 col-form-label fw-bold">Start Date</label>
                                                                 <div class="col-lg-12">
-                                                                    <input type="date" name="start_date_0" required class="form-control">
+                                                                    <input type="text" name="start_date_0" required class="form-control" id="datepicker">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -296,5 +296,14 @@
                 title: title
             });
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Initialize the date picker
+            $('#datepicker').datepicker({
+                dateFormat: 'mm/dd/yy', // Set the date format (e.g., mm/dd/yyyy)
+                showAnim: 'slideDown'   // Choose an animation for the date picker (optional)
+            });
+        });
     </script>
 @endpush

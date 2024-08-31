@@ -1,8 +1,8 @@
 @extends('Employer.layouts.app')
 
 @section('content')
-     <!-- Page Wrapper -->
-     <div class="page-wrapper">
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
         <div class="content">
 
             <div class="row">
@@ -97,14 +97,14 @@
                                 <a href="#" data-bs-toggle="tab" data-bs-target="#AssignEmployee"><i
                                         class="ti ti-phone"></i>Assign Employee</a>
                             </li>
-                            {{-- <li>
-                                <a href="#" data-bs-toggle="tab" data-bs-target="#files"><i
-                                        class="ti ti-file"></i>Files</a>
-                            </li>
                             <li>
+                                <a href="#" data-bs-toggle="tab" data-bs-target="#jobBank"><i
+                                        class="ti ti-file"></i>Job Bank</a>
+                            </li>
+                            {{-- <li>
                                 <a href="#" data-bs-toggle="tab" data-bs-target="#email"><i
                                         class="ti ti-mail-check"></i>Email</a>
-                            </li> --}}
+                            </li>  --}}
                         </ul>
                     </div>
 
@@ -277,253 +277,282 @@
                                         <div class="col-xl-12 mx-auto">
                                             <div class="card shadow-sm">
                                                 <div class="card-body">
-                                                        <div class="row mb-3">
-                                                            <label class="col-lg-12 col-form-label fw-bold">Is this LMIA
-                                                                application for an Employee already working in the
-                                                                company?</label>
-                                                            <div class="col-lg-12">
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input"
-                                                                        type="radio"
-                                                                        name="employee_already_working_in_the_company"
-                                                                        id="employee_already_working_in_the_company"
-                                                                        value="1" @if ($data->employee_already_working_in_the_company == 1) checked @endif>
-                                                                    <label class="form-check-label"
-                                                                        for="employee_already_working_in_the_company">Yes</label>
-                                                                </div>
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio"
-                                                                        name="employee_already_working_in_the_company"
-                                                                        id="gender_female" value="0" @if ($data->employee_already_working_in_the_company == 0) checked @endif>
-                                                                    <label class="form-check-label"
-                                                                        for="employee_already_working_in_the_company">No</label>
-                                                                </div>
+                                                    <div class="row mb-3">
+                                                        <label class="col-lg-12 col-form-label fw-bold">Is this LMIA
+                                                            application for an Employee already working in the
+                                                            company?</label>
+                                                        <div class="col-lg-12">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="employee_already_working_in_the_company"
+                                                                    id="employee_already_working_in_the_company"
+                                                                    value="1"
+                                                                    @if ($data->employee_already_working_in_the_company == 1) checked @endif>
+                                                                <label class="form-check-label"
+                                                                    for="employee_already_working_in_the_company">Yes</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="employee_already_working_in_the_company"
+                                                                    id="gender_female" value="0"
+                                                                    @if ($data->employee_already_working_in_the_company == 0) checked @endif>
+                                                                <label class="form-check-label"
+                                                                    for="employee_already_working_in_the_company">No</label>
                                                             </div>
                                                         </div>
-                                                        @if ($data->employee_already_working_in_the_company == 1)    
-
-                                                            <div id="EmployeeDetail">
-                                                                <div class="tab-content">
-                                                                    <div class="tab-pane show active" id="use-esign">
-                                                                        @php
-                                                                            $employee_detail = json_decode($data->enployee_detail);
-                                                                        @endphp
-                                                                        @foreach ($employee_detail as $item)
-                                                                            <div class="sign-content">
-                                                                                <div class="row">
+                                                    </div>
+                                                    @if ($data->employee_already_working_in_the_company == 1)
+                                                        <div id="EmployeeDetail">
+                                                            <div class="tab-content">
+                                                                <div class="tab-pane show active" id="use-esign">
+                                                                    @php
+                                                                        $employee_detail = json_decode(
+                                                                            $data->enployee_detail,
+                                                                        );
+                                                                    @endphp
+                                                                    @foreach ($employee_detail as $item)
+                                                                        <div class="sign-content">
+                                                                            <div class="row">
+                                                                                <div class="row mb-3">
+                                                                                    <label
+                                                                                        class="col-lg-12 col-form-label fw-bold">First
+                                                                                        need to select one of the options
+                                                                                        from
+                                                                                        the drop-down menu</label>
+                                                                                    <div class="col-lg-9">
+                                                                                        <select class="form-select"
+                                                                                            name="need_to_select_0">
+                                                                                            <option value="">
+                                                                                                --Select--
+                                                                                            </option>
+                                                                                            <option value="1"
+                                                                                                @if ($item->need_to_select == 1) selected @endif>
+                                                                                                It is to
+                                                                                                only support for PR
+                                                                                                application
+                                                                                                of an employee and help them
+                                                                                                to
+                                                                                                get 50/200 points in express
+                                                                                                entry</option>
+                                                                                            <option value="2"
+                                                                                                @if ($item->need_to_select == 2) selected @endif>
+                                                                                                It is for
+                                                                                                both, obtain work permit and
+                                                                                                support permanent residency
+                                                                                                application</option>
+                                                                                            <option value="3"
+                                                                                                @if ($item->need_to_select == 3) selected @endif>
+                                                                                                It is just
+                                                                                                for work permit application
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-9">
                                                                                     <div class="row mb-3">
                                                                                         <label
-                                                                                            class="col-lg-12 col-form-label fw-bold">First
-                                                                                            need to select one of the options from
-                                                                                            the drop-down menu</label>
-                                                                                        <div class="col-lg-9">
-                                                                                            <select class="form-select"
-                                                                                                name="need_to_select_0" >
-                                                                                                <option value="">--Select--
-                                                                                                </option>
-                                                                                                <option value="1" @if ($item->need_to_select == 1) selected @endif>It is to
-                                                                                                    only support for PR application
-                                                                                                    of an employee and help them to
-                                                                                                    get 50/200 points in express
-                                                                                                    entry</option>
-                                                                                                <option value="2" @if ($item->need_to_select == 2) selected @endif>It is for
-                                                                                                    both, obtain work permit and
-                                                                                                    support permanent residency
-                                                                                                    application</option>
-                                                                                                <option value="3" @if ($item->need_to_select == 3) selected @endif>It is just
-                                                                                                    for work permit application
-                                                                                                </option>
-                                                                                            </select>
+                                                                                            class="col-lg-9 col-form-label fw-bold">What
+                                                                                            job title do you want to apply
+                                                                                            for
+                                                                                            in this LMIA
+                                                                                            application?</label>
+                                                                                        <div class="col-lg-12">
+                                                                                            <input type="text"
+                                                                                                class="form-control"
+                                                                                                value="{{ $item->job_title }}"
+                                                                                                name="job_title_0">
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class="col-md-9">
-                                                                                        <div class="row mb-3">
+                                                                                    <div class="row mb-3">
+                                                                                        <div class="col-xl-6">
                                                                                             <label
-                                                                                                class="col-lg-9 col-form-label fw-bold">What
-                                                                                                job title do you want to apply for
-                                                                                                in this LMIA application?</label>
+                                                                                                class="col-lg-12 col-form-label fw-bold">Name
+                                                                                                of the Employee</label>
                                                                                             <div class="col-lg-12">
                                                                                                 <input type="text"
-                                                                                                    class="form-control" value="{{ $item->job_title }}"
-                                                                                                    name="job_title_0" >
+                                                                                                    name="employee_name_0"
+                                                                                                    value="{{ $item->employee_name }}"
+                                                                                                    class="form-control">
                                                                                             </div>
                                                                                         </div>
-                                                                                        <div class="row mb-3">
-                                                                                            <div class="col-xl-6">
-                                                                                                <label
-                                                                                                    class="col-lg-12 col-form-label fw-bold">Name
-                                                                                                    of the Employee</label>
-                                                                                                <div class="col-lg-12">
-                                                                                                    <input type="text"
-                                                                                                        name="employee_name_0"
-                                                                                                        value="{{ $item->employee_name }}"
-                                                                                                        class="form-control">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="col-xl-6">
-                                                                                                <label
-                                                                                                    class="col-lg-12 col-form-label fw-bold">Current
-                                                                                                    job title</label>
-                                                                                                <div class="col-lg-12">
-                                                                                                    <input type="text"
-                                                                                                        name="current_job_title_0"
-                                                                                                        value="{{ $item->current_job_title }}"
-                                                                                                        class="form-control">
-                                                                                                </div>
+                                                                                        <div class="col-xl-6">
+                                                                                            <label
+                                                                                                class="col-lg-12 col-form-label fw-bold">Current
+                                                                                                job title</label>
+                                                                                            <div class="col-lg-12">
+                                                                                                <input type="text"
+                                                                                                    name="current_job_title_0"
+                                                                                                    value="{{ $item->current_job_title }}"
+                                                                                                    class="form-control">
                                                                                             </div>
                                                                                         </div>
-                                                                                        <div class="row mb-3">
-                                                                                            <div class="col-xl-6">
-                                                                                                <label
-                                                                                                    class="col-lg-12 col-form-label fw-bold">Current
-                                                                                                    pay</label>
-                                                                                                <div class="col-lg-12">
-                                                                                                    <input type="number"
-                                                                                                        name="current_pay_0"
-                                                                                                        value="{{ $item->current_pay }}" min="0"
-                                                                                                        class="form-control">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="col-xl-6">
-                                                                                                <label
-                                                                                                    class="col-lg-12 col-form-label fw-bold">Start
-                                                                                                    Date</label>
-                                                                                                <div class="col-lg-12">
-                                                                                                    <input type="date"
-                                                                                                        name="start_date_0"
-                                                                                                        value="{{ $item->start_date }}"
-                                                                                                        class="form-control">
-                                                                                                </div>
+                                                                                    </div>
+                                                                                    <div class="row mb-3">
+                                                                                        <div class="col-xl-6">
+                                                                                            <label
+                                                                                                class="col-lg-12 col-form-label fw-bold">Current
+                                                                                                pay</label>
+                                                                                            <div class="col-lg-12">
+                                                                                                <input type="number"
+                                                                                                    name="current_pay_0"
+                                                                                                    value="{{ $item->current_pay }}"
+                                                                                                    min="0"
+                                                                                                    class="form-control">
                                                                                             </div>
                                                                                         </div>
-                                                                                        <div class="row mb-3">
-                                                                                            <div class="col-xl-6">
-                                                                                                <label
-                                                                                                    class="col-lg-12 col-form-label fw-bold">What
-                                                                                                    are their basic job duties in
-                                                                                                    the company?</label>
-                                                                                                <div class="col-lg-12">
-                                                                                                    <textarea name="job_duties_0" required class="form-control" cols="30" rows="3">{{ $item->job_duties }}</textarea>
-                                                                                                </div>
+                                                                                        <div class="col-xl-6">
+                                                                                            <label
+                                                                                                class="col-lg-12 col-form-label fw-bold">Start
+                                                                                                Date</label>
+                                                                                            <div class="col-lg-12">
+                                                                                                <input type="text"
+                                                                                                    name="start_date_0"
+                                                                                                    value="{{ $item->start_date }}"
+                                                                                                    class="form-control datepicker-input">
                                                                                             </div>
-                                                                                            <div class="col-xl-6">
-                                                                                                <label
-                                                                                                    class="col-lg-12 col-form-label fw-bold">How
-                                                                                                    did you happen to hire these
-                                                                                                    persons in this company?</label>
-                                                                                                <div class="col-lg-12">
-                                                                                                    <textarea name="hiring_reason_0" required class="form-control" cols="30" rows="3">{{ $item->hiring_reason }}</textarea>
-                                                                                                </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row mb-3">
+                                                                                        <div class="col-xl-6">
+                                                                                            <label
+                                                                                                class="col-lg-12 col-form-label fw-bold">What
+                                                                                                are their basic job duties
+                                                                                                in
+                                                                                                the company?</label>
+                                                                                            <div class="col-lg-12">
+                                                                                                <textarea name="job_duties_0" required class="form-control" cols="30" rows="3">{{ $item->job_duties }}</textarea>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-xl-6">
+                                                                                            <label
+                                                                                                class="col-lg-12 col-form-label fw-bold">How
+                                                                                                did you happen to hire these
+                                                                                                persons in this
+                                                                                                company?</label>
+                                                                                            <div class="col-lg-12">
+                                                                                                <textarea name="hiring_reason_0" required class="form-control" cols="30" rows="3">{{ $item->hiring_reason }}</textarea>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        @endforeach
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        @else
-                                                            <div id="AnotherDetail">
-                                                                <div class="row mb-9">
-                                                                    <div class="col-xl-6">
-                                                                        <label
-                                                                            class="col-lg-12 col-form-label fw-bold">Suggested
-                                                                            Job Title:</label>
-                                                                        <div class="col-lg-12">
-                                                                            <input type="text" name="suggested_job_title"
-                                                                                class="form-control" value="{{ $item->suggested_job_title }}">
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="col-xl-6">
-                                                                        <label class="col-lg-12 col-form-label fw-bold">Number
-                                                                            of Vacancies :</label>
-                                                                        <div class="col-lg-12">
-                                                                            <input type="number" min="0" value="{{ $item->number_of_vacancies }}"
-                                                                                name="number_of_vacancies"
-                                                                                class="form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row mb-3">
-                                                                    <label class="col-lg-12 col-form-label fw-bold">Do you
-                                                                        require Worker to Speak basic English?</label>
-                                                                    <div class="col-lg-12">
-                                                                        <div class="form-check form-check-inline">
-                                                                            <input class="form-check-input" type="radio"
-                                                                                name="speak_english" value="1" @if ($item->speak_english == 1) checked @endif> 
-                                                                            <label class="form-check-label"
-                                                                                for="gender_male">Yes</label>
-                                                                        </div>
-                                                                        <div class="form-check form-check-inline">
-                                                                            <input class="form-check-input" type="radio"
-                                                                                name="speak_english" value="0" @if ($item->speak_english == 0) checked @endif>
-                                                                            <label class="form-check-label"
-                                                                                for="gender_female">No</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row mb-3">
-                                                                    <label class="col-lg-12 col-form-label fw-bold">Do you
-                                                                        require Worker to Write basic English?</label>
-                                                                    <div class="col-lg-12">
-                                                                        <div class="form-check form-check-inline">
-                                                                            <input class="form-check-input" type="radio"
-                                                                                name="write_english" value="1" @if ($item->write_english == 1) checked @endif>
-                                                                            <label class="form-check-label"
-                                                                                for="gender_male">Yes</label>
-                                                                        </div>
-                                                                        <div class="form-check form-check-inline">
-                                                                            <input class="form-check-input" type="radio"
-                                                                                name="write_english" value="0" @if ($item->write_english == 0) checked @endif>
-                                                                            <label class="form-check-label"
-                                                                                for="gender_female">No</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row mb-3">
-                                                                    <label class="col-lg-9 col-form-label fw-bold">How many
-                                                                        TFWs are currently employed in the same occupation in
-                                                                        which the LMIA(s) is/are requested?</label>
-                                                                    <div class="col-lg-9">
-                                                                        <input type="number" min="0" value="{{ $item->same_occupation }}" 
-                                                                            name="same_occupation" class="form-control">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                        <div class="row mb-3">
-                                                            <label class="col-lg-12 col-form-label fw-bold">Is any employee
-                                                                currently in same occupation in which LMIA is
-                                                                requested?</label>
-                                                            <div class="col-lg-12">
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio"
-                                                                        name="employee_currenty_in_same_occupation"
-                                                                        id="employee_currenty_in_same_occupation_yes"
-                                                                        value="1" @if ($data->employee_currenty_in_same_occupation == 1) checked @endif>
-                                                                    <label class="form-check-label"
-                                                                        for="employee_currenty_in_same_occupation">Yes</label>
-                                                                </div>
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio"
-                                                                        name="employee_currenty_in_same_occupation"
-                                                                        id="employee_currenty_in_same_occupation_no"
-                                                                        value="0" @if ($data->employee_currenty_in_same_occupation == 0) checked @endif>
-                                                                    <label class="form-check-label" 
-                                                                        for="employee_currenty_in_same_occupation">No</label>
+                                                                    @endforeach
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="row mb-3 align-items-center">
-                                                            <label class="col-lg-9 col-form-label fw-bold">Total number of
-                                                                Canadian Citizens/ Permanent Residents in the same
-                                                                occupation in which LMIA is requested:</label>
-                                                            <div class="col-lg-9">
-                                                                <input type="number" min="0" maxlength="10"
-                                                                    name="total_number_of_canadian" value="{{ $data->total_number_of_canadian }}" class="form-control">
+                                                    @else
+                                                        <div id="AnotherDetail">
+                                                            <div class="row mb-9">
+                                                                <div class="col-xl-6">
+                                                                    <label
+                                                                        class="col-lg-12 col-form-label fw-bold">Suggested
+                                                                        Job Title:</label>
+                                                                    <div class="col-lg-12">
+                                                                        <input type="text" name="suggested_job_title"
+                                                                            class="form-control"
+                                                                            value="{{ $item->suggested_job_title }}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-6">
+                                                                    <label class="col-lg-12 col-form-label fw-bold">Number
+                                                                        of Vacancies :</label>
+                                                                    <div class="col-lg-12">
+                                                                        <input type="number" min="0"
+                                                                            value="{{ $item->number_of_vacancies }}"
+                                                                            name="number_of_vacancies"
+                                                                            class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <label class="col-lg-12 col-form-label fw-bold">Do you
+                                                                    require Worker to Speak basic English?</label>
+                                                                <div class="col-lg-12">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="speak_english" value="1"
+                                                                            @if ($item->speak_english == 1) checked @endif>
+                                                                        <label class="form-check-label"
+                                                                            for="gender_male">Yes</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="speak_english" value="0"
+                                                                            @if ($item->speak_english == 0) checked @endif>
+                                                                        <label class="form-check-label"
+                                                                            for="gender_female">No</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <label class="col-lg-12 col-form-label fw-bold">Do you
+                                                                    require Worker to Write basic English?</label>
+                                                                <div class="col-lg-12">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="write_english" value="1"
+                                                                            @if ($item->write_english == 1) checked @endif>
+                                                                        <label class="form-check-label"
+                                                                            for="gender_male">Yes</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="write_english" value="0"
+                                                                            @if ($item->write_english == 0) checked @endif>
+                                                                        <label class="form-check-label"
+                                                                            for="gender_female">No</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <label class="col-lg-9 col-form-label fw-bold">How many
+                                                                    TFWs are currently employed in the same occupation in
+                                                                    which the LMIA(s) is/are requested?</label>
+                                                                <div class="col-lg-9">
+                                                                    <input type="number" min="0"
+                                                                        value="{{ $item->same_occupation }}"
+                                                                        name="same_occupation" class="form-control">
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                    @endif
+                                                    <div class="row mb-3">
+                                                        <label class="col-lg-12 col-form-label fw-bold">Is any employee
+                                                            currently in same occupation in which LMIA is
+                                                            requested?</label>
+                                                        <div class="col-lg-12">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="employee_currenty_in_same_occupation"
+                                                                    id="employee_currenty_in_same_occupation_yes"
+                                                                    value="1"
+                                                                    @if ($data->employee_currenty_in_same_occupation == 1) checked @endif>
+                                                                <label class="form-check-label"
+                                                                    for="employee_currenty_in_same_occupation">Yes</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="employee_currenty_in_same_occupation"
+                                                                    id="employee_currenty_in_same_occupation_no"
+                                                                    value="0"
+                                                                    @if ($data->employee_currenty_in_same_occupation == 0) checked @endif>
+                                                                <label class="form-check-label"
+                                                                    for="employee_currenty_in_same_occupation">No</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3 align-items-center">
+                                                        <label class="col-lg-9 col-form-label fw-bold">Total number of
+                                                            Canadian Citizens/ Permanent Residents in the same
+                                                            occupation in which LMIA is requested:</label>
+                                                        <div class="col-lg-9">
+                                                            <input type="number" min="0" maxlength="10"
+                                                                name="total_number_of_canadian"
+                                                                value="{{ $data->total_number_of_canadian }}"
+                                                                class="form-control">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -542,117 +571,139 @@
                                         @php
                                             $AssignData = json_decode($data->assign_employee_data);
                                         @endphp
-                                            <div class="accordion-lists" id="list-accord">
-                                                <!-- Basic Info -->
-                                                <div class="manage-user-modal">
-                                                    <div class="manage-user-modals">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <div class="form-wrap">
-                                                                    <label class="col-form-label">Job Title <span
+                                        <div class="accordion-lists" id="list-accord">
+                                            <!-- Basic Info -->
+                                            <div class="manage-user-modal">
+                                                <div class="manage-user-modals">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-wrap">
+                                                                <label class="col-form-label">Job Title <span
+                                                                        class="text-danger">*</span></label>
+                                                                <input type="text" name="job_title"
+                                                                    class="form-control"
+                                                                    value="{{ $AssignData->job_title }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-wrap">
+                                                                <label class="col-form-label">Vacancies <span
+                                                                        class="text-danger">*</span></label>
+                                                                <input type="text" name="vacancies"
+                                                                    class="form-control"
+                                                                    value="{{ is_null($AssignData->vacancies) ? '' : $AssignData->vacancies }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-wrap">
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center">
+                                                                    <label class="col-form-label">Mininum education
+                                                                        requirement <span
                                                                             class="text-danger">*</span></label>
-                                                                    <input type="text" name="job_title" class="form-control" value="{{ $AssignData->job_title }}">
+                                                                </div>
+                                                                <input type="text" name="mininum_education_requirement"
+                                                                    value="{{ is_null($AssignData->mininum_education_requirement) ? '' : $AssignData->mininum_education_requirement }}"
+                                                                    class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-wrap">
+                                                                <label class="col-form-label">Mininum experience
+                                                                    requirement<span class="text-danger">*</span></label>
+                                                                <input type="text"
+                                                                    name="mininum_experience_requirement"
+                                                                    class="form-control"
+                                                                    value="{{ is_null($AssignData->mininum_experience_requirement) ? '' : $AssignData->mininum_experience_requirement }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-wrap">
+                                                                <label class="col-form-label">Expected File Submission Date
+                                                                    <span class="text-danger">*</span></label>
+                                                                <div class="icon-form-end">
+                                                                    <span class="form-icon"></span>
+                                                                    <input type="text"
+                                                                        name="expected_file_submission_date"
+                                                                        class="form-control datepicker-input"
+                                                                        value="{{ is_null($AssignData->expected_file_submission_date) ? '' : $AssignData->expected_file_submission_date }}">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-wrap">
-                                                                    <label class="col-form-label">Vacancies <span
-                                                                            class="text-danger">*</span></label>
-                                                                    <input type="text" name="vacancies" class="form-control" value="{{ is_null($AssignData->vacancies) ? '' : $AssignData->vacancies  }}">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-wrap">
+                                                                <label class="col-form-label">Final Submission Date <span
+                                                                        class="text-danger">*</span></label>
+                                                                <div class="icon-form-end">
+                                                                    <span class="form-icon"></span>
+                                                                    <input type="text" name="final_submission_date"
+                                                                        class="form-control datepicker-input"
+                                                                        value="{{ is_null($AssignData->final_submission_date) ? '' : $AssignData->final_submission_date }}">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-wrap">
-                                                                    <div class="d-flex justify-content-between align-items-center">
-                                                                        <label class="col-form-label">Mininum education requirement <span
-                                                                                class="text-danger">*</span></label>
-                                                                    </div>
-                                                                    <input type="text" name="mininum_education_requirement" value="{{ is_null($AssignData->mininum_education_requirement) ? '' : $AssignData->mininum_education_requirement  }}"
-                                                                        class="form-control">
-                                                                </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-wrap">
+                                                                <label class="col-form-label"> File assign to employee
+                                                                    <span class="text-danger">*</span></label>
+                                                                <select class="select" name="file_assign_to_employee">
+                                                                    <option value="">-Select-</option>
+                                                                    @if (isset($UserData) && count($UserData) > 0)
+                                                                        @foreach ($UserData as $item)
+                                                                            <option value="{{ $item->id }}"
+                                                                                @if (
+                                                                                    !is_null($data->file_assign_to_employee) &&
+                                                                                        $data->file_assign_to_employee != 0 &&
+                                                                                        $data->file_assign_to_employee == $item->id) selected @endif>
+                                                                                {{ $item->name }}
+                                                                                {{ $item->last_name }}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </select>
                                                             </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-wrap">
-                                                                    <label class="col-form-label">Mininum experience requirement<span
-                                                                            class="text-danger">*</span></label>
-                                                                    <input type="text" name="mininum_experience_requirement"
-                                                                        class="form-control" value="{{ is_null($AssignData->mininum_experience_requirement) ? '' : $AssignData->mininum_experience_requirement  }}"> 
-                                                                </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-wrap">
+                                                                <label class="col-form-label">Job Location <span
+                                                                        class="text-danger">*</span></label>
+                                                                <input type="text" name="job_location"
+                                                                    class="form-control datepicker-input"
+                                                                    value="{{ is_null($AssignData->job_location) ? '' : $AssignData->job_location }}">
                                                             </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-wrap">
-                                                                    <label class="col-form-label">Expected File Submission Date <span
-                                                                            class="text-danger">*</span></label>
-                                                                    <div class="icon-form-end">
-                                                                        <span class="form-icon"></span>
-                                                                        <input type="date" name="expected_file_submission_date"
-                                                                            class="form-control" value="{{ is_null($AssignData->expected_file_submission_date) ? '' : $AssignData->expected_file_submission_date  }}">
-                                                                    </div>
-                                                                </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-wrap">
+                                                                <label class="col-form-label">Required Language<span
+                                                                        class="text-danger">*</span></label>
+                                                                <select class="select" name="language">
+                                                                    <option value="English"
+                                                                        @if ($AssignData->language == 'English') selected @endif>
+                                                                        English</option>
+                                                                    <option value="French"
+                                                                        @if ($AssignData->language == 'French') selected @endif>
+                                                                        French</option>
+                                                                    <option value="N/A"
+                                                                        @if ($AssignData->language == 'N/A') selected @endif>
+                                                                        N/A</option>
+                                                                </select>
                                                             </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-wrap">
-                                                                    <label class="col-form-label">Final Submission Date <span
-                                                                            class="text-danger">*</span></label>
-                                                                    <div class="icon-form-end">
-                                                                        <span class="form-icon"></span>
-                                                                        <input type="date" name="final_submission_date"
-                                                                            class="form-control" value="{{ is_null($AssignData->final_submission_date) ? '' : $AssignData->final_submission_date  }}">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-wrap">
-                                                                    <label class="col-form-label"> File assign to employee <span
-                                                                            class="text-danger">*</span></label>
-                                                                    <select class="select" name="file_assign_to_employee">
-                                                                        <option value="">-Select-</option>
-                                                                        @if (isset($UserData) && count($UserData) > 0)
-                                                                            @foreach ($UserData as $item)
-                                                                                <option value="{{ $item->id }}" @if (!is_null($data->file_assign_to_employee) && $data->file_assign_to_employee != 0  && $data->file_assign_to_employee == $item->id) selected @endif>{{ $item->name }}
-                                                                                    {{ $item->last_name }}</option>
-                                                                            @endforeach
-                                                                        @endif
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-wrap">
-                                                                    <label class="col-form-label">Job Location <span
-                                                                            class="text-danger">*</span></label>
-                                                                    <select class="select" name="job_location">
-                                                                        <option value="1" @if ($AssignData->job_location == 1) selected @endif>Active</option>
-                                                                        <option value="0" @if ($AssignData->job_location == 0) selected @endif>Inactive</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-wrap">
-                                                                    <label class="col-form-label">Required Language<span
-                                                                            class="text-danger">*</span></label>
-                                                                    <select class="select" name="language">
-                                                                        <option value="English" @if ($AssignData->language == 'English') selected @endif>English</option>
-                                                                        <option value="French" @if ($AssignData->language == 'French') selected @endif>French</option>
-                                                                        <option value="N/A" @if ($AssignData->language == 'N/A') selected @endif>N/A</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <div class="form-wrap">
-                                                                    <label class="col-form-label">Description <span
-                                                                            class="text-danger">*</span></label>
-                                                                    <div class="icon-form-end">
-                                                                        <span class="form-icon"></span>
-                                                                        <textarea class="form-control" name="description" id="description" cols="3" rows="3"> {{ $AssignData->description }}</textarea>
-                                                                    </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-wrap">
+                                                                <label class="col-form-label">Description <span
+                                                                        class="text-danger">*</span></label>
+                                                                <div class="icon-form-end">
+                                                                    <span class="form-icon"></span>
+                                                                    <textarea class="form-control" name="description" id="description" cols="3" rows="3"> {{ $AssignData->description }}</textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- /Basic Info -->
                                             </div>
-                                            {{-- <div class="submit-button text-end">
+                                            <!-- /Basic Info -->
+                                        </div>
+                                        {{-- <div class="submit-button text-end">
                                                 <button type="submit" id="assignEmployeeSubmitButton"
                                                     class="btn btn-primary">Update</button>
                                             </div> --}}
@@ -663,169 +714,105 @@
                             <!-- /Calls -->
 
                             <!-- Files -->
-                            {{-- <div class="tab-pane fade" id="files">
+                            <!-- Job bank List -->
+                            <div class="tab-pane fade" id="jobBank">
                                 <div class="view-header">
-                                    <h4>Files</h4>
+                                    <h4>Job Bank</h4>
                                 </div>
                                 <div class="files-activity">
                                     <div class="files-wrap">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-8">
-                                                <div class="file-info">
-                                                    <h4>Manage Documents</h4>
-                                                    <p>Send customizable quotes, proposals and contracts to close deals
-                                                        faster.</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 text-md-end">
-                                                <ul class="file-action">
-                                                    <li>
-                                                        <a href="#" class="btn btn-primary" data-bs-toggle="modal"
-                                                            data-bs-target="#new_file">Create Document</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="files-wrap">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-8">
-                                                <div class="file-info">
-                                                    <h4>Collier-Turner Proposal</h4>
-                                                    <p>Send customizable quotes, proposals and contracts to close deals
-                                                        faster.</p>
-                                                    <div class="file-user">
-                                                        <img src="assets/img/profiles/avatar-21.jpg" alt="img">
-                                                        <div>
-                                                            <p><span>Owner</span> Vaughan</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 text-md-end">
-                                                <ul class="file-action">
-                                                    <li>
-                                                        <span class="badge badge-tag badge-danger-light">Proposal</span>
-                                                    </li>
-                                                    <li>
-                                                        <span
-                                                            class="badge badge-tag bg-pending priority-badge">Draft</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="dropdown action-drop">
-                                                            <a href="#" class="dropdown-toggle"
-                                                                data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                    class="ti ti-dots-vertical"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                                    <i class="ti ti-edit text-blue"></i>Edit
-                                                                </a>
-                                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                                    <i class="ti ti-trash text-danger"></i>Delete
-                                                                </a>
-                                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                                    <i class="ti ti-download text-info"></i>Download
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="files-wrap">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-8">
-                                                <div class="file-info">
-                                                    <h4>Collier-Turner Proposal</h4>
-                                                    <p>Send customizable quotes, proposals and contracts to close deals
-                                                        faster.</p>
-                                                    <div class="file-user">
-                                                        <img src="assets/img/profiles/avatar-01.jpg" alt="img">
-                                                        <div>
-                                                            <p><span>Owner</span> Jessica</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 text-md-end">
-                                                <ul class="file-action">
-                                                    <li>
-                                                        <span class="badge badge-tag badge-purple-light">Quote</span>
-                                                    </li>
-                                                    <li>
-                                                        <span class="badge bg-success priority-badge">Sent</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="dropdown action-drop">
-                                                            <a href="#" class="dropdown-toggle"
-                                                                data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                    class="ti ti-dots-vertical"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                                    <i class="ti ti-edit text-blue"></i>Edit
-                                                                </a>
-                                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                                    <i class="ti ti-trash text-danger"></i>Delete
-                                                                </a>
-                                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                                    <i class="ti ti-download text-info"></i>Download
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="files-wrap">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-8">
-                                                <div class="file-info">
-                                                    <h4>Collier-Turner Proposal</h4>
-                                                    <p>Send customizable quotes, proposals and contracts to close deals
-                                                        faster.</p>
-                                                    <div class="file-user">
-                                                        <img src="assets/img/profiles/avatar-22.jpg" alt="img">
-                                                        <div>
-                                                            <p><span>Owner</span> Vaughan</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 text-md-end">
-                                                <ul class="file-action">
-                                                    <li>
-                                                        <span class="badge badge-tag badge-danger-light">Proposal</span>
-                                                    </li>
-                                                    <li>
-                                                        <span
-                                                            class="badge badge-tag bg-pending priority-badge">Draft</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="dropdown action-drop">
-                                                            <a href="#" class="dropdown-toggle"
-                                                                data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                    class="ti ti-dots-vertical"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                                    <i class="ti ti-edit text-blue"></i>Edit
-                                                                </a>
-                                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                                    <i class="ti ti-trash text-danger"></i>Delete
-                                                                </a>
-                                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                                    <i class="ti ti-download text-info"></i>Download
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
+                                        <div class="row dt-row">
+                                            <div class="col-sm-12 table-responsive">
+                                                <table class="table no-footer" style="width: 1241px;">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th class="sorting" tabindex="0" aria-controls="leads_list"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Lead Name: activate to sort column ascending"
+                                                                style="width: 20px;">Id</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="leads_list"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Lead Name: activate to sort column ascending"
+                                                                style="width: 30px;">Job Title</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="leads_list"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Company Name: activate to sort column ascending"
+                                                                style="width: 93px;">Number Of Vacancies</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="leads_list"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Lead Status: activate to sort column ascending"
+                                                                style="width: 30px;">Location</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="leads_list"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Lead Status: activate to sort column ascending"
+                                                                style="width: 30px;">Start Date</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="leads_list"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Lead Status: activate to sort column ascending"
+                                                                style="width: 30px;">End Date</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="leads_list"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Lead Status: activate to sort column ascending"
+                                                                style="width: 30px;">Bank Job Ad Number</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="leads_list"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Lead Status: activate to sort column ascending"
+                                                                style="width: 30px;">Status</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="leads_list"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Created Date: activate to sort column ascending"
+                                                                style="width: 35px;">Created Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @if (isset($data->jobBank))
+                                                            @php
+                                                                $LISTNO1 = 1;
+                                                            @endphp
+                                                            @foreach ($data->jobBank as $item)
+                                                                <tr class="odd">
+                                                                    <td><a href="leads-details.html"
+                                                                            class="title-name">{{ $LISTNO1 }}</a>
+                                                                    </td>
+                                                                    <td><a href="leads-details.html"
+                                                                            class="title-name">{{ $item->job_title }}</a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <h2 class="table-avatar d-flex align-items-center">
+                                                                            <a href="company-details.html"
+                                                                                class="profile-split d-flex flex-column">{{ $item->number_of_vacancies }}</a>
+                                                                        </h2>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>{{ $item->location??"-" }}</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>{{ $item->start_date??"-" }}</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>{{ $item->end_date??'-' }}</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>{{ $item->bank_job_ad_number??"0" }}</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>{{ $item->status??"Pending" }}</span>
+                                                                    </td>
+                                                                    <td>{{ $item->created_at->format('d M Y, h:i a') }}
+                                                                    </td>
+                                                                </tr>
+                                                                @php
+                                                                    $LISTNO1++;
+                                                                @endphp
+                                                            @endforeach
+                                                        @endif
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
                             <!-- /Files -->
 
                             <!-- Email -->
@@ -1043,3 +1030,14 @@
     </div>
     <!-- /Main Wrapper -->
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            // Initialize the date picker
+            $('.datepicker-input').datepicker({
+                dateFormat: 'mm/dd/yy', // Set the date format (e.g., mm/dd/yyyy)
+                showAnim: 'slideDown' // Choose an animation for the date picker (optional)
+            });
+        });
+    </script>
+@endpush

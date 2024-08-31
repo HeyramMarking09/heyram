@@ -234,10 +234,4 @@
         var getManageUser = "{{ route('admin.employers') }}";
         var detailURl = "{{ route('admin.employer-detail', ['id' => ':id']) }}";
     </script>
-    <script>
-        function assignEmployee(id)
-        {
-            alert(id);
-        }
-    </script>
 @endpush

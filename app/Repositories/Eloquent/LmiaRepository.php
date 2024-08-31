@@ -18,7 +18,7 @@ class LmiaRepository implements LmiaInterface
     }
     public function getById(array $data)
     {
-        return $this->model->where($data)->first();
+        return $this->model->with('jobBank')->where($data)->first();
     }
     public function getAll($sortOrder)
     {

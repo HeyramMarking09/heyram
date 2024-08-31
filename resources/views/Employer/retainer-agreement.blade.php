@@ -25,7 +25,7 @@
 
             <div class="row">
                 <!-- Lightbox -->
-                <div class="col-lg-12">
+                <div class="col-lg-9">
                     <div class="card">
                         <div class="card card letter-head text-left mb-0 bg-black" style="color: #fec917;">
                             <div class="card-body">

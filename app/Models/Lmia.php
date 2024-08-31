@@ -19,4 +19,8 @@ class Lmia extends Model
     {
         return $this->hasOne(CompanyInformation::class,'employer_id', 'employer_id');
     }
+    public function jobBank()
+    {
+        return $this->hasMany(JobBank::class,'employer_id', 'employer_id');
+    }
 }
