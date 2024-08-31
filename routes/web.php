@@ -90,6 +90,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('get-manage-users', [ManageUserController::class, 'getManageUsers'])->name('get-manage-users');
         Route::delete('delete-manage-users', [ManageUserController::class, 'deleteUser'])->name('manage.user.delete');
         Route::post('update-manage-users', [ManageUserController::class, 'updateUser'])->name('update.manage.user');
+        Route::post('assign-employee-form', [ManageUserController::class, 'assignEmployee'])->name('assign.employee.form');
+
 
         // Deleted Request Routes
         Route::get('delete-request', [ManageUserController::class, 'deleteRequest'])->name('delete-request');
@@ -97,8 +99,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::delete('permanent-delete-request', [ManageUserController::class, 'permanentDeleteRequest'])->name('permanent-delete-request');
         Route::delete('recover-delete-request', [ManageUserController::class, 'recoverDeleteRequest'])->name('recover-delete-request');
 
+
         // LMIA Request Route
         Route::get('lmia-request', [AdminLmiaController::class , 'index'])->name('lmia-request');
+        Route::get('lmia-detail/{id}', [AdminLmiaController::class , 'lmiaDetail'])->name('lmia-detail');
         Route::get('apply-for-an-lmia', [AdminLmiaController::class , 'applyForAnLmia'])->name('apply-for-an-lmia');
         Route::get('get-list-of-lmias', [AdminLmiaController::class , 'getListOfLmias'])->name('get-list-of-lmias');
         Route::post('change-lmia-status', [AdminLmiaController::class , 'changeLmiaStatus'])->name('change-lmia-status');

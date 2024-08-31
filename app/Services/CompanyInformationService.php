@@ -61,10 +61,12 @@ class CompanyInformationService
                 'more_then_five_million' => $data['more_then_five_million'],
                 'lmia_application_in_last_three_year' => $data['lmia_application_in_last_three_year'],
                 'description' => $data['description'],
-                'job_title_occupation' => isset($createData) && !is_null($createData) ? json_encode($createData) : null 
+                'job_title_occupation' => isset($createData) && !is_null($createData) ? json_encode($createData) : null ,
+                'same_as_business_address' => $data['same_as_business_address'],
+                'mailing_email_address' => $data['same_as_business_address'] == 1 ? Auth::user()->email : $data['mailing_email_address_two'],
             ];
-             $this->CompanyInformationRepository->create($confirmData);
-             return ['status'=>true , 'message'=>'Company Information Created Successfully!'];
+            $this->CompanyInformationRepository->create($confirmData);
+            return ['status'=>true , 'message'=>'Company Information Created Successfully!'];
         } catch (\Exception $exception) {
             Log::error("Error in CompanyInformationService.create() " . $exception->getLine() . ' ' . $exception->getMessage());
         }

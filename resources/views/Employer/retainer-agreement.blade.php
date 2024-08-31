@@ -27,11 +27,25 @@
                 <!-- Lightbox -->
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-header">
-                            {{-- <h4 class="card-title mb-0">Basic Wizard</h4> --}}
+                        <div class="card card letter-head text-left mb-0 bg-black" style="color: #fec917;">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-5 col-md-6 ps-3 ps-md-5 align-self-center" style="border-right: 2px solid;">
+                                        <img src="{{ asset('assets/img/retainer-logo.png') }}"  class="img-fluid" />
+                                    </div>
+                                    <div class="col-7 col-md-6 py-3 ps-3 ps-md-5">
+                                        <label>+1 888-737-8356</label><br />
+                                        <label>info@heyramconsulting.com</label><br />
+                                        <label>https://heyramconsulting.com</label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body"
+                            style="background: url(https://heyram.ca/visa_admin/public/assets/img/logo-transparent.png);background-position: center;
+    background-repeat: no-repeat;background-size: contain;">
                             <div id="basic-pills-wizard" class="twitter-bs-wizard">
+                                {{-- <h1>Retainer Agreement</h1> --}}
                                 <ul class="nav nav-tabs twitter-bs-wizard-nav">
                                     <li class="nav-item">
                                         <a href="javascript:void(0);" class="nav-link border-0 disabled firstList"
@@ -124,9 +138,8 @@
                                                             </b>
                                                         </p>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" required name="first_check" @if (isset($data))
-                                                                checked
-                                                            @endif
+                                                            <input class="form-check-input" required name="first_check"
+                                                                @if (isset($data)) checked @endif
                                                                 type="checkbox" id="flexCheckDefault">
                                                             <label class="form-check-label" for="flexCheckDefault">
                                                                 I accept
@@ -267,9 +280,8 @@
                                                                 first word Lastname first
                                                                 word)</b></p>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" required type="checkbox" @if (isset($data))
-                                                                checked
-                                                            @endif
+                                                            <input class="form-check-input" required type="checkbox"
+                                                                @if (isset($data)) checked @endif
                                                                 name="second_check" id="flexCheckDefault1">
                                                             <label class="form-check-label" for="flexCheckDefault1">
                                                                 I accept
@@ -381,10 +393,9 @@
                                                                     name="third_name" maxlength="9">(client firstname
                                                                 first word Lastname first word)</b></p>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" required name="third_check"
-                                                            @if (isset($data))
-                                                                checked
-                                                            @endif>
+                                                            <input class="form-check-input" type="checkbox" required
+                                                                name="third_check"
+                                                                @if (isset($data)) checked @endif>
                                                             <label class="form-check-label" for="flexCheckDefault2">
                                                                 I accept
                                                             </label>
@@ -505,10 +516,9 @@
                                                             Province/Territory of British Columbia.
                                                         </p>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" required name="forth_check"
-                                                            @if (isset($data))
-                                                                checked
-                                                            @endif> 
+                                                            <input class="form-check-input" type="checkbox" required
+                                                                name="forth_check"
+                                                                @if (isset($data)) checked @endif>
                                                             <label class="form-check-label" for="flexCheckDefault3">
                                                                 I accept
                                                             </label>
@@ -650,10 +660,9 @@
                                                         </div>
                                                         </p>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox"  required name="fifth_check"
-                                                            @if (isset($data))
-                                                                checked                                                                
-                                                            @endif>
+                                                            <input class="form-check-input" type="checkbox" required
+                                                                name="fifth_check"
+                                                                @if (isset($data)) checked @endif>
                                                             <label class="form-check-label" for="flexCheckDefault4">
                                                                 I accept
                                                             </label>
@@ -661,9 +670,11 @@
                                                     </div>
                                                 </div>
                                                 <ul class="pager wizard twitter-bs-wizard-pager-link">
-                                                    <li class="previous"><a href="javascript: void(0);" class="btn btn-primary"><i class="bx bx-chevron-left me-1"></i> Previous</a></li>
+                                                    <li class="previous"><a href="javascript: void(0);"
+                                                            class="btn btn-primary"><i
+                                                                class="bx bx-chevron-left me-1"></i> Previous</a></li>
                                                     @if (!isset($data))
-                                                        <li class="float-end"> 
+                                                        <li class="float-end">
                                                             <button type="submit" class="btn btn-primary">Submit</button>
                                                         </li>
                                                     @endif
@@ -719,16 +730,16 @@
                     name_first: {
                         required: true
                     },
-                    second_check:{
-                        required:true
+                    second_check: {
+                        required: true
                     }
                 },
                 messages: {
                     name_first: {
                         required: "Please provide a name"
                     },
-                    second_check:{
-                        required:"Please accept the terms"
+                    second_check: {
+                        required: "Please accept the terms"
                     }
                 },
                 submitHandler: function(form) {
@@ -748,7 +759,7 @@
                     third_name: {
                         required: true
                     },
-                    third_check:{
+                    third_check: {
                         required: true
                     }
                 },
@@ -780,7 +791,7 @@
                     // governing_law1: {
                     //     required: true
                     // },
-                    forth_check:{
+                    forth_check: {
                         required: true
                     }
                 },
@@ -791,7 +802,7 @@
                     // governing_law1: {
                     //     required: "Please provide a name"
                     // },
-                    forth_check:{
+                    forth_check: {
                         required: 'Please accept the terms'
                     }
                 },
@@ -809,7 +820,7 @@
                     client_signature: {
                         required: true
                     },
-                    fifth_check:{
+                    fifth_check: {
                         required: true
                     }
                 },
@@ -817,7 +828,7 @@
                     client_signature: {
                         required: "Please provide a signature"
                     },
-                    fifth_check:{
+                    fifth_check: {
                         required: 'Please accept the terms'
                     }
                 },

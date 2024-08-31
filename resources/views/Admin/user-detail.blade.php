@@ -970,7 +970,7 @@
                                                             @endif
                                                     </div>
                                                     @if (isset($data->companyDoc->following_document_file_two) && !is_null($data->companyDoc->following_document_file_two))
-                                                        <div class="mb-3" id="showHideDiv" style="display: none">
+                                                        <div class="mb-3">
                                                             <label for="disabledSelect" class="form-label">Following
                                                                 File</label>
                                                             <span> <a style="color:red"

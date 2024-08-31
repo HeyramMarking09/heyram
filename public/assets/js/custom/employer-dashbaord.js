@@ -73,6 +73,20 @@ $(document).ready(function () {
             },
             {
                 "render": function (data, type, row) {
+                    if(row['employee_assign'] !=0)
+                    {
+                        var ButtonText = 'Re-Assign';
+                        var employee_assign = row['employee_assign'];
+                    }else{
+                        var ButtonText = 'Assign';
+                        var employee_assign = 0;
+                    }
+                    // Build the dropdown menu for table action
+                    return '<a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#add_notes" onclick="getEmployerId('+ row.id +','+employee_assign+')" class="com-add"><i class="ti ti-circle-plus me-1"></i>'+ ButtonText +'</a>';
+                }
+            },
+            {
+                "render": function (data, type, row) {
                     // Generate the employer detail URL using the server-side route helper
                     var employerDetail = detailURl;
 
@@ -137,4 +151,10 @@ function CallMesssage(icon, title) {
         icon: icon,
         title: title
     });
+}
+
+function getEmployerId(id,employee_assign)
+{
+    $('#employerId').val(id);
+    $('#employee_assign').val(employee_assign);
 }

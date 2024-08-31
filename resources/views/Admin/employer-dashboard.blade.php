@@ -166,6 +166,7 @@
                                             <th>Email</th>
                                             <th>Created</th>
                                             <th>Status</th>
+                                            <th>Assign Employee</th>
                                             <th class="text-end">Action</th>
                                         </tr>
                                     </thead>
@@ -190,7 +191,41 @@
         </div>
     </div>
     <!-- /Page Wrapper -->
-    
+    <!-- Add Note -->
+		<div class="modal custom-modal fade modal-padding" id="add_notes" role="dialog">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Assign Employee</h5>
+						<button type="button" class="btn-close position-static" data-bs-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body p-0">
+						<form action="{{ route('admin.assign.employee.form') }}" method="post">
+                            @csrf
+							 <div class="form-wrap">
+								<label class="col-form-label">Employees <span class="text-danger"> *</span></label>
+                                <input type="hidden" id="employerId" name="id">
+                                <select name="assign_employee" id="employee_assign" class="select" required>
+                                    <option value="">Select</option>
+                                    @if (isset($UserData))
+                                        @foreach ($UserData as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }} {{ $item->last_name }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+							 </div>
+							 <div class="col-lg-12 text-end modal-btn">
+								<a class="btn btn-light" data-bs-dismiss="modal">Cancel</a>
+								<button class="btn btn-primary" type="submit">Assign</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /Add Note -->
 @endsection
 
 @push('scripts')
@@ -198,5 +233,11 @@
     <script>
         var getManageUser = "{{ route('admin.employers') }}";
         var detailURl = "{{ route('admin.employer-detail', ['id' => ':id']) }}";
+    </script>
+    <script>
+        function assignEmployee(id)
+        {
+            alert(id);
+        }
     </script>
 @endpush

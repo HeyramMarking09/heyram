@@ -1,8 +1,9 @@
-@extends('Employer.layouts.app')
+@extends('Admin.layouts.app')
 
 @section('content')
-     <!-- Page Wrapper -->
-     <div class="page-wrapper">
+
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
         <div class="content">
 
             <div class="row">
@@ -16,7 +17,7 @@
                             </div>
                             <div class="col-sm-8 text-sm-end">
                                 <div class="head-icons">
-                                    <a href="{{ route('employer.lmia-detail', ['id' => request()->id]) }}"
+                                    <a href="{{ route('admin.lmia-detail', ['id' => request()->id]) }}"
                                         data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Refresh"><i
                                             class="ti ti-refresh-dot"></i></a>
                                     <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -38,7 +39,7 @@
                         <div class="row align-items-center">
                             <div class="col-sm-6">
                                 <ul class="contact-breadcrumb">
-                                    <li><a href="{{ route('employer.lmia.list') }}"><i
+                                    <li><a href="{{ route('admin.lmia-request') }}"><i
                                                 class="ti ti-arrow-narrow-left"></i>Lmia</a></li>
                                     <li>{{ $data->users->name }} {{ $data->users->last_name }}</li>
                                 </ul>
@@ -542,11 +543,14 @@
                                         @php
                                             $AssignData = json_decode($data->assign_employee_data);
                                         @endphp
+                                        <form id="AssignEmployeeForm">
+                                            @csrf
                                             <div class="accordion-lists" id="list-accord">
                                                 <!-- Basic Info -->
                                                 <div class="manage-user-modal">
                                                     <div class="manage-user-modals">
                                                         <div class="row">
+                                                            <input type="hidden" value="{{ $data->id }}" name="id" id="lmiaId">
                                                             <div class="col-md-6">
                                                                 <div class="form-wrap">
                                                                     <label class="col-form-label">Job Title <span
@@ -652,11 +656,11 @@
                                                 </div>
                                                 <!-- /Basic Info -->
                                             </div>
-                                            {{-- <div class="submit-button text-end">
+                                            <div class="submit-button text-end">
                                                 <button type="submit" id="assignEmployeeSubmitButton"
                                                     class="btn btn-primary">Update</button>
-                                            </div> --}}
-                                        {{-- </form> --}}
+                                            </div>
+                                        </form>
                                     @endif
                                 </div>
                             </div>
@@ -1042,4 +1046,96 @@
 
     </div>
     <!-- /Main Wrapper -->
+
+
 @endsection
+
+@push('scripts')
+    {{-- <script>
+        function getValues(value) {
+            if (value == 0 || value === 0) {
+                $('#AnotherDetail').show();
+                $('#EmployeeDetail').hide();
+            } else {
+                $('#EmployeeDetail').show();
+                $('#AnotherDetail').hide();
+            }
+        }
+    </script> --}}
+    <script>
+        $(document).ready(function() {
+            $("#AssignEmployeeForm").validate({
+                rules: {
+                    job_title: {
+                        required: true
+                    },
+                    // file_assign_to_employee: {
+                    //     required: true
+                    // }
+                },
+                messages: {
+                    job_title: {
+                        required: "This field is required.",
+                    },
+                    // file_assign_to_employee: {
+                    //     required: "This field is required.",
+                    // }
+                },
+                submitHandler: function(form) {
+                    $('#assignEmployeeSubmitButton').prop('disabled', true);
+                    $.ajax({
+                        url: "{{ route('admin.lmia-assign-employee') }}",
+                        method: "POST",
+                        data: $(form).serialize(),
+                        headers: {
+                            'X-CSRF-TOKEN': "{{ csrf_token() }}" // Correctly add the CSRF token in the request header
+                        },
+                        success: function(response) {
+                            if (response.status == true || response.status === 'true') {
+                                // Show a success message
+                                CallMesssage('success', response.message);
+
+                                // $('.sidebar-close').click();
+                                // Reset the form
+                                // $('#AssignEmployee')[0].reset();
+                                $('#assignEmployeeSubmitButton').prop('disabled', false);
+                                window.location.reload();
+                            } else {
+                                CallMesssage('error', response.message);
+                                $('#assignEmployeeSubmitButton').prop('disabled', false);
+                            }
+                        },
+                        error: function(xhr) {
+                            var response = JSON.parse(xhr.responseText);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.error ||
+                                    'An unexpected error occurred.'
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        function CallMesssage(icon, title) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: icon,
+                title: title
+            });
+        }
+    </script>
+@endpush
