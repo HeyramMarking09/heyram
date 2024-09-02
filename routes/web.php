@@ -131,6 +131,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
         // Job Bank Routes
         Route::post('create-job', [JobBankController::class , 'create'])->name('create-job');
+        Route::delete('delete-bank-job', [JobBankController::class , 'deleteJob'])->name('delete-bank-job');
+        Route::post('update-job', [JobBankController::class , 'update'])->name('update-job');
 
         // Additional Doc Routes
         Route::post('add-additional-docs',[AdditionalDocumentController::class, 'addAdditionalDocs'])->name('add-additional-docs');

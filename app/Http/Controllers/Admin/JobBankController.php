@@ -22,4 +22,20 @@ class JobBankController extends Controller
             Log::error("Error In JobBankController.create() ". $th->getLine() .' '.$th->getMessage());
         }
     }
+    public function deleteJob(Request $request)
+    {
+        try {
+            return $this->JobBankService->delete($request->all());
+        } catch (\Exception $th) {
+            Log::error("Error In JobBankController.deleteJob() ". $th->getLine() .' '.$th->getMessage());
+        }
+    }
+    public function update(Request $request)
+    {
+        try {
+            return $this->JobBankService->update($request->all());
+        } catch (\Exception $th) {
+            Log::error("Error In JobBankController.update() ". $th->getLine() .' '.$th->getMessage());
+        }
+    }
 }

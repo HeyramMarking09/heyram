@@ -1,6 +1,7 @@
 @extends('Employer.layouts.app')
 
 @section('content')
+
     <!-- Page Wrapper -->
     <div class="page-wrapper">
         <div class="content">
@@ -319,9 +320,24 @@
                         {
                             "render": function(data, type, row) {
                                 var lmiaDetail = "{{ route('employer.lmia-detail', ['id' => '__ID__']) }}".replace('__ID__', row.id);
-                                return '<div class="dropdown table-action"><a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item edit-popup" href="javascript:void(0);"><i class="ti ti-edit text-blue"></i> Edit</a><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_contact"><i class="ti ti-trash text-danger"></i> Delete</a><a class="dropdown-item" href="' +
-                                    lmiaDetail +
-                                    '"><i class="ti ti-eye text-blue-light"></i> Preview</a></div></div>';
+                                return `
+                                        <div class="dropdown" style="position: relative; display: inline-block;">
+                                            <a href="#" class="action-icon" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end custom-dropdown">
+                                                <a class="dropdown-item edit-popup" href="javascript:void(0);">
+                                                    <i class="ti ti-edit text-blue"></i> Edit
+                                                </a>
+                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_contact">
+                                                    <i class="ti ti-trash text-danger"></i> Delete
+                                                </a>
+                                                <a class="dropdown-item" href="` + lmiaDetail + `">
+                                                    <i class="ti ti-eye text-blue-light"></i> Preview
+                                                </a>
+                                            </div>
+                                        </div>`;
+
                             }
                         }
                     ],

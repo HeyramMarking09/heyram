@@ -29,9 +29,9 @@ class JobBankRepository implements JobBankInterface
     {
         return $this->model->where('id', $data['id'])->update(['status'=>$data['status']]);
     }
-    public function update($id, array $data)
+    public function update(array $id, array $data)
     {
-        return $this->model->where('id', $id)->update($data);
+        return $this->model->where($id)->update($data);
     }
     public function delete($id)
     {
