@@ -433,14 +433,14 @@
                                                                             Job Title:</label>
                                                                         <div class="col-lg-12">
                                                                             <input type="text" name="suggested_job_title"
-                                                                                class="form-control" value="{{ $item->suggested_job_title }}">
+                                                                                class="form-control" value="{{ $data->suggested_job_title }}">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-xl-6">
                                                                         <label class="col-lg-12 col-form-label fw-bold">Number
                                                                             of Vacancies :</label>
                                                                         <div class="col-lg-12">
-                                                                            <input type="number" min="0" value="{{ $item->number_of_vacancies }}"
+                                                                            <input type="number" min="0" value="{{ $data->number_of_vacancies }}"
                                                                                 name="number_of_vacancies"
                                                                                 class="form-control">
                                                                         </div>
@@ -452,13 +452,13 @@
                                                                     <div class="col-lg-12">
                                                                         <div class="form-check form-check-inline">
                                                                             <input class="form-check-input" type="radio"
-                                                                                name="speak_english" value="1" @if ($item->speak_english == 1) checked @endif> 
+                                                                                name="speak_english" value="1" @if ($data->speak_english == 1) checked @endif> 
                                                                             <label class="form-check-label"
                                                                                 for="gender_male">Yes</label>
                                                                         </div>
                                                                         <div class="form-check form-check-inline">
                                                                             <input class="form-check-input" type="radio"
-                                                                                name="speak_english" value="0" @if ($item->speak_english == 0) checked @endif>
+                                                                                name="speak_english" value="0" @if ($data->speak_english == 0) checked @endif>
                                                                             <label class="form-check-label"
                                                                                 for="gender_female">No</label>
                                                                         </div>
@@ -470,13 +470,13 @@
                                                                     <div class="col-lg-12">
                                                                         <div class="form-check form-check-inline">
                                                                             <input class="form-check-input" type="radio"
-                                                                                name="write_english" value="1" @if ($item->write_english == 1) checked @endif>
+                                                                                name="write_english" value="1" @if ($data->write_english == 1) checked @endif>
                                                                             <label class="form-check-label"
                                                                                 for="gender_male">Yes</label>
                                                                         </div>
                                                                         <div class="form-check form-check-inline">
                                                                             <input class="form-check-input" type="radio"
-                                                                                name="write_english" value="0" @if ($item->write_english == 0) checked @endif>
+                                                                                name="write_english" value="0" @if ($data->write_english == 0) checked @endif>
                                                                             <label class="form-check-label"
                                                                                 for="gender_female">No</label>
                                                                         </div>
@@ -487,7 +487,7 @@
                                                                         TFWs are currently employed in the same occupation in
                                                                         which the LMIA(s) is/are requested?</label>
                                                                     <div class="col-lg-9">
-                                                                        <input type="number" min="0" value="{{ $item->same_occupation }}" 
+                                                                        <input type="number" min="0" value="{{ $data->same_occupation }}" 
                                                                             name="same_occupation" class="form-control">
                                                                     </div>
                                                                 </div>
