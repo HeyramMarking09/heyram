@@ -1127,6 +1127,21 @@
                                                         </li>
                                                     </ul>
                                                 </div>
+                                                <div class="card card letter-head text-left mb-0 bg-black" style="color: #fec917;">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-5 col-md-6 ps-3 ps-md-5 align-self-center" style="border-right: 2px solid;">
+                                                                <img src="{{ asset('assets/img/Letter-Head.png') }}"  class="img-fluid" />
+                                                            </div>
+                                                            <div class="col-7 col-md-6 py-3 ps-3 ps-md-5">
+                                                                <label>+1 888-737-8356</label><br />
+                                                                <label>info@heyramconsulting.com</label><br />
+                                                                <label>https://heyramconsulting.com</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <h2 style="margin-left: 296px; margin-top: 10px;">Retainer Agreement</h2>
                                                 <div class="card-body">
                                                     <div id="basic-pills-wizard" class="twitter-bs-wizard">
                                                         <ul class="nav nav-tabs twitter-bs-wizard-nav">
