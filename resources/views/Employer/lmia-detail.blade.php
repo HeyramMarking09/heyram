@@ -451,7 +451,7 @@
                                                                     <div class="col-lg-12">
                                                                         <input type="text" name="suggested_job_title"
                                                                             class="form-control"
-                                                                            value="{{ $item->suggested_job_title }}">
+                                                                            value="{{ $data->suggested_job_title }}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-xl-6">
@@ -459,7 +459,7 @@
                                                                         of Vacancies :</label>
                                                                     <div class="col-lg-12">
                                                                         <input type="number" min="0"
-                                                                            value="{{ $item->number_of_vacancies }}"
+                                                                            value="{{ $data->number_of_vacancies }}"
                                                                             name="number_of_vacancies"
                                                                             class="form-control">
                                                                     </div>
@@ -472,14 +472,14 @@
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio"
                                                                             name="speak_english" value="1"
-                                                                            @if ($item->speak_english == 1) checked @endif>
+                                                                            @if ($data->speak_english == 1) checked @endif>
                                                                         <label class="form-check-label"
                                                                             for="gender_male">Yes</label>
                                                                     </div>
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio"
                                                                             name="speak_english" value="0"
-                                                                            @if ($item->speak_english == 0) checked @endif>
+                                                                            @if ($data->speak_english == 0) checked @endif>
                                                                         <label class="form-check-label"
                                                                             for="gender_female">No</label>
                                                                     </div>
@@ -492,14 +492,14 @@
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio"
                                                                             name="write_english" value="1"
-                                                                            @if ($item->write_english == 1) checked @endif>
+                                                                            @if ($data->write_english == 1) checked @endif>
                                                                         <label class="form-check-label"
                                                                             for="gender_male">Yes</label>
                                                                     </div>
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio"
                                                                             name="write_english" value="0"
-                                                                            @if ($item->write_english == 0) checked @endif>
+                                                                            @if ($data->write_english == 0) checked @endif>
                                                                         <label class="form-check-label"
                                                                             for="gender_female">No</label>
                                                                     </div>
@@ -511,7 +511,7 @@
                                                                     which the LMIA(s) is/are requested?</label>
                                                                 <div class="col-lg-9">
                                                                     <input type="number" min="0"
-                                                                        value="{{ $item->same_occupation }}"
+                                                                        value="{{ $data->same_occupation }}"
                                                                         name="same_occupation" class="form-control">
                                                                 </div>
                                                             </div>
@@ -762,6 +762,10 @@
                                                                 rowspan="1" colspan="1"
                                                                 aria-label="Created Date: activate to sort column ascending"
                                                                 style="width: 35px;">Created Date</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="leads_list"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Created Date: activate to sort column ascending"
+                                                                style="width: 35px;">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -771,34 +775,46 @@
                                                             @endphp
                                                             @foreach ($data->jobBank as $item)
                                                                 <tr class="odd">
-                                                                    <td><a href="leads-details.html"
-                                                                            class="title-name">{{ $LISTNO1 }}</a>
+                                                                    <td>
+                                                                        {{ $LISTNO1 }}</a>
                                                                     </td>
-                                                                    <td><a href="leads-details.html"
+                                                                    <td><a href="#"
                                                                             class="title-name">{{ $item->job_title }}</a>
                                                                     </td>
                                                                     <td>
-                                                                        <h2 class="table-avatar d-flex align-items-center">
-                                                                            <a href="company-details.html"
-                                                                                class="profile-split d-flex flex-column">{{ $item->number_of_vacancies }}</a>
-                                                                        </h2>
+                                                                        {{ $item->number_of_vacancies }}
                                                                     </td>
                                                                     <td>
-                                                                        <span>{{ $item->location??"-" }}</span>
+                                                                        <span>{{ $item->location ?? '-' }}</span>
                                                                     </td>
                                                                     <td>
-                                                                        <span>{{ $item->start_date??"-" }}</span>
+                                                                        <span>{{ $item->start_date ?? '-' }}</span>
                                                                     </td>
                                                                     <td>
-                                                                        <span>{{ $item->end_date??'-' }}</span>
+                                                                        <span>{{ $item->end_date ?? '-' }}</span>
                                                                     </td>
                                                                     <td>
-                                                                        <span>{{ $item->bank_job_ad_number??"0" }}</span>
+                                                                        <span>{{ $item->bank_job_ad_number ?? '0' }}</span>
                                                                     </td>
                                                                     <td>
-                                                                        <span>{{ $item->status??"Pending" }}</span>
+                                                                        <span>{{ $item->status ?? 'Pending' }}</span>
                                                                     </td>
                                                                     <td>{{ $item->created_at->format('d M Y, h:i a') }}
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="dropdown table-action"><a
+                                                                                href="#" class="action-icon "
+                                                                                data-bs-toggle="dropdown"
+                                                                                aria-expanded="false"><i
+                                                                                    class="fa fa-ellipsis-v"></i></a>
+                                                                            <div class="dropdown-menu dropdown-menu-right">
+                                                                                <a class="dropdown-item add-popups"
+                                                                                    onclick="getValueForBankJob('{{ $item->id }}','{{ $item->job_title }}','{{ $item->number_of_vacancies }}','{{ $item->location }}','{{ $item->start_date }}','{{ $item->end_date }}','{{ $item->bank_job_ad_number }}','{{ $item->status }}')"
+                                                                                    href="#"><i
+                                                                                        class="ti ti-eye text-blue"></i>
+                                                                                    Preview</a>
+                                                                            </div>
+                                                                        </div>
                                                                     </td>
                                                                 </tr>
                                                                 @php
@@ -1029,6 +1045,86 @@
 
     </div>
     <!-- /Main Wrapper -->
+
+    <!-- Add User -->
+    <div class="toggle-popup2" id="userPopup2">
+        <div class="sidebar-layout">
+            <div class="sidebar-header">
+                <h4>Update Job</h4>
+                <a href="#" class="sidebar-close toggle-btn"><i class="ti ti-x"></i></a>
+            </div>
+            <div class="toggle-body">
+                <div class="pro-create">
+                    <div class="accordion-lists" id="list-accord">
+                        <!-- Basic Info -->
+                        <input type="hidden" name="id" id="job_id">
+                        <div class="manage-user-modal">
+                            <div class="manage-user-modals">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-wrap">
+                                            <label class="col-form-label">Job Title <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" name="job_title" id="job_title" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-wrap">
+                                            <label class="col-form-label">Number Of Vacancies</label>
+                                            <input type="number" min="0" id="number_of_vacancies"
+                                                name="number_of_vacancies" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-wrap">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <label class="col-form-label">Location</label>
+                                            </div>
+                                            <input type="text" name="location" id="location" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-wrap">
+                                            <label class="col-form-label">Start Date</label>
+                                            <input type="text" name="start_date" id="start_date"
+                                                class="form-control datepicker">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-wrap">
+                                            <label class="col-form-label">End Date</label>
+                                            <input type="text" name="end_date" id="end_date"
+                                                class="form-control datepicker">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-wrap">
+                                            <label class="col-form-label">Bank Job ad Number </label>
+                                            <input type="number" min="0" id="bank_job_ad_number"
+                                                name="bank_job_ad_number" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-wrap">
+                                            <label class="col-form-label"> Status</label>
+                                            <select class="select" id="status" name="status">
+                                                <option value="">-Select-</option>
+                                                <option value="advertised">Advertised</option>
+                                                <option value="pending">Pending</option>
+                                                <option value="decline">Decline</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Basic Info -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add User -->
 @endsection
 @push('scripts')
     <script>
@@ -1039,5 +1135,18 @@
                 showAnim: 'slideDown' // Choose an animation for the date picker (optional)
             });
         });
+    </script>
+    <script>
+        function getValueForBankJob(id, job_title, number_of_vacancies, location, start_date, end_date, bank_job_ad_number,
+            status) {
+            $('#job_id').val(id);
+            $('#job_title').val(job_title);
+            $('#number_of_vacancies').val(number_of_vacancies);
+            $('#location').val(location);
+            $('#start_date').val(start_date);
+            $('#end_date').val(end_date);
+            $('#bank_job_ad_number').val(bank_job_ad_number);
+            $('#status').val(status);
+        }
     </script>
 @endpush

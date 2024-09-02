@@ -8,6 +8,7 @@
             opacity: 0.5;
             /* Optional: to give a visual cue that the tab is disabled */
         }
+
     </style>
     <div class="page-wrapper cardhead">
 
@@ -23,7 +24,7 @@
             </div>
             <!-- /Page Header -->
 
-            <div class="row">
+            <div class="row" style="display:flex; justify-content:center; align-items:center;">
                 <!-- Lightbox -->
                 <div class="col-lg-9">
                     <div class="card">
@@ -43,7 +44,7 @@
                         </div>
                         <div class="card-body"
                             style="background: url(https://heyram.ca/visa_admin/public/assets/img/logo-transparent.png);background-position: center;
-    background-repeat: no-repeat;background-size: contain;">
+                            background-repeat: no-repeat;background-size: contain;">
                             <div id="basic-pills-wizard" class="twitter-bs-wizard">
                                 {{-- <h1>Retainer Agreement</h1> --}}
                                 <ul class="nav nav-tabs twitter-bs-wizard-nav">

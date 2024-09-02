@@ -79,9 +79,11 @@
                             </div>
                         </div>
                         <div class="contacts-action">
-                            <button class="btn btn-primary edit-popup me-2"><i class="ti ti-square-rounded-plus"></i>Addition Docs</button>
+                            <button class="btn btn-primary edit-popup me-2"><i
+                                    class="ti ti-square-rounded-plus"></i>Addition Docs</button>
                             {{-- <button class="btn btn-primary me-2 add-popups"><i class="ti ti-square-rounded-plus"></i>Job Edit</button> --}}
-                            <button class="btn btn-primary add-popup"><i class="ti ti-square-rounded-plus"></i>Job Add</button>
+                            <button class="btn btn-primary add-popup"><i class="ti ti-square-rounded-plus"></i>Job
+                                Add</button>
                         </div>
                     </div>
                     <!-- /Leads User -->
@@ -128,7 +130,7 @@
                                         class="ti ti-mail-check"></i>Retainer Agreement</a>
                             </li>
                             <li>
-                                <a href="#" data-bs-toggle="tab" data-bs-target="#email"><i
+                                <a href="#" data-bs-toggle="tab" data-bs-target="#lmiaList"><i
                                         class="ti ti-mail-check"></i>Lmia List</a>
                             </li>
                             <li>
@@ -297,7 +299,7 @@
                             <!-- /Activities -->
 
                             <!-- Email -->
-                            <div class="tab-pane fade" id="email">
+                            <div class="tab-pane fade" id="lmiaList">
                                 <div class="view-header">
                                     <h4>Lmias</h4>
                                 </div>
@@ -342,16 +344,16 @@
                                                             @endphp
                                                             @foreach ($data->lmias as $item)
                                                                 <tr class="odd">
-                                                                    <td><a href="leads-details.html"
+                                                                    <td><a href="{{ route('admin.lmia-detail',['id'=>$item->id]) }}"
                                                                             class="title-name">{{ $LISTNO }}</a>
                                                                     </td>
-                                                                    <td><a href="leads-details.html"
+                                                                    <td><a href="{{ route('admin.lmia-detail',['id'=>$item->id]) }}"
                                                                             class="title-name">{{ $data->name }}
                                                                             {{ $data->last_name }}</a></td>
                                                                     <td>
                                                                         <h2 class="table-avatar d-flex align-items-center">
-                                                                            <a href="company-details.html"
-                                                                                class="profile-split d-flex flex-column">{{ $data->companyInformation->company_legel_name??null }}</a>
+                                                                            <a href="#"
+                                                                                class="profile-split d-flex flex-column">{{ $data->companyInformation->company_legel_name ?? '-' }}</a>
                                                                         </h2>
                                                                     </td>
                                                                     <td>
@@ -763,7 +765,9 @@
                                                                                 <div class="card-body">
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input"
-                                                                                            @if (isset($data) && !empty($data->companyInformation) && $data->companyInformation->lmia_application_in_last_three_year == 1) checked @endif
+                                                                                            @if (isset($data) &&
+                                                                                                    !empty($data->companyInformation) &&
+                                                                                                    $data->companyInformation->lmia_application_in_last_three_year == 1) checked @endif
                                                                                             type="radio"
                                                                                             name="lmia_application_in_last_three_year"
                                                                                             id="flexRadioDefault3"
@@ -778,7 +782,9 @@
                                                                                         <input class="form-check-input"
                                                                                             type="radio"
                                                                                             name="lmia_application_in_last_three_year"
-                                                                                            @if (isset($data) && !empty($data->companyInformation) && $data->companyInformation->lmia_application_in_last_three_year == 0) checked @endif
+                                                                                            @if (isset($data) &&
+                                                                                                    !empty($data->companyInformation) &&
+                                                                                                    $data->companyInformation->lmia_application_in_last_three_year == 0) checked @endif
                                                                                             id="flexRadioDefault4"
                                                                                             onclick="showHideJobTitle('2')"
                                                                                             value="0">
@@ -812,7 +818,9 @@
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <div class="col-md-6"
-                                                                                                    @if (isset($data) && !empty($data->companyInformation) && $data->companyInformation->lmia_application_in_last_three_year == 0) style="display: none;" @endif>
+                                                                                                    @if (isset($data) &&
+                                                                                                            !empty($data->companyInformation) &&
+                                                                                                            $data->companyInformation->lmia_application_in_last_three_year == 0) style="display: none;" @endif>
                                                                                                     <div
                                                                                                         class="d-flex align-items-center">
                                                                                                         <div
@@ -880,7 +888,7 @@
                                                                                     activity at this work
                                                                                     location?</label>
                                                                                 <input type="text"
-                                                                                    @if (isset($data) && !empty($data->companyInformation) ) value="{{ $data->companyInformation->description }}" @endif
+                                                                                    @if (isset($data) && !empty($data->companyInformation)) value="{{ $data->companyInformation->description }}" @endif
                                                                                     name="description"
                                                                                     class="form-control"
                                                                                     placeholder="description"
@@ -923,29 +931,29 @@
                                                     <div class="mb-3">
                                                         <label for="input-file" class="form-label">Certificate of
                                                             Incorporation</label>
-                                                            @if (isset($data) && !empty($data->companyDoc))
+                                                        @if (isset($data) && !empty($data->companyDoc))
                                                             <span> <a style="color:red"
                                                                     href="{{ route('admin.download.file', ['filename' => $data->companyDoc->certificate_of_incorporation]) }}">
                                                                     Downlaod File</a></span>
-                                                            @endif
+                                                        @endif
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="input-file" class="form-label">Valid Business
                                                             License</label>
-                                                            @if (isset($data) && !empty($data->companyDoc))
+                                                        @if (isset($data) && !empty($data->companyDoc))
                                                             <span> <a style="color:red"
                                                                     href="{{ route('admin.download.file', ['filename' => $data->companyDoc->valid_business_license]) }}">
                                                                     Downlaod File</a></span>
-                                                            @endif
+                                                        @endif
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="input-file" class="form-label">T4 Summary of the
                                                             Company</label>
-                                                            @if (isset($data) && !empty($data->companyDoc))
-                                                                <span> <a style="color:red"
-                                                                        href="{{ route('admin.download.file', ['filename' => $data->companyDoc->summary_of_company]) }}">
-                                                                        Downlaod File</a></span>
-                                                            @endif
+                                                        @if (isset($data) && !empty($data->companyDoc))
+                                                            <span> <a style="color:red"
+                                                                    href="{{ route('admin.download.file', ['filename' => $data->companyDoc->summary_of_company]) }}">
+                                                                    Downlaod File</a></span>
+                                                        @endif
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="disabledSelect" class="form-label">Please upload
@@ -953,22 +961,43 @@
                                                             following document:</label>
                                                         <select id="disabledSelect" class="form-select">
                                                             <option value="">--Select--</option>
-                                                            <option value="1"  @if (isset($data->companyDoc->following_document) && $data->companyDoc->following_document == 1) selected @endif>Your most recent T2 Schedule 100 Balance sheet information and T2 Schedule 125 Income statement information</option>
-                                                            <option value="6" @if (isset($data->companyDoc->following_document) && $data->companyDoc->following_document == 6) selected @endif>An attestation confirming that your business is in good financial standing and will be able to meet all financial obligations to any TFW you hire for the entire duration of their employment. </option>
-                                                            <option value="2" @if (isset($data->companyDoc->following_document) && $data->companyDoc->following_document == 2) selected @endif>Your most recent T2042 Statement of farming activities</option>
-                                                            <option value="3" @if (isset($data->companyDoc->following_document) && $data->companyDoc->following_document == 3) selected @endif>Your most recent T2125 Statement of business or professional activities</option>
-                                                            <option value="4" @if (isset($data->companyDoc->following_document) && $data->companyDoc->following_document == 4) selected @endif>Your most recent T3010 Registered charity information return </option>
-                                                            <option value="5" @if (isset($data->companyDoc->following_document) && $data->companyDoc->following_document == 5) selected @endif >Your most recent T4 or payroll records for a minimum of 6 weeks immediately prior to the submission of this LMIA application if the temporary foreign worker (TFW) already works for you.</option>
+                                                            <option value="1"
+                                                                @if (isset($data->companyDoc->following_document) && $data->companyDoc->following_document == 1) selected @endif>Your
+                                                                most recent T2 Schedule 100 Balance sheet information and T2
+                                                                Schedule 125 Income statement information</option>
+                                                            <option value="6"
+                                                                @if (isset($data->companyDoc->following_document) && $data->companyDoc->following_document == 6) selected @endif>An
+                                                                attestation confirming that your business is in good
+                                                                financial standing and will be able to meet all financial
+                                                                obligations to any TFW you hire for the entire duration of
+                                                                their employment. </option>
+                                                            <option value="2"
+                                                                @if (isset($data->companyDoc->following_document) && $data->companyDoc->following_document == 2) selected @endif>Your
+                                                                most recent T2042 Statement of farming activities</option>
+                                                            <option value="3"
+                                                                @if (isset($data->companyDoc->following_document) && $data->companyDoc->following_document == 3) selected @endif>Your
+                                                                most recent T2125 Statement of business or professional
+                                                                activities</option>
+                                                            <option value="4"
+                                                                @if (isset($data->companyDoc->following_document) && $data->companyDoc->following_document == 4) selected @endif>Your
+                                                                most recent T3010 Registered charity information return
+                                                            </option>
+                                                            <option value="5"
+                                                                @if (isset($data->companyDoc->following_document) && $data->companyDoc->following_document == 5) selected @endif>Your
+                                                                most recent T4 or payroll records for a minimum of 6 weeks
+                                                                immediately prior to the submission of this LMIA application
+                                                                if the temporary foreign worker (TFW) already works for you.
+                                                            </option>
                                                         </select>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="disabledSelect" class="form-label">Following
                                                             File</label>
-                                                            @if (isset($data) && !empty($data->companyDoc))
+                                                        @if (isset($data) && !empty($data->companyDoc))
                                                             <span> <a style="color:red"
                                                                     href="{{ route('admin.download.file', ['filename' => $data->companyDoc->following_document_file_one]) }}">
                                                                     Downlaod File</a></span>
-                                                            @endif
+                                                        @endif
                                                     </div>
                                                     @if (isset($data->companyDoc->following_document_file_two) && !is_null($data->companyDoc->following_document_file_two))
                                                         <div class="mb-3">
@@ -990,24 +1019,29 @@
                                                         <table class="table no-footer" style="width: 1241px;">
                                                             <thead class="thead-light">
                                                                 <tr>
-                                                                    <th class="sorting" tabindex="0" aria-controls="leads_list"
-                                                                        rowspan="1" colspan="1"
+                                                                    <th class="sorting" tabindex="0"
+                                                                        aria-controls="leads_list" rowspan="1"
+                                                                        colspan="1"
                                                                         aria-label="Lead Name: activate to sort column ascending"
                                                                         style="width: 20px;">Id</th>
-                                                                    <th class="sorting" tabindex="0" aria-controls="leads_list"
-                                                                        rowspan="1" colspan="1"
+                                                                    <th class="sorting" tabindex="0"
+                                                                        aria-controls="leads_list" rowspan="1"
+                                                                        colspan="1"
                                                                         aria-label="Lead Name: activate to sort column ascending"
                                                                         style="width: 30px;">Name</th>
-                                                                    <th class="sorting" tabindex="0" aria-controls="leads_list"
-                                                                        rowspan="1" colspan="1"
+                                                                    <th class="sorting" tabindex="0"
+                                                                        aria-controls="leads_list" rowspan="1"
+                                                                        colspan="1"
                                                                         aria-label="Company Name: activate to sort column ascending"
                                                                         style="width: 93px;">Dead Line Date</th>
-                                                                    <th class="sorting" tabindex="0" aria-controls="leads_list"
-                                                                        rowspan="1" colspan="1"
+                                                                    <th class="sorting" tabindex="0"
+                                                                        aria-controls="leads_list" rowspan="1"
+                                                                        colspan="1"
                                                                         aria-label="Created Date: activate to sort column ascending"
                                                                         style="width: 35px;">Simple File</th>
-                                                                    <th class="sorting" tabindex="0" aria-controls="leads_list"
-                                                                        rowspan="1" colspan="1"
+                                                                    <th class="sorting" tabindex="0"
+                                                                        aria-controls="leads_list" rowspan="1"
+                                                                        colspan="1"
                                                                         aria-label="Created Date: activate to sort column ascending"
                                                                         style="width: 35px;">Docs File</th>
 
@@ -1023,18 +1057,25 @@
                                                                             <td>{{ $LISTNO2 }}</td>
                                                                             <td>{{ $item->name }}</td>
                                                                             <td>{{ $item->dead_line_date }}</td>
-                                                                            <td><span> <a style="color:red" href="{{ route('admin.download.file', ['filename' => $item->simple_file]) }}"><i class="ti ti-download text-danger"></i> Downlaod File</a></span></td>
+                                                                            <td><span> <a style="color:red"
+                                                                                        href="{{ route('admin.download.file', ['filename' => $item->simple_file]) }}"><i
+                                                                                            class="ti ti-download text-danger"></i>
+                                                                                        Downlaod File</a></span></td>
                                                                             <td>
                                                                                 @if (!is_null($item->docs_file))
-                                                                                    <span> <a style="color:red" href="{{ route('admin.download.file', ['filename' => $item->docs_file]) }}"><i class="ti ti-download text-danger"></i> Downlaod File</a></span></td>
-                                                                                @else
-                                                                                    -
-                                                                                @endif
-                                                                        </tr>
-                                                                        @php
-                                                                            $LISTNO2++;
-                                                                        @endphp
-                                                                    @endforeach
+                                                                                    <span> <a style="color:red"
+                                                                                            href="{{ route('admin.download.file', ['filename' => $item->docs_file]) }}"><i
+                                                                                                class="ti ti-download text-danger"></i>
+                                                                                            Downlaod File</a></span>
+                                                                            </td>
+                                                                        @else
+                                                                            -
+                                                                    @endif
+                                                                    </tr>
+                                                                    @php
+                                                                        $LISTNO2++;
+                                                                    @endphp
+                                                                @endforeach
                                                                 @endif
                                                             </tbody>
                                                         </table>
@@ -1381,7 +1422,7 @@
                                                                                     <input type="text"
                                                                                         class="text-container"
                                                                                         name="name_first"
-                                                                                        @if (isset($data) && !empty($data->retainerAgreements) ) value="{{ $data->retainerAgreements->name_first }}" @endif
+                                                                                        @if (isset($data) && !empty($data->retainerAgreements)) value="{{ $data->retainerAgreements->name_first }}" @endif
                                                                                         placeholder="Name">(client
                                                                                     firstname
                                                                                     first word Lastname first
@@ -2036,47 +2077,48 @@
                                                             @endphp
                                                             @foreach ($data->jobBank as $item)
                                                                 <tr class="odd">
-                                                                    <td><a href="leads-details.html"
+                                                                    <td><a href="#"
                                                                             class="title-name">{{ $LISTNO1 }}</a>
                                                                     </td>
-                                                                    <td><a href="leads-details.html"
+                                                                    <td><a href="#"
                                                                             class="title-name">{{ $item->job_title }}</a>
                                                                     </td>
                                                                     <td>
                                                                         <h2 class="table-avatar d-flex align-items-center">
-                                                                            <a href="company-details.html"
+                                                                            <a href="#"
                                                                                 class="profile-split d-flex flex-column">{{ $item->number_of_vacancies }}</a>
                                                                         </h2>
                                                                     </td>
                                                                     <td>
-                                                                        <span>{{ $item->location??'-' }}</span>
+                                                                        <span>{{ $item->location ?? '-' }}</span>
                                                                     </td>
                                                                     <td>
-                                                                        <span>{{ $item->start_date??'-' }}</span>
+                                                                        <span>{{ $item->start_date ?? '-' }}</span>
                                                                     </td>
                                                                     <td>
-                                                                        <span>{{ $item->end_date??'-' }}</span>
+                                                                        <span>{{ $item->end_date ?? '-' }}</span>
                                                                     </td>
                                                                     <td>
-                                                                        <span>{{ $item->bank_job_ad_number??'0' }}</span>
+                                                                        <span>{{ $item->bank_job_ad_number ?? '0' }}</span>
                                                                     </td>
                                                                     <td>
-                                                                        <span>{{ $item->status??"Pending" }}</span>
+                                                                        <span>{{ $item->status ?? 'Pending' }}</span>
                                                                     </td>
                                                                     <td>{{ $item->created_at->format('d M Y, h:i a') }}
                                                                     </td>
                                                                     <td>
                                                                         <div class="dropdown table-action"><a
                                                                                 href="#" class="action-icon "
-                                                                                data-bs-toggle="dropdown"
+                                                                                data-bs-toggle="dropdown" 
                                                                                 aria-expanded="false"><i
                                                                                     class="fa fa-ellipsis-v"></i></a>
                                                                             <div class="dropdown-menu dropdown-menu-right">
-                                                                                <a class="dropdown-item add-popups"
+                                                                                <a class="dropdown-item add-popups" onclick="getValueForBankJob('{{ $item->id }}','{{ $item->job_title }}','{{ $item->number_of_vacancies }}','{{ $item->location }}','{{ $item->start_date }}','{{ $item->end_date }}','{{ $item->bank_job_ad_number }}','{{ $item->status }}')"
                                                                                     href="#"><i
                                                                                         class="ti ti-edit text-blue"></i>
                                                                                     Edit</a><a class="dropdown-item"
                                                                                     href="#" data-bs-toggle="modal"
+                                                                                    onclick="getBankDelete('{{ $item->id }}')"
                                                                                     data-bs-target="#bank_job_delete_contact"><i
                                                                                         class="ti ti-trash text-danger"></i>
                                                                                     Delete</a>
@@ -2154,13 +2196,13 @@
                                         <div class="col-md-6">
                                             <div class="form-wrap">
                                                 <label class="col-form-label">Start Date</label>
-                                                <input type="text"  name="start_date" class="form-control datepicker">
+                                                <input type="text" name="start_date" class="form-control datepicker">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-wrap">
                                                 <label class="col-form-label">End Date</label>
-                                                <input type="text"  name="end_date" class="form-control datepicker">
+                                                <input type="text" name="end_date" class="form-control datepicker">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -2196,8 +2238,8 @@
         </div>
     </div>
     <!-- /Add User -->
-     <!-- Edit User -->
-     <div class="toggle-popup1">
+    <!-- Edit User -->
+    <div class="toggle-popup1">
         <div class="sidebar-layout">
             <div class="sidebar-header">
                 <h4>Add Request For Additional Documents</h4>
@@ -2230,7 +2272,8 @@
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label class="col-form-label">Simple Fine </label>
                                                 </div>
-                                                <input type="file" name="simple_file" accept=".pdf,.doc,.docx" class="form-control">
+                                                <input type="file" name="simple_file" accept=".pdf,.doc,.docx"
+                                                    class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -2257,11 +2300,11 @@
             </div>
             <div class="toggle-body">
                 <div class="pro-create">
-                    <form id="manageUserForm">
+                    <form id="JobFormUpdate">
                         @csrf
                         <div class="accordion-lists" id="list-accord">
                             <!-- Basic Info -->
-                            <input type="hidden" name="employer_id" value="{{ request()->id }}">
+                            <input type="hidden" name="id" id="job_id">
                             <div class="manage-user-modal">
                                 <div class="manage-user-modals">
                                     <div class="row">
@@ -2269,13 +2312,13 @@
                                             <div class="form-wrap">
                                                 <label class="col-form-label">Job Title <span
                                                         class="text-danger">*</span></label>
-                                                <input type="text" name="job_title" class="form-control">
+                                                <input type="text" name="job_title" id="job_title" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-wrap">
                                                 <label class="col-form-label">Number Of Vacancies</label>
-                                                <input type="number" min="0" name="number_of_vacancies"
+                                                <input type="number" min="0" id="number_of_vacancies" name="number_of_vacancies"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -2284,32 +2327,33 @@
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label class="col-form-label">Location</label>
                                                 </div>
-                                                <input type="text" name="location" class="form-control">
+                                                <input type="text" name="location" id="location" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-wrap">
                                                 <label class="col-form-label">Start Date</label>
-                                                <input type="text"  name="start_date" class="form-control datepicker">
+                                                <input type="text" name="start_date" id="start_date"
+                                                    class="form-control datepicker">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-wrap">
                                                 <label class="col-form-label">End Date</label>
-                                                <input type="text"  name="end_date" class="form-control datepicker">
+                                                <input type="text" name="end_date" id="end_date" class="form-control datepicker">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-wrap">
                                                 <label class="col-form-label">Bank Job ad Number </label>
-                                                <input type="number" min="0" name="bank_job_ad_number"
+                                                <input type="number" min="0" id="bank_job_ad_number" name="bank_job_ad_number"
                                                     class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-wrap">
                                                 <label class="col-form-label"> Status</label>
-                                                <select class="select" name="status">
+                                                <select class="select" id="status" name="status">
                                                     <option value="">-Select-</option>
                                                     <option value="advertised">Advertised</option>
                                                     <option value="pending">Pending</option>
@@ -2324,7 +2368,7 @@
                         </div>
                         <div class="submit-button text-end">
                             <a href="#" class="btn btn-light sidebar-close">Cancel</a>
-                            <button type="submit" id="createUserSubmitButton" class="btn btn-primary">Submit</button>
+                            <button type="submit" id="JobUpdateSubmitButton" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -2332,6 +2376,35 @@
         </div>
     </div>
     <!-- /Add User -->
+
+    <!-- Delete Contact -->
+    <div class="modal custom-modal fade" id="bank_job_delete_contact" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 m-0 justify-content-end">
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="ti ti-x"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="success-message text-center">
+                        <div class="success-popup-icon">
+                            <i class="ti ti-trash-x"></i>
+                        </div>
+                        <h3>Remove Job Bank?</h3>
+                        <input type="hidden" name="id" id="job-bank-id">
+                        <p class="del-info">Are you sure you want to remove Job Bank you selected.</p>
+                        <div class="col-lg-12 text-center modal-btn">
+                            <a href="#" class="btn btn-light" data-bs-dismiss="modal">Cancel</a>
+                            <button class="btn btn-danger" id="deleteBankJobButton" onclick="deleteBankJob()">Yes,
+                                Delete it</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Delete Contact -->
 @endsection
 @push('scripts')
     <!-- Wizard JS -->
@@ -2452,7 +2525,7 @@
             });
         });
     </script>
-     <script>
+    <script>
         $(document).ready(function() {
             $("#AdditionalDocs").validate({
                 rules: {
@@ -2486,7 +2559,7 @@
                         method: "POST",
                         data: AdditionalDocsData,
                         processData: false, // Prevent jQuery from automatically processing the data
-                        contentType: false, 
+                        contentType: false,
 
                         success: function(response) {
                             if (response.status == true || response.status === 'true') {
@@ -2541,15 +2614,149 @@
             // Initialize the date picker
             $('.datepicker').datepicker({
                 dateFormat: 'mm/dd/yy', // Set the date format (e.g., mm/dd/yyyy)
-                showAnim: 'slideDown'   // Choose an animation for the date picker (optional)
+                showAnim: 'slideDown' // Choose an animation for the date picker (optional)
             });
         });
     </script>
     <script>
-        function getPopUp()
-        {
-           $('#userPopup2').show();
-           $('#userPopup2').addClass('sidebar-popup');
+        function getBankDelete(id) {
+            $('#job-bank-id').val(id);
         }
+    </script>
+    <script>
+        function deleteBankJob() {
+            var id = $('#job-bank-id').val();
+            $('#deleteBankJobButton').prop('disabled', true);
+            $.ajax({
+                url: "{{ route('admin.delete-bank-job') }}",
+                method: "DELETE",
+                data: {
+                    id: id,
+                    _token: "{{ csrf_token() }}"
+                },
+
+                success: function(response) {
+                    if (response.status == true || response.status === 'true') {
+                        // Show a success message
+                        CallMesssage('success', response.message);
+
+                        $('.btn-close').click();
+                        $('#deleteBankJobButton').prop('disabled', false);
+                        // Reload the DataTable
+                        window.location.reload();
+                    } else {
+                        CallMesssage('error', response.message);
+                        $('#deleteBankJobButton').prop('disabled', false);
+                    }
+                },
+                error: function(xhr) {
+                    var response = JSON.parse(xhr.responseText);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: response.error ||
+                            'An unexpected error occurred.'
+                    });
+                }
+            });
+        }
+    </script>
+    <script>
+        function getValueForBankJob(id,job_title,number_of_vacancies,location,start_date,end_date,bank_job_ad_number,status)
+        {
+            $('#job_id').val(id);
+            $('#job_title').val(job_title);
+            $('#number_of_vacancies').val(number_of_vacancies);
+            $('#location').val(location);
+            $('#start_date').val(start_date);
+            $('#end_date').val(end_date);
+            $('#bank_job_ad_number').val(bank_job_ad_number);
+            $('#status').val(status);
+        }   
+    </script>
+     <script>
+        $(document).ready(function() {
+            $("#JobFormUpdate").validate({
+                rules: {
+                    job_title: {
+                        required: true
+                    },
+                    // number_of_vacancies: {
+                    //     required: true
+                    // },
+                    // location: {
+                    //     required: true
+                    // },
+                    // start_date: {
+                    //     required: true
+                    // },
+                    // end_date: {
+                    //     required: true
+                    // },
+                    // bank_job_ad_number: {
+                    //     required: true
+                    // },
+                    // status: {
+                    //     required: true
+                    // }
+                },
+                messages: {
+                    job_title: {
+                        required: "This Field is required.",
+                    },
+                    // number_of_vacancies: {
+                    //     required: "This Field is required."
+                    // },
+                    // location: {
+                    //     required: "This Field is required."
+                    // },
+                    // start_date: {
+                    //     required: "This Field is required."
+                    // },
+                    // end_date: {
+                    //     required: "This Field is required."
+                    // },
+                    // bank_job_ad_number: {
+                    //     required: "This Field is required."
+                    // },
+                    // status: {
+                    //     required: "This Field is required.",
+                    // }
+                },
+                submitHandler: function(form) {
+                    $('#JobUpdateSubmitButton').prop('disabled', true);
+                    $.ajax({
+                        url: "{{ route('admin.update-job') }}",
+                        method: "POST",
+                        data: $(form).serialize(),
+
+                        success: function(response) {
+                            if (response.status == true || response.status === 'true') {
+                                // Show a success message
+                                CallMesssage('success', response.message);
+
+                                $('.sidebar-close').click();
+                                // Reset the form
+                                $('#JobFormUpdate')[0].reset();
+                                $('#JobUpdateSubmitButton').prop('disabled', false);
+                                window.location.reload();
+                            } else {
+                                CallMesssage('error', response.message);
+                                $('#JobUpdateSubmitButton').prop('disabled', false);
+                            }
+                        },
+                        error: function(xhr) {
+                            var response = JSON.parse(xhr.responseText);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.error ||
+                                    'An unexpected error occurred.'
+                            });
+                        }
+                    });
+                }
+            });
+        });
     </script>
 @endpush
