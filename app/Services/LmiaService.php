@@ -6,7 +6,7 @@ use App\Repositories\Eloquent\LmiaRepository;
 use App\Repositories\Eloquent\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Str;
 class LmiaService
 {
     protected $LmiaRepository;
@@ -58,6 +58,9 @@ class LmiaService
                 'speak_english' => $speak_english,
                 'write_english' => $write_english,
                 'same_occupation' => $data['same_occupation'],
+                'internal_status' => 0,
+                'uuid'=> Str::uuid(), 
+
             ];
             $this->LmiaRepository->create($insertData);
             return ['status' => true, 'message' => 'Lmia created successfully!'];
@@ -93,6 +96,7 @@ class LmiaService
             $formattedData  = $users->map(function ($user) use ($getEmployees) {
                 return [
                     'id' => $user->id,
+                    'uuid' => $user->uuid,
                     'employee_currenty_in_same_occupation' => $user->employee_currenty_in_same_occupation,
                     'total_number_of_canadian' => $user->total_number_of_canadian,
                     'employee_already_working_in_the_company' => $user->employee_already_working_in_the_company,
@@ -137,10 +141,27 @@ class LmiaService
             if(!isset($getLmia)){
                 return ['status'=>false , 'message'=>"Something Went Wrong!"];
             }
+            // Convert the current status to an array
+            $currentStatus = $getLmia->internal_status == 0 ? explode(',', 0) : explode(',', $getLmia->internal_status);
+
+            // Add the new value to the array if it doesn't already exist
+            $newValue = $data['status'];
+            if (!in_array($newValue, $currentStatus)) {
+                $currentStatus[] = $newValue;
+            }
+
+            // Sort the array in descending order
+            rsort($currentStatus);
+
+            // Convert the array back to a comma-separated string
+            $internal_status = implode(',', $currentStatus);
+
             $updateWhere =  [
                 'id' => $data['id'],
                 'status' => $data['status'],
+                'internal_status' => $internal_status,
             ];
+
             $this->LmiaRepository->updateStatus($updateWhere);
             return ['status'=>true , 'message'=>"Change Status Successfully!"];
         } catch (\Exception $th) {
@@ -187,6 +208,7 @@ class LmiaService
     public function lmiaApproved(array $data)
     {
         try {
+
             $where = [
                 'id' =>$data['id']
             ];
@@ -194,11 +216,44 @@ class LmiaService
             if(!isset($getLmia)){
                 return ['status'=>false , 'message'=>"Something Went Wrong!"];
             }
+            // Convert the current status to an array
+            $currentStatus = $getLmia->internal_status == 0 ? explode(',', 0) : explode(',', $getLmia->internal_status);
+
+            // Add the new value to the array if it doesn't already exist
+            $newValue = $data['status'];
+            if (!in_array($newValue, $currentStatus)) {
+                $currentStatus[] = $newValue;
+            }
+
+            // Sort the array in descending order
+            rsort($currentStatus);
+
+            // Convert the array back to a comma-separated string
+            $internal_status = implode(',', $currentStatus);
+            // Define the destination path
+            $destinationPath = public_path('lmia_status_file');
+
+            // Check if the folder exists; if not, create it
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0775, true); // Create the directory with appropriate permissions
+            }
+            // Check if 'status_file' is present and is a valid file
+            if (isset($data['status_file']) && $data['status_file']->isValid()) {
+                $originalFileName = $data['status_file']->getClientOriginalName();
+                $fileName1 = time() . '_1_' . $originalFileName;
+                $data['status_file']->move($destinationPath, $fileName1);
+            }else{
+                $fileName1 = null;
+            }
             $updateWhere =  [
-                'status' => '10',
+                'status' => $data['status'],
+                'status_file' => $fileName1,
                 'date_of_approval' => $data['date_of_approval'],
                 'date_of_expiry' => $data['date_of_expiry'],
                 'number_of_lmia' => $data['number_of_lmia'],
+                'description' => $data['description'],
+                'interview_date_time' => $data['interview_date_time'],
+                'internal_status' => $internal_status,
             ];
             $this->LmiaRepository->update($data['id'],$updateWhere);
             return ['status'=>true , 'message'=>"Lmia Approved Successfully!"];

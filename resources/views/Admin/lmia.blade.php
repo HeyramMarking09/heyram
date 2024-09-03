@@ -535,7 +535,37 @@
                                     var status_name = "Pending"
                                 } else if (row['status'] == "1") {
                                     var class_name = "bg-success";
-                                    var status_name = "Approved"
+                                    var status_name = "Request received and approved"
+                                } else if (row['status'] == "2") {
+                                    var class_name = "bg-success";
+                                    var status_name = "LMIA Submitted"
+                                } else if (row['status'] == "3") {
+                                    var class_name = "bg-success";
+                                    var status_name = "Payment deducted"
+                                } else if (row['status'] == "4") {
+                                    var class_name = "bg-success";
+                                    var status_name = "Queued for assessment"
+                                } else if (row['status'] == "5") {
+                                    var class_name = "bg-success";
+                                    var status_name = " LMIA assigned to the LMIA officer and assessment in progress"
+                                } else if (row['status'] == "6") {
+                                    var class_name = "bg-success";
+                                    var status_name = "Interview schedule"
+                                } else if (row['status'] == "7") {
+                                    var class_name = "bg-success";
+                                    var status_name = "LMIA officer requested information/documents"
+                                } else if (row['status'] == "8") {
+                                    var class_name = "bg-success";
+                                    var status_name = "LMIA process started, and job vacancy advertised"
+                                } else if (row['status'] == "9") {
+                                    var class_name = "bg-success";
+                                    var status_name = "Other"
+                                } else if (row['status'] == "10") {
+                                    var class_name = "bg-success";
+                                    var status_name = "LMIA Approved"
+                                } else if (row['status'] == "11") {
+                                    var class_name = "bg-danger";
+                                    var status_name = "LMIA Denied"
                                 } else {
                                     var class_name = "bg-danger";
                                     var status_name = "Inactive"
@@ -570,7 +600,7 @@
                                             <a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <a class="dropdown-item" onclick="changeStatus('1', '${ID}')" href="javascript:void(0);">1. Request received and approved</a>
-                                                <a class="dropdown-item" onclick="InterViewSchedule('11', '${ID}')" href="javascript:void(0);">2. LMIA Denied</a>
+                                                <a class="dropdown-item" onclick="changeStatus('11', '${ID}')" href="javascript:void(0);">2. LMIA Denied</a>
                                             </div>
                                         </div>`;
                             }

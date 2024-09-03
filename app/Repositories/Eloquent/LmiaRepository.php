@@ -26,7 +26,7 @@ class LmiaRepository implements LmiaInterface
     }
     public function updateStatus(array $data)
     {
-        return $this->model->where('id', $data['id'])->update(['status'=>$data['status']]);
+        return $this->model->where('id', $data['id'])->update(['status'=>$data['status'], 'internal_status'=>$data['internal_status']]);
     }
     public function update($id, array $data)
     {

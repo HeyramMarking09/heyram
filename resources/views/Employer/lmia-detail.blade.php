@@ -116,151 +116,48 @@
                             <div class="tab-pane active show" id="activities">
                                 <div class="view-header">
                                     <h4>Activities</h4>
-                                    <ul>
-                                        <li>
-                                            <div class="form-sort">
-                                                <i class="ti ti-sort-ascending-2"></i>
-                                                <select class="select">
-                                                    <option>Sort By Date</option>
-                                                    <option>Ascending</option>
-                                                    <option>Descending</option>
-                                                </select>
-                                            </div>
-                                        </li>
-                                    </ul>
                                 </div>
                                 <div class="contact-activity">
-                                    <div class="badge-day"><i class="ti ti-calendar-check"></i>29 Aug 2023</div>
                                     <ul>
-                                        <li class="activity-wrap">
-                                            <span class="activity-icon bg-pending">
-                                                <i class="ti ti-mail-code"></i>
-                                            </span>
-                                            <div class="activity-info">
-                                                <h6>You sent 1 Message to the contact.</h6>
-                                                <p>10:25 pm</p>
-                                            </div>
-                                        </li>
-                                        <li class="activity-wrap">
-                                            <span class="activity-icon bg-secondary-success">
-                                                <i class="ti ti-phone"></i>
-                                            </span>
-                                            <div class="activity-info">
-                                                <h6>Denwar responded to your appointment schedule question by call at
-                                                    09:30pm.</h6>
-                                                <p>09:25 pm</p>
-                                            </div>
-                                        </li>
-                                        <li class="activity-wrap">
-                                            <span class="activity-icon bg-orange">
-                                                <i class="ti ti-notes"></i>
-                                            </span>
-                                            <div class="activity-info">
-                                                <h6>Notes added by Antony</h6>
-                                                <p>Please accept my apologies for the inconvenience caused. It would be much
-                                                    appreciated if it's possible to reschedule to 6:00 PM, or any other day
-                                                    that week.</p>
-                                                <p>10.00 pm</p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div class="badge-day"><i class="ti ti-calendar-check"></i>28 Feb 2024</div>
-                                    <ul>
-                                        <li class="activity-wrap">
-                                            <span class="activity-icon bg-info">
-                                                <i class="ti ti-user-pin"></i>
-                                            </span>
-                                            <div class="activity-info">
-                                                <h6>Meeting With <span class="avatar-xs"><img
-                                                            src="assets/img/profiles/avatar-19.jpg" alt="img"></span>
-                                                    Abraham</h6>
-                                                <p>Schedueled on 05:00 pm</p>
-                                            </div>
-                                        </li>
-                                        <li class="activity-wrap">
-                                            <span class="activity-icon bg-secondary-success">
-                                                <i class="ti ti-phone"></i>
-                                            </span>
-                                            <div class="activity-info">
-                                                <h6>Drain responded to your appointment schedule question.</h6>
-                                                <p>09:25 pm</p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div class="badge-day"><i class="ti ti-calendar-check"></i>Upcoming Activity</div>
-                                    <ul>
-                                        <li class="activity-wrap">
-                                            <span class="activity-icon bg-info">
-                                                <i class="ti ti-user-pin"></i>
-                                            </span>
-                                            <div class="activity-info">
-                                                <h6>Product Meeting</h6>
-                                                <p>A product team meeting is a gathering of the cross-functional product
-                                                    team — ideally including team members from product, engineering,
-                                                    marketing, and customer support.</p>
-                                                <p>25 Jul 2023, 05:00 pm</p>
-                                                <div class="upcoming-info">
-                                                    <div class="row">
-                                                        <div class="col-sm-4">
-                                                            <p>Reminder</p>
-                                                            <div class="dropdown">
-                                                                <a href="#" class="dropdown-toggle"
-                                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                        class="ti ti-clock-edit me-1"></i>Reminder<i
-                                                                        class="ti ti-chevron-down ms-1"></i></a>
-                                                                <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a class="dropdown-item"
-                                                                        href="javascript:void(0);">Remainder</a>
-                                                                    <a class="dropdown-item" href="javascript:void(0);">1
-                                                                        hr</a>
-                                                                    <a class="dropdown-item" href="javascript:void(0);">10
-                                                                        hr</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <p>Task Priority</p>
-                                                            <div class="dropdown">
-                                                                <a href="#" class="dropdown-toggle"
-                                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                        class="ti ti-square-rounded-filled me-1 text-danger circle"></i>High<i
-                                                                        class="ti ti-chevron-down ms-1"></i></a>
-                                                                <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a class="dropdown-item" href="javascript:void(0);">
-                                                                        <i
-                                                                            class="ti ti-square-rounded-filled me-1 text-danger circle"></i>High
-                                                                    </a>
-                                                                    <a class="dropdown-item" href="javascript:void(0);">
-                                                                        <i
-                                                                            class="ti ti-square-rounded-filled me-1 text-success circle"></i>Low
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <p>Assigned to</p>
-                                                            <div class="dropdown">
-                                                                <a href="#" class="dropdown-toggle"
-                                                                    data-bs-toggle="dropdown" aria-expanded="false"><img
-                                                                        src="assets/img/profiles/avatar-19.jpg"
-                                                                        alt="img" class="avatar-xs">John<i
-                                                                        class="ti ti-chevron-down ms-1"></i></a>
-                                                                <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a class="dropdown-item" href="javascript:void(0);">
-                                                                        <img src="assets/img/profiles/avatar-19.jpg"
-                                                                            alt="img" class="avatar-xs">John
-                                                                    </a>
-                                                                    <a class="dropdown-item" href="javascript:void(0);">
-                                                                        <img src="assets/img/profiles/avatar-19.jpg"
-                                                                            alt="img" class="avatar-xs">Peter
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                        @php
+                                            $internal_status = explode(',',$data->internal_status);
+                                        @endphp
+                                        @if (isset($internal_status))
+                                            @foreach ($internal_status as $item)
+                                                <li class="activity-wrap">
+                                                    <div class="activity-info">
+                                                        <h6>Status is :</h6>
+                                                        @if ($item == 0)
+                                                            <p>Pending</p>
+                                                        @elseif ($item == 1)
+                                                            <p>Request received and approved</p>
+                                                        @elseif ($item == 2)
+                                                            <p>LMIA submitted</p>
+                                                        @elseif ($item == 3)
+                                                            <p>Payment deducted</p>
+                                                        @elseif ($item == 4)
+                                                            <p>Queued for assessment</p>
+                                                        @elseif ($item == 5)
+                                                            <p>LMIA assigned to the LMIA officer and assessment in progress</p>
+                                                        @elseif ($item == 6)
+                                                            <p>Interview schedule</p>
+                                                        @elseif ($item == 7)
+                                                            <p>LMIA officer requested information/documents</p>
+                                                        @elseif ($item == 8)
+                                                            <p>LMIA process started, and job vacancy advertised</p>
+                                                        @elseif ($item == 9)
+                                                            <p>Other</p>
+                                                        @elseif ($item == 10)
+                                                            <p>LMIA Approved</p>
+                                                        @elseif ($item == 11)
+                                                            <p>LMiA Denied</p>
+                                                        @else
+                                                            <p>{{ $item }}</p>
+                                                        @endif
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </li>
+                                                </li>
+                                            @endforeach
+                                        @endif
                                     </ul>
                                 </div>
                             </div>
@@ -762,10 +659,7 @@
                                                                 rowspan="1" colspan="1"
                                                                 aria-label="Created Date: activate to sort column ascending"
                                                                 style="width: 35px;">Created Date</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="leads_list"
-                                                                rowspan="1" colspan="1"
-                                                                aria-label="Created Date: activate to sort column ascending"
-                                                                style="width: 35px;">Action</th>
+                                                            
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -801,21 +695,6 @@
                                                                     </td>
                                                                     <td>{{ $item->created_at->format('d M Y, h:i a') }}
                                                                     </td>
-                                                                    <td>
-                                                                        <div class="dropdown table-action"><a
-                                                                                href="#" class="action-icon "
-                                                                                data-bs-toggle="dropdown"
-                                                                                aria-expanded="false"><i
-                                                                                    class="fa fa-ellipsis-v"></i></a>
-                                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                                <a class="dropdown-item add-popups"
-                                                                                    onclick="getValueForBankJob('{{ $item->id }}','{{ $item->job_title }}','{{ $item->number_of_vacancies }}','{{ $item->location }}','{{ $item->start_date }}','{{ $item->end_date }}','{{ $item->bank_job_ad_number }}','{{ $item->status }}')"
-                                                                                    href="#"><i
-                                                                                        class="ti ti-eye text-blue"></i>
-                                                                                    Preview</a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
                                                                 </tr>
                                                                 @php
                                                                     $LISTNO1++;
@@ -830,205 +709,6 @@
                                 </div>
                             </div>
                             <!-- /Files -->
-
-                            <!-- Email -->
-                            {{-- <div class="tab-pane fade" id="email">
-                                <div class="view-header">
-                                    <h4>Email</h4>
-                                    <ul>
-                                        <li>
-                                            <a href="javascript:void(0);" class="com-add create-mail"
-                                                data-bs-toggle="tooltip" data-bs-placement="left"
-                                                data-bs-custom-class="tooltip-dark"
-                                                data-bs-original-title="There are no email accounts configured, Please configured your email account in order to Send/ Create EMails"><i
-                                                    class="ti ti-circle-plus me-1"></i>Create Email</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="files-activity">
-                                    <div class="files-wrap">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-8">
-                                                <div class="file-info">
-                                                    <h4>Manage Emails</h4>
-                                                    <p>You can send and reply to emails directly via this section.</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 text-md-end">
-                                                <ul class="file-action">
-                                                    <li>
-                                                        <a href="#" class="btn btn-primary" data-bs-toggle="modal"
-                                                            data-bs-target="#create_email">Connect Account</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="files-wrap">
-                                        <div class="email-header">
-                                            <div class="row">
-                                                <div class="col top-action-left">
-                                                    <div class="float-start d-none d-sm-block">
-                                                        <input type="text" placeholder="Search Messages"
-                                                            class="form-control search-message">
-                                                    </div>
-                                                </div>
-                                                <div class="col-auto top-action-right">
-                                                    <div class="text-end">
-                                                        <button type="button" title="Refresh" data-bs-toggle="tooltip"
-                                                            class="btn btn-white d-none d-md-inline-block"><i
-                                                                class="fa-solid fa-rotate"></i></button>
-                                                        <div class="btn-group">
-                                                            <a class="btn btn-white"><i
-                                                                    class="fa-solid fa-angle-left"></i></a>
-                                                            <a class="btn btn-white"><i
-                                                                    class="fa-solid fa-angle-right"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="text-end">
-                                                        <span class="text-muted d-none d-md-inline-block">Showing 10 of 112
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="email-content">
-                                            <div class="table-responsive">
-                                                <table class="table table-inbox table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th colspan="6" class="ps-2">
-                                                                <input type="checkbox" class="checkbox-all">
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr class="unread clickable-row" data-href="mail-view.html">
-                                                            <td>
-                                                                <input type="checkbox" class="checkmail">
-                                                            </td>
-                                                            <td><span class="mail-important"><i
-                                                                        class="fa fa-star starred "></i></span></td>
-                                                            <td class="name">John Doe</td>
-                                                            <td class="subject">Lorem ipsum dolor sit amet, consectetuer
-                                                                adipiscing elit</td>
-                                                            <td><i class="fa-solid fa-paperclip"></i></td>
-                                                            <td class="mail-date">13:14</td>
-                                                        </tr>
-                                                        <tr class="unread clickable-row" data-href="mail-view.html">
-                                                            <td>
-                                                                <input type="checkbox" class="checkmail">
-                                                            </td>
-                                                            <td><span class="mail-important"><i
-                                                                        class="fa-regular fa-star"></i></span></td>
-                                                            <td class="name">Envato Account</td>
-                                                            <td class="subject">Important account security update from
-                                                                Envato</td>
-                                                            <td></td>
-                                                            <td class="mail-date">8:42</td>
-                                                        </tr>
-                                                        <tr class="clickable-row" data-href="mail-view.html">
-                                                            <td>
-                                                                <input type="checkbox" class="checkmail">
-                                                            </td>
-                                                            <td><span class="mail-important"><i
-                                                                        class="fa-regular fa-star"></i></span></td>
-                                                            <td class="name">Twitter</td>
-                                                            <td class="subject">HRMS Bootstrap Admin Template</td>
-                                                            <td></td>
-                                                            <td class="mail-date">30 Nov</td>
-                                                        </tr>
-                                                        <tr class="unread clickable-row" data-href="mail-view.html">
-                                                            <td>
-                                                                <input type="checkbox" class="checkmail">
-                                                            </td>
-                                                            <td><span class="mail-important"><i
-                                                                        class="fa-regular fa-star"></i></span></td>
-                                                            <td class="name">Richard Parker</td>
-                                                            <td class="subject">Lorem ipsum dolor sit amet, consectetuer
-                                                                adipiscing elit</td>
-                                                            <td></td>
-                                                            <td class="mail-date">18 Sep</td>
-                                                        </tr>
-                                                        <tr class="clickable-row" data-href="mail-view.html">
-                                                            <td>
-                                                                <input type="checkbox" class="checkmail">
-                                                            </td>
-                                                            <td><span class="mail-important"><i
-                                                                        class="fa-regular fa-star"></i></span></td>
-                                                            <td class="name">John Smith</td>
-                                                            <td class="subject">Lorem ipsum dolor sit amet, consectetuer
-                                                                adipiscing elit</td>
-                                                            <td></td>
-                                                            <td class="mail-date">21 Aug</td>
-                                                        </tr>
-                                                        <tr class="clickable-row" data-href="mail-view.html">
-                                                            <td>
-                                                                <input type="checkbox" class="checkmail">
-                                                            </td>
-                                                            <td><span class="mail-important"><i
-                                                                        class="fa-regular fa-star"></i></span></td>
-                                                            <td class="name">me, Robert Smith (3)</td>
-                                                            <td class="subject">Lorem ipsum dolor sit amet, consectetuer
-                                                                adipiscing elit</td>
-                                                            <td></td>
-                                                            <td class="mail-date">1 Aug</td>
-                                                        </tr>
-                                                        <tr class="unread clickable-row" data-href="mail-view.html">
-                                                            <td>
-                                                                <input type="checkbox" class="checkmail">
-                                                            </td>
-                                                            <td><span class="mail-important"><i
-                                                                        class="fa-regular fa-star"></i></span></td>
-                                                            <td class="name">Codecanyon</td>
-                                                            <td class="subject">Welcome To Codecanyon</td>
-                                                            <td></td>
-                                                            <td class="mail-date">Jul 13</td>
-                                                        </tr>
-                                                        <tr class="clickable-row" data-href="mail-view.html">
-                                                            <td>
-                                                                <input type="checkbox" class="checkmail">
-                                                            </td>
-                                                            <td><span class="mail-important"><i
-                                                                        class="fa-regular fa-star"></i></span></td>
-                                                            <td class="name">Richard Miles</td>
-                                                            <td class="subject">Lorem ipsum dolor sit amet, consectetuer
-                                                                adipiscing elit</td>
-                                                            <td><i class="fa-solid fa-paperclip"></i></td>
-                                                            <td class="mail-date">May 14</td>
-                                                        </tr>
-                                                        <tr class="unread clickable-row" data-href="mail-view.html">
-                                                            <td>
-                                                                <input type="checkbox" class="checkmail">
-                                                            </td>
-                                                            <td><span class="mail-important"><i
-                                                                        class="fa-regular fa-star"></i></span></td>
-                                                            <td class="name">John Smith</td>
-                                                            <td class="subject">Lorem ipsum dolor sit amet, consectetuer
-                                                                adipiscing elit</td>
-                                                            <td></td>
-                                                            <td class="mail-date">11/11/16</td>
-                                                        </tr>
-                                                        <tr class="clickable-row" data-href="mail-view.html">
-                                                            <td>
-                                                                <input type="checkbox" class="checkmail">
-                                                            </td>
-                                                            <td><span class="mail-important"><i
-                                                                        class="fa fa-star starred "></i></span></td>
-                                                            <td class="name">Mike Litorus</td>
-                                                            <td class="subject">Lorem ipsum dolor sit amet, consectetuer
-                                                                adipiscing elit</td>
-                                                            <td></td>
-                                                            <td class="mail-date">10/31/16</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
-                            <!-- /Email -->
 
                         </div>
                     </div>
@@ -1045,86 +725,6 @@
 
     </div>
     <!-- /Main Wrapper -->
-
-    <!-- Add User -->
-    <div class="toggle-popup2" id="userPopup2">
-        <div class="sidebar-layout">
-            <div class="sidebar-header">
-                <h4>Update Job</h4>
-                <a href="#" class="sidebar-close toggle-btn"><i class="ti ti-x"></i></a>
-            </div>
-            <div class="toggle-body">
-                <div class="pro-create">
-                    <div class="accordion-lists" id="list-accord">
-                        <!-- Basic Info -->
-                        <input type="hidden" name="id" id="job_id">
-                        <div class="manage-user-modal">
-                            <div class="manage-user-modals">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-wrap">
-                                            <label class="col-form-label">Job Title <span
-                                                    class="text-danger">*</span></label>
-                                            <input type="text" name="job_title" id="job_title" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-wrap">
-                                            <label class="col-form-label">Number Of Vacancies</label>
-                                            <input type="number" min="0" id="number_of_vacancies"
-                                                name="number_of_vacancies" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-wrap">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <label class="col-form-label">Location</label>
-                                            </div>
-                                            <input type="text" name="location" id="location" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-wrap">
-                                            <label class="col-form-label">Start Date</label>
-                                            <input type="text" name="start_date" id="start_date"
-                                                class="form-control datepicker">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-wrap">
-                                            <label class="col-form-label">End Date</label>
-                                            <input type="text" name="end_date" id="end_date"
-                                                class="form-control datepicker">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-wrap">
-                                            <label class="col-form-label">Bank Job ad Number </label>
-                                            <input type="number" min="0" id="bank_job_ad_number"
-                                                name="bank_job_ad_number" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-wrap">
-                                            <label class="col-form-label"> Status</label>
-                                            <select class="select" id="status" name="status">
-                                                <option value="">-Select-</option>
-                                                <option value="advertised">Advertised</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="decline">Decline</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /Basic Info -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Add User -->
 @endsection
 @push('scripts')
     <script>
@@ -1135,18 +735,5 @@
                 showAnim: 'slideDown' // Choose an animation for the date picker (optional)
             });
         });
-    </script>
-    <script>
-        function getValueForBankJob(id, job_title, number_of_vacancies, location, start_date, end_date, bank_job_ad_number,
-            status) {
-            $('#job_id').val(id);
-            $('#job_title').val(job_title);
-            $('#number_of_vacancies').val(number_of_vacancies);
-            $('#location').val(location);
-            $('#start_date').val(start_date);
-            $('#end_date').val(end_date);
-            $('#bank_job_ad_number').val(bank_job_ad_number);
-            $('#status').val(status);
-        }
     </script>
 @endpush

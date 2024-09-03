@@ -169,9 +169,7 @@
                                     <thead class="thead-light">
                                         <tr>
                                             <th>Id</th>
-                                            <th>Employee Currenty In Same Occupation</th>
-                                            <th>Employee Already Working In The Company</th>
-                                            <th>Total Number Of Canadian</th>
+                                            <th>Unique Id</th>
                                             <th>Created At</th>
                                             <th>Status</th>
                                             <th class="text-end">Action</th>
@@ -279,26 +277,14 @@
                         },
                         {
                             "render": function(data, type, row) {
-                                if (row['employee_currenty_in_same_occupation'] == "0") {
-                                    var status_name = "No"
+                                var lmiaDetail = "{{ route('employer.lmia-detail', ['id' => '__ID__']) }}".replace('__ID__', row.id);
+                                if (row['uuid'] == null) {
+                                    var status_name = "-"
                                 } else {
-                                    var status_name = "Yes"
+                                    var status_name =  `<a href="`+ lmiaDetail + `">`+ row['uuid'] +`</a>`
                                 }
                                 return status_name;
                             }
-                        },
-                        {
-                            "render": function(data, type, row) {
-                                if (row['employee_already_working_in_the_company'] == "0") {
-                                    var status_name = "No"
-                                } else {
-                                    var status_name = "Yes"
-                                }
-                                return status_name;
-                            }
-                        },
-                        {
-                            "data": "total_number_of_canadian"
                         },
                         {
                             "data": "created"
@@ -308,6 +294,39 @@
                                 if (row['status'] == "0") {
                                     var class_name = "bg-warning";
                                     var status_name = "Pending"
+                                } else if (row['status'] == "1") {
+                                    var class_name = "bg-success";
+                                    var status_name = "Request received and approved"
+                                } else if (row['status'] == "2") {
+                                    var class_name = "bg-success";
+                                    var status_name = "LMIA Submitted"
+                                } else if (row['status'] == "3") {
+                                    var class_name = "bg-success";
+                                    var status_name = "Payment deducted"
+                                } else if (row['status'] == "4") {
+                                    var class_name = "bg-success";
+                                    var status_name = "Queued for assessment"
+                                } else if (row['status'] == "5") {
+                                    var class_name = "bg-success";
+                                    var status_name = " LMIA assigned to the LMIA officer and assessment in progress"
+                                } else if (row['status'] == "6") {
+                                    var class_name = "bg-success";
+                                    var status_name = "Interview schedule"
+                                } else if (row['status'] == "7") {
+                                    var class_name = "bg-success";
+                                    var status_name = "LMIA officer requested information/documents"
+                                } else if (row['status'] == "8") {
+                                    var class_name = "bg-success";
+                                    var status_name = "LMIA process started, and job vacancy advertised"
+                                } else if (row['status'] == "9") {
+                                    var class_name = "bg-success";
+                                    var status_name = "Other"
+                                } else if (row['status'] == "10") {
+                                    var class_name = "bg-success";
+                                    var status_name = "LMIA Approved"
+                                } else if (row['status'] == "11") {
+                                    var class_name = "bg-danger";
+                                    var status_name = "LMIA Denied"
                                 } else {
                                     var class_name = "bg-danger";
                                     var status_name = "Inactive"

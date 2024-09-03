@@ -31,18 +31,19 @@
                         <div class="card card letter-head text-left mb-0 bg-black" style="color: #fec917;">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-5 col-md-6 ps-3 ps-md-5 align-self-center" style="border-right: 2px solid;">
-                                        <img src="{{ asset('assets/img/Letter-Head.png') }}"  class="img-fluid" />
-                                    </div>
-                                    <div class="col-7 col-md-6 py-3 ps-3 ps-md-5">
+                                    {{-- <div class="col-5 col-md-6 ps-3 ps-md-5 align-self-center" style="border-right: 2px solid;"> --}}
+                                        <img src="{{ asset('assets/img/Letter-Head.png') }}" style="height: 120px" class="img-fluid" />
+                                    {{-- </div> --}}
+                                    {{-- <div class="col-7 col-md-6 py-3 ps-3 ps-md-5">
                                         <label>+1 888-737-8356</label><br />
                                         <label>info@heyramconsulting.com</label><br />
                                         <label>https://heyramconsulting.com</label>
-                                    </div>
+                                    </div> --}}
                                 </div>
+                                <h2 style="color: white; margin-top: -26px; margin-left: 57px;">Retainer Agreement</h2>
                             </div>
                         </div>
-                        <h3 style="margin-left: 296px; margin-top: 10px;">Retainer Agreement</h3>
+                        {{-- <h3 style="margin-left: 296px; margin-top: 10px;">Retainer Agreement</h3> --}}
                         <div class="card-body"
                             style="background: url(https://heyram.ca/visa_admin/public/assets/img/logo-transparent.png);background-position: center;
                             background-repeat: no-repeat;background-size: contain;">

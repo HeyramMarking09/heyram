@@ -98,14 +98,6 @@
                                 <a href="#" data-bs-toggle="tab" data-bs-target="#AssignEmployee"><i
                                         class="ti ti-phone"></i>Assign Employee</a>
                             </li>
-                            {{-- <li>
-                                <a href="#" data-bs-toggle="tab" data-bs-target="#files"><i
-                                        class="ti ti-file"></i>Files</a>
-                            </li>
-                            <li>
-                                <a href="#" data-bs-toggle="tab" data-bs-target="#email"><i
-                                        class="ti ti-mail-check"></i>Email</a>
-                            </li> --}}
                         </ul>
                     </div>
 
@@ -117,152 +109,91 @@
                             <div class="tab-pane active show" id="activities">
                                 <div class="view-header">
                                     <h4>Activities</h4>
-                                    <ul>
-                                        <li>
-                                            <div class="form-sort">
-                                                <i class="ti ti-sort-ascending-2"></i>
-                                                <select class="select">
-                                                    <option>Sort By Date</option>
-                                                    <option>Ascending</option>
-                                                    <option>Descending</option>
-                                                </select>
-                                            </div>
-                                        </li>
-                                    </ul>
+
                                 </div>
                                 <div class="contact-activity">
-                                    <div class="badge-day"><i class="ti ti-calendar-check"></i>29 Aug 2023</div>
-                                    <ul>
-                                        <li class="activity-wrap">
-                                            <span class="activity-icon bg-pending">
-                                                <i class="ti ti-mail-code"></i>
-                                            </span>
-                                            <div class="activity-info">
-                                                <h6>You sent 1 Message to the contact.</h6>
-                                                <p>10:25 pm</p>
-                                            </div>
-                                        </li>
-                                        <li class="activity-wrap">
-                                            <span class="activity-icon bg-secondary-success">
-                                                <i class="ti ti-phone"></i>
-                                            </span>
-                                            <div class="activity-info">
-                                                <h6>Denwar responded to your appointment schedule question by call at
-                                                    09:30pm.</h6>
-                                                <p>09:25 pm</p>
-                                            </div>
-                                        </li>
-                                        <li class="activity-wrap">
-                                            <span class="activity-icon bg-orange">
-                                                <i class="ti ti-notes"></i>
-                                            </span>
-                                            <div class="activity-info">
-                                                <h6>Notes added by Antony</h6>
-                                                <p>Please accept my apologies for the inconvenience caused. It would be much
-                                                    appreciated if it's possible to reschedule to 6:00 PM, or any other day
-                                                    that week.</p>
-                                                <p>10.00 pm</p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div class="badge-day"><i class="ti ti-calendar-check"></i>28 Feb 2024</div>
-                                    <ul>
-                                        <li class="activity-wrap">
-                                            <span class="activity-icon bg-info">
-                                                <i class="ti ti-user-pin"></i>
-                                            </span>
-                                            <div class="activity-info">
-                                                <h6>Meeting With <span class="avatar-xs"><img
-                                                            src="assets/img/profiles/avatar-19.jpg" alt="img"></span>
-                                                    Abraham</h6>
-                                                <p>Schedueled on 05:00 pm</p>
-                                            </div>
-                                        </li>
-                                        <li class="activity-wrap">
-                                            <span class="activity-icon bg-secondary-success">
-                                                <i class="ti ti-phone"></i>
-                                            </span>
-                                            <div class="activity-info">
-                                                <h6>Drain responded to your appointment schedule question.</h6>
-                                                <p>09:25 pm</p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div class="badge-day"><i class="ti ti-calendar-check"></i>Upcoming Activity</div>
-                                    <ul>
-                                        <li class="activity-wrap">
-                                            <span class="activity-icon bg-info">
-                                                <i class="ti ti-user-pin"></i>
-                                            </span>
-                                            <div class="activity-info">
-                                                <h6>Product Meeting</h6>
-                                                <p>A product team meeting is a gathering of the cross-functional product
-                                                    team — ideally including team members from product, engineering,
-                                                    marketing, and customer support.</p>
-                                                <p>25 Jul 2023, 05:00 pm</p>
-                                                <div class="upcoming-info">
+                                    <form id="changeStatusForm" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="accordion-lists" id="list-accord">
+                                            <!-- Basic Info -->
+                                            <div class="manage-user-modal">
+                                                <div class="manage-user-modals">
+                                                    <input type="hidden" value="{{ request()->id }}" name="id">
                                                     <div class="row">
-                                                        <div class="col-sm-4">
-                                                            <p>Reminder</p>
-                                                            <div class="dropdown">
-                                                                <a href="#" class="dropdown-toggle"
-                                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                        class="ti ti-clock-edit me-1"></i>Reminder<i
-                                                                        class="ti ti-chevron-down ms-1"></i></a>
-                                                                <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a class="dropdown-item"
-                                                                        href="javascript:void(0);">Remainder</a>
-                                                                    <a class="dropdown-item" href="javascript:void(0);">1
-                                                                        hr</a>
-                                                                    <a class="dropdown-item" href="javascript:void(0);">10
-                                                                        hr</a>
+                                                        <div class="col-md-9">
+                                                            <div class="form-wrap">
+                                                                <label class="col-form-label"> Status <span
+                                                                        class="text-danger">*</span></label>
+                                                                <select class="select" name="status" onchange="changeStatus(this.value)">
+                                                                    <option value="">-Select-</option>
+                                                                    <option value="1" @if ($data->status == 1 || $data->status == '1') selected @endif>Request received and approved</option>
+                                                                    <option value="2" @if ($data->status == 2 || $data->status == '2') selected @endif>LMIA submitted</option>
+                                                                    <option value="3" @if ($data->status == 3 || $data->status == '3') selected @endif>Payment deducted</option>
+                                                                    <option value="4" @if ($data->status == 4 || $data->status == '4') selected @endif>Queued for assessment</option>
+                                                                    <option value="5" @if ($data->status == 5 || $data->status == '5') selected @endif>LMIA assigned to the LMIA officer and assessment in progress</option>
+                                                                    <option value="6" @if ($data->status == 6 || $data->status == '6') selected @endif>Interview Schedule</option>
+                                                                    <option value="7" @if ($data->status == 7 || $data->status == '7') selected @endif>LMIA officer requested information/documents</option>
+                                                                    <option value="8" @if ($data->status == 8 || $data->status == '8') selected @endif>LMIA process started, and job vacancy advertised</option>
+                                                                    <option value="9" @if ($data->status == 9 || $data->status == '9') selected @endif>Other</option>
+                                                                    <option value="10" @if ($data->status == 10 || $data->status == '10') selected @endif>LMIA Approved</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-9">
+                                                            <div class="form-wrap">
+                                                                <label class="col-form-label">File <span
+                                                                        class="text-danger">*</span></label>
+                                                                <input type="file" name="status_file" accept=".pdf,.doc,.docx" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-9" style="display: none" id="interviewDiv">
+                                                            <div class="form-wrap">
+                                                                <label class="col-form-label">Date Time <span class="text-danger">*</span></label>
+                                                                <input type="datetime-local" id="datetime" required class="form-control" name="interview_date_time">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" style="display: none" id="LMIAApprovedDiv">
+                                                            <div class="col-md-9">
+                                                                <div class="form-wrap">
+                                                                    <label class="col-form-label">Date of approval <span class="text-danger">*</span></label>
+                                                                    <input type="date" required class="form-control" name="date_of_approval">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <div class="form-wrap">
+                                                                    <label class="col-form-label">Date of expiry <span class="text-danger">*</span></label>
+                                                                    <input type="date" required class="form-control" name="date_of_expiry">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <div class="form-wrap">
+                                                                    <label class="col-form-label">Number of LMIA <span class="text-danger">*</span></label>
+                                                                    <input type="number" required class="form-control" name="number_of_lmia">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-4">
-                                                            <p>Task Priority</p>
-                                                            <div class="dropdown">
-                                                                <a href="#" class="dropdown-toggle"
-                                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                        class="ti ti-square-rounded-filled me-1 text-danger circle"></i>High<i
-                                                                        class="ti ti-chevron-down ms-1"></i></a>
-                                                                <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a class="dropdown-item" href="javascript:void(0);">
-                                                                        <i
-                                                                            class="ti ti-square-rounded-filled me-1 text-danger circle"></i>High
-                                                                    </a>
-                                                                    <a class="dropdown-item" href="javascript:void(0);">
-                                                                        <i
-                                                                            class="ti ti-square-rounded-filled me-1 text-success circle"></i>Low
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <p>Assigned to</p>
-                                                            <div class="dropdown">
-                                                                <a href="#" class="dropdown-toggle"
-                                                                    data-bs-toggle="dropdown" aria-expanded="false"><img
-                                                                        src="assets/img/profiles/avatar-19.jpg"
-                                                                        alt="img" class="avatar-xs">John<i
-                                                                        class="ti ti-chevron-down ms-1"></i></a>
-                                                                <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a class="dropdown-item" href="javascript:void(0);">
-                                                                        <img src="assets/img/profiles/avatar-19.jpg"
-                                                                            alt="img" class="avatar-xs">John
-                                                                    </a>
-                                                                    <a class="dropdown-item" href="javascript:void(0);">
-                                                                        <img src="assets/img/profiles/avatar-19.jpg"
-                                                                            alt="img" class="avatar-xs">Peter
-                                                                    </a>
+                                                        <div class="col-md-9">
+                                                            <div class="form-wrap">
+                                                                <label class="col-form-label">Description <span
+                                                                        class="text-danger">*</span></label>
+                                                                <div class="icon-form-end">
+                                                                    <span class="form-icon"></span>
+                                                                    <textarea class="form-control" name="description" id="description" cols="3" rows="3"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </li>
-                                    </ul>
+                                            <!-- /Basic Info -->
+                                        </div>
+                                        <div class="submit-button text-end">
+                                            <button type="submit" id="changeStatusFormButton"
+                                                class="btn btn-primary">Change Status</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                             <!-- /Activities -->
@@ -662,371 +593,6 @@
                             </div>
                             <!-- /Calls -->
 
-                            <!-- Files -->
-                            {{-- <div class="tab-pane fade" id="files">
-                                <div class="view-header">
-                                    <h4>Files</h4>
-                                </div>
-                                <div class="files-activity">
-                                    <div class="files-wrap">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-8">
-                                                <div class="file-info">
-                                                    <h4>Manage Documents</h4>
-                                                    <p>Send customizable quotes, proposals and contracts to close deals
-                                                        faster.</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 text-md-end">
-                                                <ul class="file-action">
-                                                    <li>
-                                                        <a href="#" class="btn btn-primary" data-bs-toggle="modal"
-                                                            data-bs-target="#new_file">Create Document</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="files-wrap">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-8">
-                                                <div class="file-info">
-                                                    <h4>Collier-Turner Proposal</h4>
-                                                    <p>Send customizable quotes, proposals and contracts to close deals
-                                                        faster.</p>
-                                                    <div class="file-user">
-                                                        <img src="assets/img/profiles/avatar-21.jpg" alt="img">
-                                                        <div>
-                                                            <p><span>Owner</span> Vaughan</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 text-md-end">
-                                                <ul class="file-action">
-                                                    <li>
-                                                        <span class="badge badge-tag badge-danger-light">Proposal</span>
-                                                    </li>
-                                                    <li>
-                                                        <span
-                                                            class="badge badge-tag bg-pending priority-badge">Draft</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="dropdown action-drop">
-                                                            <a href="#" class="dropdown-toggle"
-                                                                data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                    class="ti ti-dots-vertical"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                                    <i class="ti ti-edit text-blue"></i>Edit
-                                                                </a>
-                                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                                    <i class="ti ti-trash text-danger"></i>Delete
-                                                                </a>
-                                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                                    <i class="ti ti-download text-info"></i>Download
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="files-wrap">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-8">
-                                                <div class="file-info">
-                                                    <h4>Collier-Turner Proposal</h4>
-                                                    <p>Send customizable quotes, proposals and contracts to close deals
-                                                        faster.</p>
-                                                    <div class="file-user">
-                                                        <img src="assets/img/profiles/avatar-01.jpg" alt="img">
-                                                        <div>
-                                                            <p><span>Owner</span> Jessica</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 text-md-end">
-                                                <ul class="file-action">
-                                                    <li>
-                                                        <span class="badge badge-tag badge-purple-light">Quote</span>
-                                                    </li>
-                                                    <li>
-                                                        <span class="badge bg-success priority-badge">Sent</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="dropdown action-drop">
-                                                            <a href="#" class="dropdown-toggle"
-                                                                data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                    class="ti ti-dots-vertical"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                                    <i class="ti ti-edit text-blue"></i>Edit
-                                                                </a>
-                                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                                    <i class="ti ti-trash text-danger"></i>Delete
-                                                                </a>
-                                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                                    <i class="ti ti-download text-info"></i>Download
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="files-wrap">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-8">
-                                                <div class="file-info">
-                                                    <h4>Collier-Turner Proposal</h4>
-                                                    <p>Send customizable quotes, proposals and contracts to close deals
-                                                        faster.</p>
-                                                    <div class="file-user">
-                                                        <img src="assets/img/profiles/avatar-22.jpg" alt="img">
-                                                        <div>
-                                                            <p><span>Owner</span> Vaughan</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 text-md-end">
-                                                <ul class="file-action">
-                                                    <li>
-                                                        <span class="badge badge-tag badge-danger-light">Proposal</span>
-                                                    </li>
-                                                    <li>
-                                                        <span
-                                                            class="badge badge-tag bg-pending priority-badge">Draft</span>
-                                                    </li>
-                                                    <li>
-                                                        <div class="dropdown action-drop">
-                                                            <a href="#" class="dropdown-toggle"
-                                                                data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                    class="ti ti-dots-vertical"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                                    <i class="ti ti-edit text-blue"></i>Edit
-                                                                </a>
-                                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                                    <i class="ti ti-trash text-danger"></i>Delete
-                                                                </a>
-                                                                <a class="dropdown-item" href="javascript:void(0);">
-                                                                    <i class="ti ti-download text-info"></i>Download
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
-                            <!-- /Files -->
-
-                            <!-- Email -->
-                            {{-- <div class="tab-pane fade" id="email">
-                                <div class="view-header">
-                                    <h4>Email</h4>
-                                    <ul>
-                                        <li>
-                                            <a href="javascript:void(0);" class="com-add create-mail"
-                                                data-bs-toggle="tooltip" data-bs-placement="left"
-                                                data-bs-custom-class="tooltip-dark"
-                                                data-bs-original-title="There are no email accounts configured, Please configured your email account in order to Send/ Create EMails"><i
-                                                    class="ti ti-circle-plus me-1"></i>Create Email</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="files-activity">
-                                    <div class="files-wrap">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-8">
-                                                <div class="file-info">
-                                                    <h4>Manage Emails</h4>
-                                                    <p>You can send and reply to emails directly via this section.</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 text-md-end">
-                                                <ul class="file-action">
-                                                    <li>
-                                                        <a href="#" class="btn btn-primary" data-bs-toggle="modal"
-                                                            data-bs-target="#create_email">Connect Account</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="files-wrap">
-                                        <div class="email-header">
-                                            <div class="row">
-                                                <div class="col top-action-left">
-                                                    <div class="float-start d-none d-sm-block">
-                                                        <input type="text" placeholder="Search Messages"
-                                                            class="form-control search-message">
-                                                    </div>
-                                                </div>
-                                                <div class="col-auto top-action-right">
-                                                    <div class="text-end">
-                                                        <button type="button" title="Refresh" data-bs-toggle="tooltip"
-                                                            class="btn btn-white d-none d-md-inline-block"><i
-                                                                class="fa-solid fa-rotate"></i></button>
-                                                        <div class="btn-group">
-                                                            <a class="btn btn-white"><i
-                                                                    class="fa-solid fa-angle-left"></i></a>
-                                                            <a class="btn btn-white"><i
-                                                                    class="fa-solid fa-angle-right"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="text-end">
-                                                        <span class="text-muted d-none d-md-inline-block">Showing 10 of 112
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="email-content">
-                                            <div class="table-responsive">
-                                                <table class="table table-inbox table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th colspan="6" class="ps-2">
-                                                                <input type="checkbox" class="checkbox-all">
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr class="unread clickable-row" data-href="mail-view.html">
-                                                            <td>
-                                                                <input type="checkbox" class="checkmail">
-                                                            </td>
-                                                            <td><span class="mail-important"><i
-                                                                        class="fa fa-star starred "></i></span></td>
-                                                            <td class="name">John Doe</td>
-                                                            <td class="subject">Lorem ipsum dolor sit amet, consectetuer
-                                                                adipiscing elit</td>
-                                                            <td><i class="fa-solid fa-paperclip"></i></td>
-                                                            <td class="mail-date">13:14</td>
-                                                        </tr>
-                                                        <tr class="unread clickable-row" data-href="mail-view.html">
-                                                            <td>
-                                                                <input type="checkbox" class="checkmail">
-                                                            </td>
-                                                            <td><span class="mail-important"><i
-                                                                        class="fa-regular fa-star"></i></span></td>
-                                                            <td class="name">Envato Account</td>
-                                                            <td class="subject">Important account security update from
-                                                                Envato</td>
-                                                            <td></td>
-                                                            <td class="mail-date">8:42</td>
-                                                        </tr>
-                                                        <tr class="clickable-row" data-href="mail-view.html">
-                                                            <td>
-                                                                <input type="checkbox" class="checkmail">
-                                                            </td>
-                                                            <td><span class="mail-important"><i
-                                                                        class="fa-regular fa-star"></i></span></td>
-                                                            <td class="name">Twitter</td>
-                                                            <td class="subject">HRMS Bootstrap Admin Template</td>
-                                                            <td></td>
-                                                            <td class="mail-date">30 Nov</td>
-                                                        </tr>
-                                                        <tr class="unread clickable-row" data-href="mail-view.html">
-                                                            <td>
-                                                                <input type="checkbox" class="checkmail">
-                                                            </td>
-                                                            <td><span class="mail-important"><i
-                                                                        class="fa-regular fa-star"></i></span></td>
-                                                            <td class="name">Richard Parker</td>
-                                                            <td class="subject">Lorem ipsum dolor sit amet, consectetuer
-                                                                adipiscing elit</td>
-                                                            <td></td>
-                                                            <td class="mail-date">18 Sep</td>
-                                                        </tr>
-                                                        <tr class="clickable-row" data-href="mail-view.html">
-                                                            <td>
-                                                                <input type="checkbox" class="checkmail">
-                                                            </td>
-                                                            <td><span class="mail-important"><i
-                                                                        class="fa-regular fa-star"></i></span></td>
-                                                            <td class="name">John Smith</td>
-                                                            <td class="subject">Lorem ipsum dolor sit amet, consectetuer
-                                                                adipiscing elit</td>
-                                                            <td></td>
-                                                            <td class="mail-date">21 Aug</td>
-                                                        </tr>
-                                                        <tr class="clickable-row" data-href="mail-view.html">
-                                                            <td>
-                                                                <input type="checkbox" class="checkmail">
-                                                            </td>
-                                                            <td><span class="mail-important"><i
-                                                                        class="fa-regular fa-star"></i></span></td>
-                                                            <td class="name">me, Robert Smith (3)</td>
-                                                            <td class="subject">Lorem ipsum dolor sit amet, consectetuer
-                                                                adipiscing elit</td>
-                                                            <td></td>
-                                                            <td class="mail-date">1 Aug</td>
-                                                        </tr>
-                                                        <tr class="unread clickable-row" data-href="mail-view.html">
-                                                            <td>
-                                                                <input type="checkbox" class="checkmail">
-                                                            </td>
-                                                            <td><span class="mail-important"><i
-                                                                        class="fa-regular fa-star"></i></span></td>
-                                                            <td class="name">Codecanyon</td>
-                                                            <td class="subject">Welcome To Codecanyon</td>
-                                                            <td></td>
-                                                            <td class="mail-date">Jul 13</td>
-                                                        </tr>
-                                                        <tr class="clickable-row" data-href="mail-view.html">
-                                                            <td>
-                                                                <input type="checkbox" class="checkmail">
-                                                            </td>
-                                                            <td><span class="mail-important"><i
-                                                                        class="fa-regular fa-star"></i></span></td>
-                                                            <td class="name">Richard Miles</td>
-                                                            <td class="subject">Lorem ipsum dolor sit amet, consectetuer
-                                                                adipiscing elit</td>
-                                                            <td><i class="fa-solid fa-paperclip"></i></td>
-                                                            <td class="mail-date">May 14</td>
-                                                        </tr>
-                                                        <tr class="unread clickable-row" data-href="mail-view.html">
-                                                            <td>
-                                                                <input type="checkbox" class="checkmail">
-                                                            </td>
-                                                            <td><span class="mail-important"><i
-                                                                        class="fa-regular fa-star"></i></span></td>
-                                                            <td class="name">John Smith</td>
-                                                            <td class="subject">Lorem ipsum dolor sit amet, consectetuer
-                                                                adipiscing elit</td>
-                                                            <td></td>
-                                                            <td class="mail-date">11/11/16</td>
-                                                        </tr>
-                                                        <tr class="clickable-row" data-href="mail-view.html">
-                                                            <td>
-                                                                <input type="checkbox" class="checkmail">
-                                                            </td>
-                                                            <td><span class="mail-important"><i
-                                                                        class="fa fa-star starred "></i></span></td>
-                                                            <td class="name">Mike Litorus</td>
-                                                            <td class="subject">Lorem ipsum dolor sit amet, consectetuer
-                                                                adipiscing elit</td>
-                                                            <td></td>
-                                                            <td class="mail-date">10/31/16</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
-                            <!-- /Email -->
-
                         </div>
                     </div>
                     <!-- /Tab Content -->
@@ -1047,17 +613,6 @@
 @endsection
 
 @push('scripts')
-    {{-- <script>
-        function getValues(value) {
-            if (value == 0 || value === 0) {
-                $('#AnotherDetail').show();
-                $('#EmployeeDetail').hide();
-            } else {
-                $('#EmployeeDetail').show();
-                $('#AnotherDetail').hide();
-            }
-        }
-    </script> --}}
     <script>
         $(document).ready(function() {
             $("#AssignEmployeeForm").validate({
@@ -1140,6 +695,76 @@
             $('.datepicker-input').datepicker({
                 dateFormat: 'mm/dd/yy', // Set the date format (e.g., mm/dd/yyyy)
                 showAnim: 'slideDown'   // Choose an animation for the date picker (optional)
+            });
+        });
+    </script>
+    <script>
+        function changeStatus(type)
+        {
+            if(type == 6 || type == '6'){
+                $('#interviewDiv').show();
+                $('#LMIAApprovedDiv').hide();
+            }else if(type == 10 || type == '10'){
+                $('#LMIAApprovedDiv').show();
+                $('#interviewDiv').hide();
+            }else{
+                $('#interviewDiv').hide();
+                $('#LMIAApprovedDiv').hide();
+            }
+        }
+    </script>
+     <script>
+        $(document).ready(function() {
+            $("#changeStatusForm").validate({
+                rules: {
+                    status: {
+                        required: true
+                    },
+                },
+                messages: {
+                    status: {
+                        required: "This field is required.",
+                    },
+                },
+                submitHandler: function(form) {
+                    $('#changeStatusFormButton').prop('disabled', true);
+                    var changeStatusFormData = new FormData($("#changeStatusForm")[0]);
+
+                    $.ajax({
+                        url: "{{ route('admin.lmia-approved') }}",
+                        method: "POST",
+                        data: changeStatusFormData,
+                        processData: false, // Prevent jQuery from automatically processing the data
+                        contentType: false, // Prevent jQuery from setting Content-Type
+                        headers: {
+                            'X-CSRF-TOKEN': "{{ csrf_token() }}" // Correctly add the CSRF token in the request header
+                        },
+                        success: function(response) {
+                            if (response.status == true || response.status === 'true') {
+                                // Show a success message
+                                CallMesssage('success', response.message);
+
+                                // $('.sidebar-close').click();
+                                // Reset the form
+                                // $('#AssignEmployee')[0].reset();
+                                $('#changeStatusFormButton').prop('disabled', false);
+                                window.location.reload();
+                            } else {
+                                CallMesssage('error', response.message);
+                                $('#changeStatusFormButton').prop('disabled', false);
+                            }
+                        },
+                        error: function(xhr) {
+                            var response = JSON.parse(xhr.responseText);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.error ||
+                                    'An unexpected error occurred.'
+                            });
+                        }
+                    });
+                }
             });
         });
     </script>
