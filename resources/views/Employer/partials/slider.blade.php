@@ -109,6 +109,19 @@
                     </ul>
                 </li>
             </ul>
+            <ul>
+                <li>
+                    <h6 class="submenu-hdr">Support</h6>
+                    <ul>
+                        <li>
+                            <a href="{{ route('employer.support') }}" class="{{ request()->is('employer/support') ? 'active' : '' }}"><i class="ti ti-user-up"></i><span>Support</span></a>
+                        </li>
+                        {{-- <li>
+                            <a href="{{ route('employer.lmia.list') }}" class="{{ request()->is('employer/lmia') ? 'active' : '' }}"><i class="ti ti-user-up"></i><span>Lmia Request</span></a>
+                        </li> --}}
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

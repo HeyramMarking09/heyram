@@ -102,6 +102,12 @@
                         <li><a href="{{ route('admin.leads') }}"><i class="ti ti-users"></i><span>leads</span></a></li>
                     </ul>
                 </li>
+                <li>
+                    <h6 class="submenu-hdr">Support</h6>
+                    <ul>
+                        <li><a href="{{ route('admin.support') }}"><i class="ti ti-users"></i><span>Support</span></a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

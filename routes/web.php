@@ -14,6 +14,7 @@ use App\Http\Controllers\Employer\AuthController as EmployerAuthController;
 use App\Http\Controllers\Employer\CompanyDocController;
 use App\Http\Controllers\Employer\LmiaController;
 use App\Http\Controllers\Employer\RetainerAgreementController;
+use App\Http\Controllers\Employer\SupportController;
 use App\Http\Controllers\FileDownloadController;
 
 Route::get('/', function () {
@@ -55,6 +56,9 @@ Route::namespace('Employer')->prefix('employer')->name('employer.')->group(funct
         Route::get('get-list-of-lmias',[LmiaController::class , 'getLmiaList'])->name('get-list-of-lmias');
         Route::get('lmia-detail/{id}', [LmiaController::class , 'lmiaDetail'])->name('lmia-detail');
         Route::post('upload-additional-docs',[AdditionalDocumentController::class, 'uploadAdditionalDocs'])->name('upload-additional-docs');
+
+        Route::get('support', [SupportController::class , 'index'])->name('support');
+        Route::post('add-support', [SupportController::class , 'create'])->name('add-support');
 
     });
 });
@@ -136,5 +140,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
         // Additional Doc Routes
         Route::post('add-additional-docs',[AdditionalDocumentController::class, 'addAdditionalDocs'])->name('add-additional-docs');
+
+        Route::get('support', [SupportController::class , 'getIndex'])->name('support');
+        Route::post('add-answer', [SupportController::class , 'addAnswer'])->name('add-answer');
     });
 });
