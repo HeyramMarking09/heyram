@@ -44,7 +44,6 @@ class SupportService
     }
     public function addAnswer(array $data)
     {
-        
         try{
             $dataUse = [
                 'answer' => $data['answer'],
