@@ -100,6 +100,7 @@
                     <h6 class="submenu-hdr">Leads</h6>
                     <ul>
                         <li><a href="{{ route('admin.leads') }}"><i class="ti ti-users"></i><span>leads</span></a></li>
+                        <li><a href="{{ route('admin.call-tagging') }}"><i class="ti ti-users"></i><span>Call Tagging</span></a></li>
                     </ul>
                 </li>
                 <li>

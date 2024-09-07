@@ -93,14 +93,14 @@
                                 <a href="#" data-bs-toggle="tab" data-bs-target="#Lmia"><i
                                         class="ti ti-notes"></i>Lmia</a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a href="#" data-bs-toggle="tab" data-bs-target="#AssignEmployee"><i
                                         class="ti ti-phone"></i>Assign Employee</a>
-                            </li>
-                            <li>
+                            </li> --}}
+                            {{-- <li>
                                 <a href="#" data-bs-toggle="tab" data-bs-target="#jobBank"><i
                                         class="ti ti-file"></i>Job Bank</a>
-                            </li>
+                            </li> --}}
                             {{-- <li>
                                 <a href="#" data-bs-toggle="tab" data-bs-target="#email"><i
                                         class="ti ti-mail-check"></i>Email</a>
@@ -459,7 +459,7 @@
                             <!-- /Notes -->
 
                             <!-- Calls -->
-                            <div class="tab-pane fade" id="AssignEmployee">
+                            {{-- <div class="tab-pane fade" id="AssignEmployee">
                                 <div class="view-header">
                                     <h4>Assign Employee</h4>
                                 </div>
@@ -600,14 +600,9 @@
                                             </div>
                                             <!-- /Basic Info -->
                                         </div>
-                                        {{-- <div class="submit-button text-end">
-                                                <button type="submit" id="assignEmployeeSubmitButton"
-                                                    class="btn btn-primary">Update</button>
-                                            </div> --}}
-                                        {{-- </form> --}}
                                     @endif
                                 </div>
-                            </div>
+                            </div> --}}
                             <!-- /Calls -->
 
                             <!-- Files -->

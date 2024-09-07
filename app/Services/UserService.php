@@ -8,6 +8,7 @@ use App\Repositories\Eloquent\UserRepository;
 use Illuminate\Support\Facades\Log;
 use App\Services\SendMailService;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserService
 {
@@ -29,6 +30,7 @@ class UserService
             $role = Role::where('name', 'LIKE', '%'.  $data['user_type'] .'%')->first();
             if(isset($role)){
                 $data['role_id'] = $role->id;
+                $data['uuid'] = Str::uuid(); 
             }
             $this->userRepository->create($data);
 
@@ -264,5 +266,14 @@ class UserService
         } catch (\Exception $exception) {
             Log::error("Error in UserService.update() " . $exception->getLine() . ' ' . $exception->getMessage());
         }
+    }
+    public function getUsers(array $data)
+    {
+        try {
+            $getData = $this->userRepository->getEmployees($data);
+            return ['status'=>true, 'user'=>$getData];
+        } catch (\Exception $exception) {
+            Log::error("Error in UserService.getUsers() " . $exception->getLine() . ' ' . $exception->getMessage());
+        }    
     }
 }

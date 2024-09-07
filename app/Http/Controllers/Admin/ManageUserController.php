@@ -120,4 +120,12 @@ class ManageUserController extends Controller
             Log::error("Error in ManageUserController.assignEmployee()" . $exception->getLine() . ' ' . $exception->getMessage());
         }
     }
+    public function getUsers(Request $request)
+    {
+        try {
+            return $this->UserService->getUsers($request->all());
+        } catch (\Exception $exception) {
+            Log::error("Error in ManageUserController.getUsers()" . $exception->getLine() . ' ' . $exception->getMessage());
+        }
+    }
 }

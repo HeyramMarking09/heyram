@@ -102,4 +102,13 @@ class LeadService
             Log::error("Error in UserService.getAll() " . $exception->getLine() . ' ' . $exception->getMessage());
         }
     }
+    public function get(array $data)
+    {
+        $LeadQuery = $this->LeadRepository->get($data);
+        if(isset($LeadQuery)){
+            return ['status'=>true ,'leads'=>$LeadQuery];
+        }else{
+            return ['status'=>false ,'leads'=>'Not Found!'];
+        }
+    }
 }

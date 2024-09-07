@@ -29,9 +29,21 @@ class UserRepository implements UserRepositoryInterface
         return $this->model->create($data);
     }
 
+    // public function update($id, array $data)
+    // {
+    //     return $this->model->where('id', $id)->update($data);
+    // }
     public function update($id, array $data)
     {
-        return $this->model->where('id', $id)->update($data);
+        $model = $this->model->find($id['id']);
+        if (!$model) {
+            return false; // Handle the case where the model is not found
+        }
+
+        $model->fill($data);
+        $model->save(); // This will trigger the `updated` event
+
+        return true;
     }
 
     public function destroy($id)

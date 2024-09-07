@@ -105,8 +105,8 @@
                                             @csrf
                                             <div class="row">
                                                 <p class="lead"><b>RCIC Membership Number: R526789 <span
-                                                            style="float: right;"> Client File Number:
-                                                            {{ $users->id }}</span></b></p>
+                                                            style="float: right;"> File Number:
+                                                            {{ $users->uuid }}</span></b></p>
                                                 <div class="row w-100">
                                                     <div class="col-md-12">
                                                         <p>This Initial Consultation Agreement is made on this <b>

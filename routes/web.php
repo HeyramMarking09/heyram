@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdditionalDocumentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\CallTaggingController;
 use App\Http\Controllers\Admin\JobBankController;
 use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Admin\LmiaController as AdminLmiaController;
@@ -55,6 +56,8 @@ Route::namespace('Employer')->prefix('employer')->name('employer.')->group(funct
         Route::post('lmia-form', [LmiaController::class , 'lmiaForm'])->name('lmia-form');
         Route::get('get-list-of-lmias',[LmiaController::class , 'getLmiaList'])->name('get-list-of-lmias');
         Route::get('lmia-detail/{id}', [LmiaController::class , 'lmiaDetail'])->name('lmia-detail');
+
+        Route::get('job-bank', [LmiaController::class , 'jobBank'])->name('job-bank');
         Route::post('upload-additional-docs',[AdditionalDocumentController::class, 'uploadAdditionalDocs'])->name('upload-additional-docs');
 
         Route::get('support', [SupportController::class , 'index'])->name('support');
@@ -102,6 +105,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('get-delete-request', [ManageUserController::class, 'getDeleteRequest'])->name('get-delete-request');
         Route::delete('permanent-delete-request', [ManageUserController::class, 'permanentDeleteRequest'])->name('permanent-delete-request');
         Route::delete('recover-delete-request', [ManageUserController::class, 'recoverDeleteRequest'])->name('recover-delete-request');
+        Route::get('get-users', [ManageUserController::class, 'getUsers'])->name('get-users');
 
 
         // LMIA Request Route
@@ -122,6 +126,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('edit-lead', [LeadController::class , 'editLead'])->name('edit-lead');
         Route::get('get-leads', [LeadController::class , 'getAll'])->name('get-leads');
         Route::delete('lead-delete', [LeadController::class , 'deleteLead'])->name('lead-delete');
+        Route::get('get-call-leads', [LeadController::class , 'getCallLeads'])->name('get-call-leads');
 
         // Employers List
         Route::get('employer-dashboard', [ManageUserController::class , 'employerDashboard'])->name('employer-dashboard');
@@ -141,7 +146,15 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         // Additional Doc Routes
         Route::post('add-additional-docs',[AdditionalDocumentController::class, 'addAdditionalDocs'])->name('add-additional-docs');
 
+        // Support Routes
         Route::get('support', [SupportController::class , 'getIndex'])->name('support');
         Route::post('add-answer', [SupportController::class , 'addAnswer'])->name('add-answer');
+
+        // Call Tagging Routes
+        Route::get('call-tagging', [CallTaggingController::class , 'index' ])->name('call-tagging');
+        Route::post('create-call-tagging', [CallTaggingController::class , 'create' ])->name('create-call-tagging');
+        Route::get('get-call-tagging-list', [CallTaggingController::class , 'getCallTaggingList' ])->name('get-call-tagging-list');
+        Route::delete('delete-call-tagging', [CallTaggingController::class , 'delete' ])->name('delete-call-tagging');
+
     });
 });

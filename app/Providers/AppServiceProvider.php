@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Lead;
+use App\Models\User;
+use App\Observers\GenericObserver;
+use App\Observers\UserObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -17,8 +21,10 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot()
     {
-        //
+        User::observe(GenericObserver::class);
+        Lead::observe(GenericObserver::class);
+        // Register other models as needed
     }
 }
