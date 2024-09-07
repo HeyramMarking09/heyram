@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Employer;
 
 use App\Http\Controllers\Controller;
+use App\Models\JobBank;
 use App\Services\LmiaService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class LmiaController extends Controller
@@ -53,7 +55,18 @@ class LmiaController extends Controller
             return redirect()->back();
         } catch (\Exception $th) {
             Log::error('Error in LmiaController.lmiaDetail() '. $th->getLine() . ' ' .$th->getMessage());
-
+        }
+    }
+    public function jobBank()
+    {
+        try {
+            $data = JobBank::where('employer_id' , Auth::user()->id)->get();
+            if(isset($data) && !empty($data)){
+                return view('Employer.job-bank', compact('data'));
+            }
+            return redirect()->back();
+        } catch (\Exception $th) {
+            Log::error('Error in LmiaController.JobBankList() '. $th->getLine() . ' ' .$th->getMessage());
         }
     }
 }

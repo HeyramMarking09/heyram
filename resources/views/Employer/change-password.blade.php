@@ -51,10 +51,10 @@
                                     <div class="settings-sidebar">
                                         <h4>General Settings</h4>
                                         <ul>
-                                            <li>
+                                            {{-- <li>
                                                 <a href="{{ route('employer.profile') }}"
                                                     class="{{ request()->routeIs('employer.profile') ? 'active' : '' }}">Profile</a>
-                                            </li>
+                                            </li> --}}
                                             <li>
                                                 <a href="{{ route('employer.change-password') }}"
                                                     class="{{ request()->routeIs('employer.change-password') ? 'active' : '' }}">Change

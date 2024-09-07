@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-color="yellow">
 
 <head>
     <meta charset="utf-8">
@@ -40,6 +40,12 @@
         .error {
             color: red;
         }
+		.sidebar-contact{
+			display: none
+		}
+		.header .header-left{
+			background-color: black
+		}
     </style>
 
 </head>
@@ -356,8 +362,8 @@
                                 <a class="dropdown-item" href="{{ route('employer.dashboard') }}">
                                     <i class="ti ti-layout-2"></i> Dashboard
                                 </a>
-                                <a class="dropdown-item" href="{{ route('employer.profile') }}">
-									<i class="ti ti-user-pin"></i> My Profile
+                                <a class="dropdown-item" href="{{ route('employer.change-password') }}">
+									<i class="ti ti-user-pin"></i> Change Password
 								</a>
                                 <a class="dropdown-item" href="{{ route('employer.logout') }}">
                                     <i class="ti ti-lock"></i> Logout
@@ -378,8 +384,8 @@
                     <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
                         <i class="ti ti-layout-2"></i> Dashboard
                     </a>
-                    <a class="dropdown-item" href="{{ route('employer.profile') }}">
-                        <i class="ti ti-user-pin"></i> My Profile
+                    <a class="dropdown-item" href="{{ route('employer.change-password') }}">
+                        <i class="ti ti-user-pin"></i> Change Password
                     </a>
                     <a class="dropdown-item" href="{{ route('employer.logout') }}">
                         <i class="ti ti-lock"></i> Logout

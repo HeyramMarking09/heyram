@@ -60,4 +60,12 @@ class LeadController extends Controller
             Log::error("Error in LeadController.deleteLead() ". $th->getLine() .' '.$th->getMessage());
         }
     }
+    public function getCallLeads(Request $request)
+    {
+        try {
+            return $this->LeadService->get($request->all());
+        } catch (\Exception $th) {
+            Log::error("Error in LeadController.getCallLeads() ". $th->getLine() .' '.$th->getMessage());
+        }
+    }
 }

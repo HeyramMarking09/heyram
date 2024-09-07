@@ -36,5 +36,9 @@ class LeadRepository implements LeadInterface
     {
         return $this->model->where('id', $id)->delete();
     }
+    public function get(array $whereBy)
+    {
+        return $this->model->where($whereBy)->get();
+    }
 
 }
