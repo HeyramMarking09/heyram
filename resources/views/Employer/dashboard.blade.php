@@ -6,26 +6,37 @@
         #add_compose {
             --bs-modal-width: 827px;
         }
+        .card .card-body{
+            background-color: #c5c52e;
+            padding:28px;
+        }
     </style>
     <div class="page-wrapper">
+        @if (session('need_to_add'))
+            <div class="card-body" style="width: 590px; padding-left: 20px">
+                <div class="alert alert-solid-primary alert-dismissible fade show">
+                    {{ session('need_to_add') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i class="fas fa-xmark"></i></button>
+                </div>
+            </div>
+        @endif
         <div class="content">
-
             <div class="row">
+                
                 <div class="col-md-12">
                     <div class="page-header">
                         <div class="row align-items-center ">
                             <div class="col-md-4">
-                                <h3 class="page-title">Deals Dashboard</h3>
+                                <h3 class="page-title">Dashboard</h3>
                             </div>
-                            {{-- <div class="col-md-8 float-end ms-auto">
+                            <div class="col-md-8 float-end ms-auto">
                                 <div class="d-flex title-head">
                                     <div class="daterange-picker d-flex align-items-center justify-content-center">
                                         <div class="form-sort me-2">
-                                            <i class="ti ti-calendar"></i>
-                                            <input type="text" class="form-control  date-range bookingrange">
+                                            <a href="{{ route('employer.apply-for-an-lmia') }}" class="btn btn-primary">Apply For An LMIA</a>
                                         </div>
                                         <div class="head-icons mb-0">
-                                            <a href="index.html" data-bs-toggle="tooltip" data-bs-placement="top"
+                                            <a href="{{ route('employer.dashboard') }}" data-bs-toggle="tooltip" data-bs-placement="top"
                                                 data-bs-original-title="Refresh"><i class="ti ti-refresh-dot"></i></a>
                                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top"
                                                 data-bs-original-title="Collapse" id="collapse-header"><i
@@ -33,12 +44,45 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
                         </div>
+                        
                     </div>
 
 
                 </div>
+                <div class="col-md-4">	
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Total LMIA</h5>
+                            <h6 class="counter">{{ count($totalLmias) }}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">	
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Pending LMIA</h5>
+                            <h6 class="counter">{{ count($pendingLmias) }}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">	
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Total Jobs</h5>
+                            <h6 class="counter">{{ count($totalJobs) }}</h6>
+                        </div>
+                    </div>
+                </div>
+                {{-- <div class="col-md-4">	
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Total Sales</h5>
+                            <h6 class="counter">10,000</h6>
+                        </div>
+                    </div>
+                </div> --}}
             </div>
 
         </div>

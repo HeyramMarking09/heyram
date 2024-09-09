@@ -36,4 +36,8 @@ class LmiaRepository implements LmiaInterface
     {
         return $this->model->with('users')->where($whereBy)->first();
     }
+    public function get(array $whereBy)
+    {
+        return $this->model->where($whereBy)->get();
+    }
 }
