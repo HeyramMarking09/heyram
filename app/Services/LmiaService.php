@@ -17,6 +17,21 @@ class LmiaService
         $this->LmiaRepository = $LmiaRepository;
         $this->UserRepository = $UserRepository;
     }
+    public function AllLmiaWithStatus($status)
+    {
+        if($status == 100)
+        {
+            $where = [
+                'employer_id' => Auth::user()->id
+            ];  
+        }else{
+            $where = [
+                'employer_id' => Auth::user()->id,
+                'status' => $status,
+            ];
+        }
+        return $this->LmiaRepository->get($where);
+    }
     public function create(array $data)
     {
         try {

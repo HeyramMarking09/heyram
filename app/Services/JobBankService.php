@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\Eloquent\JobBankRepository;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class JobBankService
@@ -54,6 +55,14 @@ class JobBankService
             return ['status' => true, 'message' => "Job Bank Updated Successfully!"];
         } catch (\Exception $exception) {
             Log::error("Error in JobBankService.create() " . $exception->getLine() . ' ' . $exception->getMessage());
+        }
+    }
+    public function get()
+    {
+        try {
+            return $this->JobBankRepository->get(['employer_id'=>Auth::user()->id]);
+        } catch (\Exception $th) {
+            Log::error('Error in jobbankservice.get() '. $th->getLine() .' '.$th->getMessage());
         }
     }
 }

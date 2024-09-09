@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Employer;
 
 use App\Http\Controllers\Controller;
+use App\Services\JobBankService;
+use App\Services\LmiaService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,9 +13,13 @@ use Illuminate\Support\Facades\Log;
 class AuthController extends Controller
 {
     protected $UserService;
-    public function __construct(UserService $UserService)
+    protected $LmiaService;
+    protected $JobBankService;
+    public function __construct(UserService $UserService, LmiaService $LmiaService,JobBankService $JobBankService)
     {
         $this->UserService = $UserService;
+        $this->LmiaService = $LmiaService;
+        $this->JobBankService = $JobBankService;
     }
     public function login(Request $request)
     {
@@ -32,7 +38,25 @@ class AuthController extends Controller
     public function dashboard()
     {
         $videoShow = Auth::user()->video_shows;
-        return view('Employer.dashboard', compact('videoShow'));
+        $userDetail = $this->UserService->userDetail(Auth::user()->id,Auth::user()->user_type );
+      // Check if each property is null and log the result
+        if(is_null($userDetail->companyInformation)){
+            session()->flash('need_to_add', 'Need To Add Company Information!');
+        }else if(is_null($userDetail->companyDoc)){
+            session()->flash('need_to_add', 'Need To Add Company Docs!');
+        }else if(is_null($userDetail->retainerAgreements)){
+            session()->flash('need_to_add', 'Need To Add Retainer Agreement!');
+        }else if(!empty($userDetail->AdditionalDocument) && isset($userDetail->AdditionalDocument)){
+            foreach($userDetail->AdditionalDocument as $item){
+                if(is_null($item->docs_file)){
+                    session()->flash('need_to_add', 'Please Provide, Additional Documents!');
+                }
+            }
+        }
+        $pendingLmias = $this->LmiaService->AllLmiaWithStatus('0');
+        $totalLmias = $this->LmiaService->AllLmiaWithStatus('100');
+        $totalJobs = $this->JobBankService->get();
+        return view('Employer.dashboard', compact('videoShow', 'pendingLmias', 'totalLmias', 'totalJobs'));
     }
     public function logout()
     {
