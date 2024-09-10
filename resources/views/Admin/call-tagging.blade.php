@@ -50,6 +50,10 @@
                                                     <a href="javascript:void(0);" class="btn btn-primary add-popup"><i
                                                             class="ti ti-square-rounded-plus"></i>Add</a>
                                                 </li>
+                                                <li>
+                                                    <a href="javascript:void(0);" style="display: none" id="editLink" class="btn btn-primary edit-popup"><i
+                                                            class="ti ti-square-rounded-plus"></i>Edit</a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -472,180 +476,139 @@
     <div class="toggle-popup1">
         <div class="sidebar-layout">
             <div class="sidebar-header">
-                <h4>Edit Lead</h4>
+                <h4>Edit Call Tagging</h4>
                 <a href="#" class="sidebar-close1 toggle-btn"><i class="ti ti-x"></i></a>
             </div>
             <div class="toggle-body">
                 <div class="pro-create">
-                    <form action="#">
+                    <form id="editCallTaggingForm">
+                        @csrf
                         <div class="row">
                             <div class="col-md-12">
+                                <input type="hidden" name="id" id="edit_id">
                                 <div class="form-wrap">
-                                    <label class="col-form-label">Lead Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" value="Collins">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-wrap">
-                                    <div class="radio-wrap">
-                                        <label class="col-form-label">Lead Type</label>
-                                        <div class="d-flex flex-wrap">
-                                            <div class="radio-btn">
-                                                <input type="radio" class="status-radio" id="person-2" name="leave"
-                                                    checked="">
-                                                <label for="person-2">Person</label>
-                                            </div>
-                                            <div class="radio-btn">
-                                                <input type="radio" class="status-radio" id="org-2"
-                                                    name="leave">
-                                                <label for="org-2">Organization</label>
-                                            </div>
-                                        </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <label class="col-form-label">User Type <span class="text-danger">*</span></label>
                                     </div>
+                                    <select class="select" onchange="editChangeUserType()" id="edit_user_type" name="user_type">
+                                        <option value="">Choose</option>
+                                        <option value="client">Client</option>
+                                        <option value="employer">Employer</option>
+                                        <option value="employee">Employee</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-wrap">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <label class="col-form-label">Company <span class="text-danger">*</span></label>
-                                        <a href="#" class="add-new add-new-company add-popups"><i
-                                                class="ti ti-square-rounded-plus me-2"></i>Add New</a>
+                                        <label class="col-form-label">Type <span class="text-danger">*</span></label>
                                     </div>
-                                    <select class="select">
-                                        <option>NovaWave LLC</option>
-                                        <option>Silver Hawk</option>
-                                        <option>Summit Peak</option>
-                                        <option>RiverStone Ventur</option>
+                                    <select name="type" id="edit_type" required onchange="editGetUsers(this.value)"
+                                        class="select">
+                                        <option value="">Choose</option>
+                                        <option value="existing">Existing</option>
+                                        <option value="new">New</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12" id="editUserList">
                                 <div class="form-wrap">
-                                    <label class="col-form-label">Value <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" value="10">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-wrap">
-                                    <label class="col-form-label">Currency <span class="text-danger">*</span></label>
-                                    <select class="select">
-                                        <option>$</option>
-                                        <option>€</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="add-product-new">
-                                    <div class="row align-items-end">
-                                        <div class="col-md-8">
-                                            <div class="form-wrap mb-2">
-                                                <label class="col-form-label">Phone <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" value="+1 875455453">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 d-flex align-items-center">
-                                            <div class="form-wrap w-100 mb-2">
-                                                <select class="select">
-                                                    <option>Work</option>
-                                                    <option>Home</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <label class="col-form-label">Users <span class="text-danger">*</span></label>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <a href="#" class="add-new add-new-phone mb-3 d-block"><i
-                                        class="ti ti-square-rounded-plus me-2"></i>Add New</a>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-wrap">
-                                    <label class="col-form-label">Source <span class="text-danger">*</span></label>
-                                    <select class="select2">
-                                        <option>Phone Calls</option>
-                                        <option>Social Media</option>
-                                        <option>Referral Sites</option>
-                                        <option>Web Analytics</option>
-                                        <option>Previous Purchases</option>
+                                    <select class="select user_id" required name="user_id" id="editUsersDropdown">
+                                        <option value="">Choose</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12" id="editUserListSelect" style="display: none">
                                 <div class="form-wrap">
-                                    <label class="col-form-label">Industry <span class="text-danger">*</span></label>
-                                    <select class="select">
-                                        <option>Banking</option>
-                                        <option>Hotels</option>
-                                        <option>Financial Services</option>
-                                        <option>Insurance</option>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <label class="col-form-label">Select <span class="text-danger">*</span></label>
+                                    </div>
+                                    <select class="select lead_other" onchange="edit_lead_or_other(this.value)" name="lead_other"
+                                        id="editAnotherSelect">
+                                        <option value="">Choose</option>
+                                        <option value="lead">Lead</option>
+                                        <option value="other">Other</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12" id="editLeadList" style="display: none">
                                 <div class="form-wrap">
-                                    <label class="col-form-label">Owner</label>
-                                    <select class="multiple-img">
-                                        <option data-image="assets/img/profiles/avatar-14.jpg" selected>Jerald</option>
-                                        <option data-image="assets/img/profiles/avatar-20.jpg">Sharon Roy</option>
-                                        <option data-image="assets/img/profiles/avatar-21.jpg">Vaughan</option>
-                                        <option data-image="assets/img/profiles/avatar-23.jpg">Jessica</option>
-                                        <option data-image="assets/img/profiles/avatar-16.jpg">Carol Thomas</option>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <label class="col-form-label">Leads <span class="text-danger">*</span></label>
+                                    </div>
+                                    <select class="select" name="lead_id" id="editLeadsDropdown">
+                                        <option value="">Choose</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-wrap">
-                                    <label class="col-form-label">Tags </label>
-                                    <input class="input-tags form-control" type="text" data-role="tagsinput"
-                                        name="Label" value="Rated">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-wrap">
-                                    <label class="col-form-label">Description <span class="text-danger">*</span></label>
-                                    <textarea class="form-control" rows="5"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="radio-wrap form-wrap">
-                                    <label class="col-form-label">Visibility</label>
-                                    <div class="d-flex flex-wrap">
-                                        <div class="radio-btn">
-                                            <input type="radio" class="status-radio" id="public-2" name="visible">
-                                            <label for="public-2">Public</label>
-                                        </div>
-                                        <div class="radio-btn">
-                                            <input type="radio" class="status-radio" id="private-2" name="visible">
-                                            <label for="private-2">Private</label>
-                                        </div>
-                                        <div class="radio-btn" data-bs-toggle="modal" data-bs-target="#access_view">
-                                            <input type="radio" class="status-radio" id="people-2" name="visible">
-                                            <label for="people-2">Select People</label>
-                                        </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-wrap">
+                                        <label class="col-form-label">Name <span class="text-danger">*</span></label>
+                                        <input type="text" name="name" id="editName" disabled
+                                            class="form-control">
                                     </div>
                                 </div>
-                                <div class="radio-wrap form-wrap">
-                                    <label class="col-form-label">Status</label>
-                                    <div class="d-flex flex-wrap">
-                                        <div class="radio-btn">
-                                            <input type="radio" class="status-radio" id="active-2" name="status"
-                                                checked="">
-                                            <label for="active-2">Active</label>
-                                        </div>
-                                        <div class="radio-btn">
-                                            <input type="radio" class="status-radio" id="inactive-2" name="status">
-                                            <label for="inactive-2">Inactive</label>
-                                        </div>
+                                <div class="col-md-6">
+                                    <div class="form-wrap">
+                                        <label class="col-form-label">Phone <span class="text-danger">*</span></label>
+                                        <input type="number" min="0" name="phone" disabled id="editPhone"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-wrap">
+                                        <label class="col-form-label">Email <span class="text-danger">*</span></label>
+                                        <input type="email" name="email" id="editEmail" disabled
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-wrap">
+                                        <label class="col-form-label">Visa Type <span class="text-danger">*</span></label>
+                                        <input type="text" name="visa_type" id="visa_type" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-wrap">
+                                        <label class="col-form-label">Status <span class="text-danger">*</span></label>
+                                        <select class="select" id="edit_status" name="status">
+                                            <option value="">Choose</option>
+                                            <option value="1">Query in-review</option>
+                                            <option value="2">Query Resolve/Closed</option>
+                                            <option value="3">Talk to client/closed</option>
+                                            <option value="4">Not Reachable</option>
+                                            <option value="5">Busy</option>
+                                            <option value="6">Contacted</option>
+                                            <option value="7">Not Interested</option>
+                                            <option value="8">Potential Client</option>
+                                            <option value="9">Appointment Schedule</option>
+                                            <option value="10">Query in progress/Accelated</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-md-6">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">Call Back Date <span
+                                            class="text-danger">*</span></label>
+                                    <input type="date" name="call_back_date" id="call_back_date" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">Client Query <span class="text-danger">*</span></label>
+                                    <textarea name="client_query" id="edit_client_query" cols="30" class="form-control" rows="3"></textarea>
+                                </div>
+                            </div>
 
+                        </div>
                         <div class="submit-button text-end">
                             <a href="#" class="btn btn-light sidebar-close1">Cancel</a>
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#create_contact"
-                                class="btn btn-primary">Create</a>
+                            <button type="submit" id="editCallTaggingSubmitButton" class="btn btn-primary">Update</submit>
                         </div>
                     </form>
                 </div>
@@ -696,8 +659,9 @@
 				</div>
 				<div class="modal-body">
 					<div class="success-message">
-						<form>
+						<form id="commentForm">
 							@csrf
+                            <input type="hidden" name="id" id="commentId">
 							<div class="row mb-3">
 								<div class="col-md-12">
 									<div class="form-wrap mb-3">
@@ -708,7 +672,7 @@
 							</div>
 							<div class="col-lg-12 modal-btn d-flex justify-content-end">
 								<a href="#" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
-								<button type="submit" class="btn btn-danger">Submit</button>
+								<button type="submit" id="commentFormButton" class="btn btn-danger">Submit</button>
 							</div>
 						</form>
 					</div>
@@ -726,7 +690,6 @@
 @push('scripts')
     <script>
         var leadsList = [];
-
         function lead_or_other(value) {
             $('#name').prop('disabled', true);
             $('#phone').prop('disabled', true);
@@ -775,6 +738,7 @@
             var select = $('#usersDropdown');
             select.append('<option value="">Choose</option>');
         }
+        
         var userList = []; // Array to store user data
         function getUsers(type) {
             $('#name').prop('disabled', true);
@@ -820,6 +784,99 @@
         }
     </script>
     <script>
+        var editLeadsList = [];
+        function edit_lead_or_other(value) {
+            $('#editName').prop('disabled', true);
+            $('#editPhone').prop('disabled', true);
+            $('#editEmail').prop('disabled', true);
+            if (value == 'lead') {
+                $('#editLeadList').show();
+                $.ajax({
+                    url: "{{ route('admin.get-call-leads') }}", // The route you defined
+                    type: 'GET',
+                    success: function(response) {
+                        $('#editLeadsDropdown').html('');
+                        var lead = response.leads;
+                        editLeadsList = lead
+                        // Populate the select dropdown
+                        var select = $('#editLeadsDropdown');
+                        select.append('<option value="">Choose</option>');
+                        lead.forEach(function(user) {
+                            select.append('<option value="' + user.id + '">' + user.name + '</option>');
+                        });
+                    },
+                    error: function(xhr) {
+                        console.error('Error fetching users:', xhr);
+                    }
+                });
+            } else {
+                $('#editLeadList').hide();
+                // Enable the input fields
+                $('#editName').prop('disabled', false);
+                $('#editPhone').prop('disabled', false);
+                $('#editEmail').prop('disabled', false);
+                $('#editName').val('');
+                $('#editPhone').val('');
+                $('#editEmail').val('');
+            }
+        }
+        function editChangeUserType() {
+            $('#editName').prop('disabled', true);
+            $('#editPhone').prop('disabled', true);
+            $('#editEmail').prop('disabled', true);
+
+            $('#edit_type').val();
+
+            $('#editUsersDropdown').html('');
+            // Populate the select dropdown
+            var select = $('#editUsersDropdown');
+            select.append('<option value="">Choose</option>');
+        }
+        var editUserList = []; // Array to store user data
+        function editGetUsers(type) {
+            $('#editName').prop('disabled', true);
+            $('#editPhone').prop('disabled', true);
+            $('#editEmail').prop('disabled', true);
+
+            $('#editLeadList').hide();
+            var userType = $('#edit_user_type').val();
+            if (userType == '') {
+                CallMesssage('error', 'First Choose User Type!');
+                $('#edit_type').val('');
+                return false;
+            }
+            if (type == 'new') {
+                $("#editUserList").hide();
+                $("#editUserListSelect").show();
+
+            } else {
+                $("#editUserList").show();
+                $("#editUserListSelect").hide();
+                $.ajax({
+                    url: "{{ route('admin.get-users') }}", // The route you defined
+                    type: 'GET',
+                    data: {
+                        'user_type': userType
+                    },
+                    success: function(response) {
+                        $('#editUsersDropdown').html('');
+                        var users = response.user;
+                        editUserList = users; // Store users in global variable
+                        // Populate the select dropdown
+                        var select = $('#editUsersDropdown');
+                        select.append('<option value="">Choose</option>');
+                        users.forEach(function(user) {
+                            select.append('<option value="' + user.id + '">' + user.name + '</option>');
+                        });
+                    },
+                    error: function(xhr) {
+                        console.error('Error fetching users:', xhr);
+                    }
+                });
+            }
+        }
+    </script>
+    <script>
         // Add change event listener
         $(document).ready(function() {
             $('#usersDropdown').on('change', getUserData);
@@ -842,6 +899,26 @@
     <script>
         // Add change event listener
         $(document).ready(function() {
+            $('#editUsersDropdown').on('change', editGetUserData);
+        });
+        // Function to handle dropdown selection
+        function editGetUserData() {
+            var userId = $('#editUsersDropdown').val();            
+            if (userId) {
+                // Find the selected user by ID from the userList array
+                var selectedUser = editUserList.find(user => user.id == userId);
+                if (selectedUser) {
+                    $('#editName').val(selectedUser.name);
+                    $('#editEmail').val(selectedUser.email);
+                    $('#editPhone').val(selectedUser.phone);
+                    // Use the selectedUser data as needed
+                }
+            }
+        }
+    </script>
+    <script>
+        // Add change event listener
+        $(document).ready(function() {
             $('#leadsDropdown').on('change', getLeadsData);
         });
         // Function to handle dropdown selection
@@ -854,6 +931,26 @@
                     $('#name').val(selectedUser.name);
                     $('#email').val(selectedUser.email);
                     $('#phone').val(selectedUser.phone);
+                    // Use the selectedUser data as needed
+                }
+            }
+        }
+    </script>
+    <script>
+        // Add change event listener
+        $(document).ready(function() {
+            $('#editLeadsDropdown').on('change', editGetLeadsData);
+        });
+        // Function to handle dropdown selection
+        function editGetLeadsData() {
+            var userId = $('#editLeadsDropdown').val();
+            if (userId) {
+                // Find the selected user by ID from the userList array
+                var selectedUser = editLeadsList.find(user => user.id == userId);
+                if (selectedUser) {
+                    $('#editName').val(selectedUser.name);
+                    $('#editEmail').val(selectedUser.email);
+                    $('#editPhone').val(selectedUser.phone);
                     // Use the selectedUser data as needed
                 }
             }
@@ -958,8 +1055,8 @@
                         },
                         {
                             "render": function(data, type, row) {
-                                return '<a href="#" class="title-name">' + row['name'] +
-                                    '</a>';
+                                var Preview = "{{ route('admin.call-tagging-detail', ['id' => ':id']) }}".replace(':id', row.id); 
+                                return '<a href="'+ Preview +'" class="title-name">' + row['name'] +'</a>';
                             }
                         },
                         {
@@ -1019,7 +1116,7 @@
                         },
 						{
 							"render": function(data, type, row) {
-                                return '<a class="dropdown-item" style="background-color: rgba(228, 31, 7, 0.05); color:red;" href="#" data-bs-toggle="modal" data-bs-target="#comment_contact">Comment</a>';
+                                return '<a class="dropdown-item" style="background-color: rgba(228, 31, 7, 0.05); color:red;" href="#" data-bs-toggle="modal" onclick="commentClick('+row.id+')" data-bs-target="#comment_contact">Comment</a>';
                             }
 						},
                         {
@@ -1032,12 +1129,21 @@
                         },
                         {
                             "render": function(data, type, row) {
+                                console.log(row);
+                                
                                 var ID = row['id'];
                                 var Name = row['name'];
                                 var Email = row['email'];
                                 var Phone = row['phone'];
                                 var Visa_type = row['visa_type'];
-                                return `<div class="dropdown table-action"><a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" onclick="getEditLead('${ID}','${Name}','${Email}','${Phone}', '${Visa_type}')" href="#"><i class="ti ti-edit text-blue"></i> Edit</a><a class="dropdown-item" href="#" data-bs-toggle="modal" onclick="deleteCallTagging('${ID}')" data-bs-target="#delete_contact"><i class="ti ti-trash text-danger"></i> Delete</a><a class="dropdown-item" href="#" data-bs-toggle="modal" onclick="deleteCallTagging('${ID}')" data-bs-target="#delete_contact"><i class="ti ti-eye text-blue"></i> Preview</a></div></div>`;
+                                var client_query = row['client_query'];
+                                var call_back_date = row['call_back_date'];
+                                var user_type = row['user_type'];
+                                var type = row['type'];
+                                var status = row['status'];
+                                var lead_other = row['lead_other'];
+                                var Preview = "{{ route('admin.call-tagging-detail', ['id' => ':id']) }}".replace(':id', ID); 
+                                return `<div class="dropdown table-action"><a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" onclick="getEditTagging('${ID}','${Name}','${Email}','${Phone}', '${Visa_type}', '${client_query}', '${call_back_date}','${user_type}', '${type}', '${status}','${lead_other}')" href="#"><i class="ti ti-edit text-blue"></i> Edit</a><a class="dropdown-item" href="#" data-bs-toggle="modal" onclick="deleteCallTagging('${ID}')" data-bs-target="#delete_contact"><i class="ti ti-trash text-danger"></i> Delete</a><a class="dropdown-item" href="${Preview}"><i class="ti ti-eye text-blue"></i> Preview</a></div></div>`;
                             }
                         }
                     ],
@@ -1079,6 +1185,27 @@
                 });
             }
         });
+    </script>
+    <script>
+        function getEditTagging(id,name,email,phone,visa_type,client_query,call_back_date,user_type,type,status,lead_other)
+        {
+            $('#editLink').click();
+
+            $('#edit_id').val(id);
+            $('#edit_client_query').val(client_query);
+            $('#call_back_date').val(call_back_date);
+            $('#editName').val(name);
+            $('#editEmail').val(email);
+            $('#editPhone').val(phone);
+            $('#visa_type').val(visa_type);
+            $('#edit_user_type').val(user_type);
+
+            $('#edit_status').val(status).trigger('change');
+            $('#edit_user_type').val(user_type).trigger('change');
+            $('#edit_type').val(type).trigger('change');
+            $('.lead_other').val(lead_other).trigger('change');
+
+        }
     </script>
     <script>
         function deleteCallTagging(id) {
@@ -1133,5 +1260,111 @@
                 title: title
             });
         }
+    </script>
+    <script>
+        function commentClick(id)
+        {
+            $('#commentId').val(id);
+        }
+    </script>
+    <script>
+         $(document).ready(function() {
+            $("#commentForm").validate({
+                rules: {
+                    comments: {
+                        required: true
+                    }
+                },
+                messages: {
+                    comments: {
+                        required: "This field is required.",
+                    }
+                },
+                submitHandler: function(form) {
+                    $('#commentFormButton').prop('disabled', true);
+                    $.ajax({
+                        url: "{{ route('admin.add-comments') }}",
+                        method: "POST",
+                        data: $(form).serialize(),
+
+                        success: function(response) {
+                            if (response.status == true || response.status === 'true') {
+                                // Show a success message
+                                CallMesssage('success', response.message);
+
+                                $('.btn-close').click();
+                                // Reset the form
+                                $('#commentForm')[0].reset();
+                                $('#commentFormButton').prop('disabled', false);
+                                // Reload the DataTable
+                                $('#call_tagging_list').DataTable().ajax.reload();
+                            } else {
+                                CallMesssage('error', response.message);
+                                $('#commentFormButton').prop('disabled', false);
+                            }
+                        },
+                        error: function(xhr) {
+                            var response = JSON.parse(xhr.responseText);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.error ||
+                                    'An unexpected error occurred.'
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#editCallTaggingForm").validate({
+                rules: {
+                    user_type: {
+                        required: true
+                    }
+                },
+                messages: {
+                    user_type: {
+                        required: "This field is required.",
+                    }
+                },
+                submitHandler: function(form) {
+                    $('#editCallTaggingSubmitButton').prop('disabled', true);
+                    $.ajax({
+                        url: "{{ route('admin.update-call-tagging') }}",
+                        method: "POST",
+                        data: $(form).serialize(),
+
+                        success: function(response) {
+                            if (response.status == true || response.status === 'true') {
+                                // Show a success message
+                                CallMesssage('success', response.message);
+
+                                $('.sidebar-close1').click();
+                                // Reset the form
+                                $('#editCallTaggingForm')[0].reset();
+                                $('#editCallTaggingSubmitButton').prop('disabled', false);
+                                // Reload the DataTable
+                                $('#call_tagging_list').DataTable().ajax.reload();
+                            } else {
+                                CallMesssage('error', response.message);
+                                $('#editCallTaggingSubmitButton').prop('disabled', false);
+                            }
+                        },
+                        error: function(xhr) {
+                            var response = JSON.parse(xhr.responseText);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.error ||
+                                    'An unexpected error occurred.'
+                            });
+                        }
+                    });
+                }
+            });
+        });
     </script>
 @endpush

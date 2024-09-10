@@ -41,4 +41,30 @@ class CallTaggingController extends Controller
             Log::error('Error in CallTaggingController.delete()'. $th->getLine() .' '.$th->getMessage());
         }
     }
+    public function addComment(Request $request)
+    {
+        try{
+            return $this->CallTaggingService->addComment($request->all());
+        }catch(\Exception $th){
+            Log::error('Error in CallTaggingController.addComment()'. $th->getLine() .' '.$th->getMessage());
+        }
+    }
+    public function detail($id)
+    {   
+        try{
+            $data = $this->CallTaggingService->detail($id);
+            Log::info($data);
+            return view('Admin.call-tagging-detail', compact('data'));
+        }catch(\Exception $th){
+            Log::error('Error in CallTaggingController.addComment()'. $th->getLine() .' '.$th->getMessage());
+        }
+    }
+    public function update(Request $request)
+    {
+        try{
+            return $this->CallTaggingService->update($request->all());
+        }catch(\Exception $th){
+            Log::error('Error in CallTaggingController.update()'. $th->getLine() .' '.$th->getMessage());
+        }
+    }
 }

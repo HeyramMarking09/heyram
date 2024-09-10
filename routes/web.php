@@ -155,6 +155,11 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('create-call-tagging', [CallTaggingController::class , 'create' ])->name('create-call-tagging');
         Route::get('get-call-tagging-list', [CallTaggingController::class , 'getCallTaggingList' ])->name('get-call-tagging-list');
         Route::delete('delete-call-tagging', [CallTaggingController::class , 'delete' ])->name('delete-call-tagging');
+        Route::post('add-comments', [CallTaggingController::class , 'addComment' ])->name('add-comments');
+        Route::get('call-tagging-detail/{id}', [CallTaggingController::class , 'detail' ])->name('call-tagging-detail');
+        Route::post('update-call-tagging', [CallTaggingController::class , 'update' ])->name('update-call-tagging');
+
+
 
     });
 });

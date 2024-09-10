@@ -127,4 +127,88 @@ class CallTaggingService
 
         }
     }
+    public function addComment(array $data)
+    {
+        try {
+            $getData = $this->CallTaggingRepository->getById(['id' => $data['id']]); 
+            if(!isset($getData)){
+                return ['status'=>false , 'message'=>'Something went wrong!'];
+            }
+            if (is_null($getData->comments)) {
+                // If there are no existing comments, encode the new comment data as JSON
+                $comment = json_encode([$data['comments']]); // Wrapping in an array to maintain a list of comments
+            } else {
+                // Decode the existing JSON data to get the current comments
+                $existingComments = json_decode($getData->comments, true); // true to get an associative array
+                // Add the new comment to the existing comments array
+                $existingComments[] = $data['comments'];
+                // Re-encode the updated comments array as JSON
+                $comment = json_encode($existingComments);
+            }
+            // Prepare the data for the update
+            $create = [
+                'comments' => $comment
+            ];
+            $this->CallTaggingRepository->update(['id'=>$data['id']], $create);
+            return ['status'=>true , 'message'=>'Add Comments Successfully!'];
+
+        } catch (\Exception $exception) {
+            Log::error("Error in CallTaggingService.addComment() " . $exception->getLine() . ' ' . $exception->getMessage());
+        }
+    }
+    public function detail($id)
+    {
+        try {
+            $getData = $this->CallTaggingRepository->getById(['id' => $id]); 
+            if(!isset($getData)){
+                return ['status'=>false , 'message'=>'Something went wrong!'];
+            }
+            return $getData;
+        } catch (\Exception $exception) {
+            Log::error("Error in CallTaggingService.addComment() " . $exception->getLine() . ' ' . $exception->getMessage());
+        }
+    }
+    public function update(array $data)
+    {
+        $getData = $this->CallTaggingRepository->getById(['id' => $data['id']]); 
+        if(!isset($getData)){
+            return ['status'=>false , 'message'=>'Something went wrong!'];
+        }
+        if(isset($data['lead_id']) && !is_null($data['lead_id'])){
+            $leadData = $this->LeadRepository->getById(['id'=>$data['lead_id']]);
+            if(isset($leadData) && !empty($leadData)){
+                $name  = $leadData->name;
+                $phone = $leadData->phone;
+                $email = $leadData->email;
+            }
+        }else if(isset($data['user_id']) && !is_null($data['user_id'])){
+            $userData = $this->UserRepository->getByWhere(['id'=>$data['user_id']]);
+            if(isset($userData) && !empty($userData))
+            {
+                $name  = $userData->name;
+                $phone = $userData->phone;
+                $email = $userData->email;
+            }
+        }else{
+            $name  = $data['name'];
+            $phone = $data['phone'];
+            $email = $data['email'];
+        }
+        $create = [
+            'user_type' => $data['user_type'],
+            'type' => $data['type'],
+            'status' => $data['status'],
+            'visa_type' => $data['visa_type'],
+            'call_back_date' => $data['call_back_date'],
+            'client_query' => $data['client_query'],
+            'user_id' => $data['user_id'],
+            'lead_id' => $data['lead_id'],
+            'lead_other' => $data['lead_other'],
+            'email' => $email,
+            'name' => $name,
+            'phone' => $phone,
+        ];
+        $this->CallTaggingRepository->update(['id'=>$data['id']], $create);
+        return ['status' => true, 'message' => "Call Tagging Updated Successfully!"];
+    }
 }
