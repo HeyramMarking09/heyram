@@ -28,4 +28,8 @@ class CallTaggingRepository implements CallTaggingInterface
     {
         return $this->model->where($data)->delete();
     }
+    public function update(array $whereBy , array $data)
+    {
+        return $this->model->where($whereBy)->update($data);
+    }
 }
