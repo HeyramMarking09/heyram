@@ -16,7 +16,7 @@
                             </div>
                             <div class="col-8 text-end">
                                 <div class="head-icons">
-                                    <a href="{{ route('admin.call-tagging') }}" data-bs-toggle="tooltip"
+                                    <a href=" @if (Auth::guard('admin')->check()) {{ route('admin.call-tagging') }} @else {{ route('employee.call-tagging') }} @endif" data-bs-toggle="tooltip"
                                         data-bs-placement="top" data-bs-original-title="Refresh">
                                         <i class="ti ti-refresh-dot"></i>
                                     </a>
@@ -47,8 +47,10 @@
                                         <div class="export-list text-sm-end">
                                             <ul>
                                                 <li>
-                                                    <a href="javascript:void(0);" class="btn btn-primary add-popup"><i
-                                                            class="ti ti-square-rounded-plus"></i>Add</a>
+                                                    @can('access-permission', ['Call Tagging', 'create'])
+                                                        <a href="javascript:void(0);" class="btn btn-primary add-popup"><i
+                                                                class="ti ti-square-rounded-plus"></i>Add</a>
+                                                    @endcan
                                                 </li>
                                                 <li>
                                                     <a href="javascript:void(0);" style="display: none" id="editLink" class="btn btn-primary edit-popup"><i
@@ -688,6 +690,34 @@
     <!-- /Main Wrapper -->
 @endsection
 @push('scripts')
+    @if (Auth::guard('admin')->check())
+        <script>
+            var getAllCallLeads = "{{ route('admin.get-call-leads') }}";
+            var getUsers =  "{{ route('admin.get-users') }}";
+            var createCallTagging =  "{{ route('admin.create-call-tagging') }}";
+            var getCallTaggingList ="{{ route('admin.get-call-tagging-list') }}";
+            var callTaggingDetail = "{{ route('admin.call-tagging-detail', ['id' => ':id']) }}";
+            var deleteCallTagging = "{{ route('admin.delete-call-tagging') }}";
+            var addComments = "{{ route('admin.add-comments') }}";
+            var updateCallTagging = "{{ route('admin.update-call-tagging') }}";
+        </script>
+    @else
+        <script>
+            var getAllCallLeads = "{{ route('employee.get-call-leads') }}";
+            var getUsers =  "{{ route('employee.get-users') }}";
+            var createCallTagging =  "{{ route('employee.create-call-tagging') }}";
+            var getCallTaggingList ="{{ route('employee.get-call-tagging-list') }}";
+            var callTaggingDetail = "{{ route('employee.call-tagging-detail', ['id' => ':id']) }}";
+            var deleteCallTagging = "{{ route('employee.delete-call-tagging') }}";
+            var addComments = "{{ route('employee.add-comments') }}";
+            var updateCallTagging = "{{ route('employee.update-call-tagging') }}";
+        </script>
+    @endif
+    <script>
+        window.canEdit = @json(Auth::user()->can('access-permission', ['Call Tagging', 'edit']));
+        window.canDelete = @json(Auth::user()->can('access-permission', ['Call Tagging', 'delete']));
+        window.canView = @json(Auth::user()->can('access-permission', ['Call Tagging', 'view']));
+    </script>
     <script>
         var leadsList = [];
         function lead_or_other(value) {
@@ -697,7 +727,7 @@
             if (value == 'lead') {
                 $('#leadList').show();
                 $.ajax({
-                    url: "{{ route('admin.get-call-leads') }}", // The route you defined
+                    url: getAllCallLeads, // The route you defined
                     type: 'GET',
                     success: function(response) {
                         $('#leadsDropdown').html('');
@@ -760,7 +790,7 @@
                 $("#userList").show();
                 $("#userListSelect").hide();
                 $.ajax({
-                    url: "{{ route('admin.get-users') }}", // The route you defined
+                    url: getUsers, // The route you defined
                     type: 'GET',
                     data: {
                         'user_type': userType
@@ -792,7 +822,7 @@
             if (value == 'lead') {
                 $('#editLeadList').show();
                 $.ajax({
-                    url: "{{ route('admin.get-call-leads') }}", // The route you defined
+                    url: getAllCallLeads, // The route you defined
                     type: 'GET',
                     success: function(response) {
                         $('#editLeadsDropdown').html('');
@@ -853,7 +883,7 @@
                 $("#editUserList").show();
                 $("#editUserListSelect").hide();
                 $.ajax({
-                    url: "{{ route('admin.get-users') }}", // The route you defined
+                    url: getUsers, // The route you defined
                     type: 'GET',
                     data: {
                         'user_type': userType
@@ -972,7 +1002,7 @@
                 submitHandler: function(form) {
                     $('#callTaggingSubmitButton').prop('disabled', true);
                     $.ajax({
-                        url: "{{ route('admin.create-call-tagging') }}",
+                        url: createCallTagging,
                         method: "POST",
                         data: $(form).serialize(),
 
@@ -1017,7 +1047,7 @@
                     "autoWidth": true,
                     "autoWidth": true,
                     "ajax": {
-                        url: "{{ route('admin.get-call-tagging-list') }}",
+                        url: getCallTaggingList,
                         type: "get",
                         "data": function(d) {
                             // Add custom parameters to the request
@@ -1055,7 +1085,7 @@
                         },
                         {
                             "render": function(data, type, row) {
-                                var Preview = "{{ route('admin.call-tagging-detail', ['id' => ':id']) }}".replace(':id', row.id); 
+                                var Preview = callTaggingDetail.replace(':id', row.id); 
                                 return '<a href="'+ Preview +'" class="title-name">' + row['name'] +'</a>';
                             }
                         },
@@ -1116,7 +1146,8 @@
                         },
 						{
 							"render": function(data, type, row) {
-                                return '<a class="dropdown-item" style="background-color: rgba(228, 31, 7, 0.05); color:red;" href="#" data-bs-toggle="modal" onclick="commentClick('+row.id+')" data-bs-target="#comment_contact">Comment</a>';
+                                return  window.canEdit ? '<a class="dropdown-item" style="background-color: rgba(228, 31, 7, 0.05); color:red;" href="#" data-bs-toggle="modal" onclick="commentClick('+row.id+')" data-bs-target="#comment_contact">Comment</a>' : '-';
+                                // return ;
                             }
 						},
                         {
@@ -1128,9 +1159,7 @@
                             }
                         },
                         {
-                            "render": function(data, type, row) {
-                                console.log(row);
-                                
+                            "render": function(data, type, row) {                                
                                 var ID = row['id'];
                                 var Name = row['name'];
                                 var Email = row['email'];
@@ -1142,8 +1171,22 @@
                                 var type = row['type'];
                                 var status = row['status'];
                                 var lead_other = row['lead_other'];
-                                var Preview = "{{ route('admin.call-tagging-detail', ['id' => ':id']) }}".replace(':id', ID); 
-                                return `<div class="dropdown table-action"><a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" onclick="getEditTagging('${ID}','${Name}','${Email}','${Phone}', '${Visa_type}', '${client_query}', '${call_back_date}','${user_type}', '${type}', '${status}','${lead_other}')" href="#"><i class="ti ti-edit text-blue"></i> Edit</a><a class="dropdown-item" href="#" data-bs-toggle="modal" onclick="deleteCallTagging('${ID}')" data-bs-target="#delete_contact"><i class="ti ti-trash text-danger"></i> Delete</a><a class="dropdown-item" href="${Preview}"><i class="ti ti-eye text-blue"></i> Preview</a></div></div>`;
+                                var Preview = callTaggingDetail.replace(':id', ID); 
+                                var canEditt = window.canEdit ?`<a class="dropdown-item" onclick="getEditTagging('${ID}','${Name}','${Email}','${Phone}', '${Visa_type}', '${client_query}', '${call_back_date}','${user_type}', '${type}', '${status}','${lead_other}')" href="#">
+                                                        <i class="ti ti-edit text-blue"></i> Edit
+                                            </a>` : '';
+                                var canDeletee = window.canDelete ? `<a class="dropdown-item" href="#" data-bs-toggle="modal" onclick="deleteCallTagging('${ID}')" data-bs-target="#delete_contact"><i class="ti ti-trash text-danger"></i> Delete</a>`:'';
+                                var canPrevieww = window.canView ? `<a class="dropdown-item" href="${Preview}"><i class="ti ti-eye text-blue"></i> Preview</a>` : '';
+                            return `<div class="dropdown table-action">
+                                        <a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-ellipsis-v"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            ${canEditt}
+                                            ${canDeletee}
+                                            ${canPrevieww}
+                                        </div>
+                                    </div>`;
                             }
                         }
                     ],
@@ -1216,7 +1259,7 @@
             $('#deleteButton').prop('disabled', false);
             var id = $('#callTaggingDeleteId').val();
             $.ajax({
-                url: "{{ route('admin.delete-call-tagging') }}", // The route you defined
+                url: deleteCallTagging, // The route you defined
                 type: 'DELETE', // Use uppercase 'DELETE' for the HTTP method
                 headers: {
                     'X-CSRF-TOKEN': "{{ csrf_token() }}" // Include the CSRF token in the headers
@@ -1283,7 +1326,7 @@
                 submitHandler: function(form) {
                     $('#commentFormButton').prop('disabled', true);
                     $.ajax({
-                        url: "{{ route('admin.add-comments') }}",
+                        url: addComments,
                         method: "POST",
                         data: $(form).serialize(),
 
@@ -1333,7 +1376,7 @@
                 submitHandler: function(form) {
                     $('#editCallTaggingSubmitButton').prop('disabled', true);
                     $.ajax({
-                        url: "{{ route('admin.update-call-tagging') }}",
+                        url: updateCallTagging,
                         method: "POST",
                         data: $(form).serialize(),
 

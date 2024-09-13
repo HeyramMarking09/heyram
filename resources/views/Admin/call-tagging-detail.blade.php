@@ -16,7 +16,7 @@
                             </div>
                             <div class="col-sm-8 text-sm-end">
                                 <div class="head-icons">
-                                    <a href="{{ route('admin.call-tagging-detail', ['id' => request()->id]) }}" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    <a href="@if (Auth::guard('admin')->check()) {{ route('admin.call-tagging-detail', ['id' => request()->id]) }} @else {{ route('employee.call-tagging-detail',['id'=>request()->id]) }}  @endif " data-bs-toggle="tooltip" data-bs-placement="top"
                                         data-bs-original-title="Refresh"><i class="ti ti-refresh-dot"></i></a>
                                     <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top"
                                         data-bs-original-title="Collapse" id="collapse-header"><i
@@ -38,7 +38,7 @@
                         <div class="row align-items-center">
                             <div class="col-sm-6">
                                 <ul class="contact-breadcrumb">
-                                    <li><a href="{{ route('admin.call-tagging') }}"><i class="ti ti-arrow-narrow-left"></i>Call Tagging</a></li>
+                                    <li><a href="@if (Auth::guard('admin')->check()) {{ route('admin.call-tagging') }}  @else {{ route('employee.call-tagging') }} @endif "><i class="ti ti-arrow-narrow-left"></i>Call Tagging</a></li>
                                     <li>{{ $data->name }}</li>
                                 </ul>
                             </div>
@@ -118,6 +118,13 @@
                             <div class="tab-pane " id="comments">
                                 <div class="view-header">
                                     <h4>Comments</h4>
+                                    <ul >
+                                        <li >
+                                            <div class="form-sort">
+                                                <a href="#" data-bs-target="#comment_contact" data-bs-toggle="modal" onclick="commentClick({{ request()->id }})" class="btn btn-primary">Add Comments</a>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
                                 <div class="contact-activity">
                                     <ul>
@@ -179,4 +186,129 @@
 
     </div>
     <!-- /Main Wrapper -->
+
+    {{-- Add Comments --}}
+	<div class="modal custom-modal fade" id="comment_contact" role="dialog">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header border-0 m-0 align-items-center">
+					<h5 class="modal-title ms-3">Add Comment</h5> <!-- Header aligned to the left -->
+					<button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+						<i class="ti ti-x"></i>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="success-message">
+						<form id="commentForm">
+							@csrf
+                            <input type="hidden" name="id" id="commentId">
+							<div class="row mb-3">
+								<div class="col-md-12">
+									<div class="form-wrap mb-3">
+										<label for="leadName" class="form-label d-block text-start">Comment <span class="text-danger">*</span></label>
+										<textarea name="comments" required id="" placeholder="Enter Comment" class="form-control" cols="30" rows="3"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-12 modal-btn d-flex justify-content-end">
+								<a href="#" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
+								<button type="submit" id="commentFormButton" class="btn btn-danger">Submit</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	{{-- Add Comments --}}
 @endsection
+
+@push('scripts')
+    @if (Auth::guard('admin')->check())
+        <script>
+            var addComments  = "{{ route('admin.add-comments') }}";
+        </script>
+    @else
+        <script>
+            var addComments  = "{{ route('employee.add-comments') }}";
+        </script>
+    @endif
+<script>
+        function commentClick(id)
+        {
+            $('#commentId').val(id);
+        }
+    </script>
+    <script>
+        $(document).ready(function() {
+           $("#commentForm").validate({
+               rules: {
+                   comments: {
+                       required: true
+                   }
+               },
+               messages: {
+                   comments: {
+                       required: "This field is required.",
+                   }
+               },
+               submitHandler: function(form) {
+                   $('#commentFormButton').prop('disabled', true);
+                   $.ajax({
+                       url: addComments,
+                       method: "POST",
+                       data: $(form).serialize(),
+
+                       success: function(response) {
+                           if (response.status == true || response.status === 'true') {
+                               // Show a success message
+                               CallMesssage('success', response.message);
+
+                               $('.btn-close').click();
+                               // Reset the form
+                               $('#commentForm')[0].reset();
+                               $('#commentFormButton').prop('disabled', false);
+                               // Reload the DataTable
+                            //    $('#call_tagging_list').DataTable().ajax.reload();
+                                window.location.reload();
+                           } else {
+                               CallMesssage('error', response.message);
+                               $('#commentFormButton').prop('disabled', false);
+                           }
+                       },
+                       error: function(xhr) {
+                           var response = JSON.parse(xhr.responseText);
+                           Swal.fire({
+                               icon: 'error',
+                               title: 'Error',
+                               text: response.error ||
+                                   'An unexpected error occurred.'
+                           });
+                       }
+                   });
+               }
+           });
+       });
+   </script>
+   <script>
+    function CallMesssage(icon, title) {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+        Toast.fire({
+            icon: icon,
+            title: title
+        });
+    }
+</script>
+@endpush

@@ -14,7 +14,7 @@
                             </div>
                             <div class="col-4 text-end">
                                 <div class="head-icons">
-                                    <a href="{{ route('admin.lmia-request') }}" data-bs-toggle="tooltip"
+                                    <a href=" @if (Auth::guard('admin')->check()) {{ route('admin.lmia-request') }} @else {{ route('employee.lmia-request') }} @endif" data-bs-toggle="tooltip"
                                         data-bs-placement="top" data-bs-original-title="Refresh"><i
                                             class="ti ti-refresh-dot"></i></a>
                                     <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -36,9 +36,12 @@
                                         <div class="export-list text-sm-end">
                                             <ul>
                                                 <li>
-                                                    <a href="{{ route('admin.apply-for-an-lmia') }}"
-                                                        class="btn btn-primary"><i
-                                                            class="ti ti-square-rounded-plus"></i>Apply For An Lmia</a>
+                                                    @can('access-permission', ['Apply For An Lmia', 'create'])
+                                                        <a href="@if (Auth::guard('admin')->check()) {{ route('admin.apply-for-an-lmia') }} @else {{ route('employee.apply-for-an-lmia') }} @endif"
+                                                            class="btn btn-primary"><i
+                                                                class="ti ti-square-rounded-plus"></i>Apply For An Lmia</a>
+                                                    @endcan
+
                                                     <a href="javascript:void(0);" style="display: none"
                                                         class="btn btn-primary add-popup"><i
                                                             class="ti ti-square-rounded-plus"></i>Add User</a>
@@ -460,6 +463,29 @@
 @endsection
 
 @push('scripts')
+    @if (Auth::guard('admin')->check())
+        <script>
+            var getListOfLmias = "{{ route('admin.get-list-of-lmias') }}";
+            var lmiaDetailUrl = "{{ route('admin.lmia-detail', ['id' => '__ID__']) }}";
+            var changeLmiaStatus = "{{ route('admin.change-lmia-status') }}";
+            var lmiaAssignEmployee = "{{ route('admin.lmia-assign-employee') }}";
+            var lmiaApproved = "{{ route('admin.lmia-approved') }}";
+            var lmiaInterviewSchedule = "{{ route('admin.lmia-interview-schedule') }}";
+        </script>
+    @else
+        <script>
+            var getListOfLmias = "{{ route('employee.get-list-of-lmias') }}";
+            var lmiaDetailUrl = "{{ route('employee.lmia-detail', ['id' => '__ID__']) }}";
+            var changeLmiaStatus = "{{ route('employee.change-lmia-status') }}";
+            var lmiaAssignEmployee = "{{ route('employee.lmia-assign-employee') }}";
+            var lmiaApproved = "{{ route('employee.lmia-approved') }}";
+            var lmiaInterviewSchedule = "{{ route('employee.lmia-interview-schedule') }}";
+        </script>
+    @endif
+    <script>
+        window.canEditUser = @json(Auth::user()->can('access-permission', ['Apply For An Lmia', 'edit']));
+        window.canViewUser = @json(Auth::user()->can('access-permission', ['Apply For An Lmia', 'view']));
+    </script>
     <script>
         $(document).ready(function() {
             // Companies List
@@ -469,7 +495,7 @@
                     "bInfo": false,
                     "autoWidth": true,
                     "ajax": {
-                        "url": "{{ route('admin.get-list-of-lmias') }}", // Endpoint to fetch company data
+                        "url": getListOfLmias, // Endpoint to fetch company data
                         "type": "GET",
                         "data": function(d) {
                             d.sortOrder = window.sortOrder; // Add sort order
@@ -507,7 +533,7 @@
                         },
                         {
                             "render": function(data, type, row) {
-                                var lmiaDetail = "{{ route('admin.lmia-detail', ['id' => '__ID__']) }}".replace('__ID__', row.id);
+                                var lmiaDetail = lmiaDetailUrl.replace('__ID__', row.id);
                                 return '<a href="'+lmiaDetail+'">'+ row['name'] +' </a>';
                                 // return row['name'];
                             }
@@ -515,7 +541,7 @@
                         {
                             "render": function(data, type, row) {
                                 // return row['email'];
-                                var lmiaDetail = "{{ route('admin.lmia-detail', ['id' => '__ID__']) }}".replace('__ID__', row.id);
+                                var lmiaDetail = lmiaDetailUrl.replace('__ID__', row.id);
                                 return '<a href="'+lmiaDetail+'">'+ row['email'] +' </a>';
 
                             }
@@ -581,28 +607,13 @@
                                     "{{ route('employer.lmia-detail', ['id' => '__ID__']) }}"
                                     .replace('__ID__', row.id);
                                 var ID = row.id;
-                                // return `<div class="dropdown table-action">
-                                //             <a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                //             <div class="dropdown-menu dropdown-menu-right">
-                                //                 <a class="dropdown-item" onclick="changeStatus('1', '${ID}')" href="javascript:void(0);">1. Request received and approved</a>
-                                //                 <a class="dropdown-item" onclick="changeStatus('2', '${ID}')" href="javascript:void(0);">2. LMIA submitted</a>
-                                //                 <a class="dropdown-item" onclick="changeStatus('3', '${ID}')" href="javascript:void(0);">3. Payment deducted</a>
-                                //                 <a class="dropdown-item" onclick="changeStatus('4', '${ID}')" href="javascript:void(0);">4. Queued for assessment</a>
-                                //                 <a class="dropdown-item" onclick="changeStatus('5', '${ID}')" href="javascript:void(0);">5. LMIA assigned to the LMIA officer and assessment in progress</a>
-                                //                 <a class="dropdown-item" onclick="InterViewSchedule('6', '${ID}')" href="javascript:void(0);">6. Interview Schedule</a>
-                                //                 <a class="dropdown-item" onclick="changeStatus('7', '${ID}')" href="javascript:void(0);">7. LMIA officer requested information/documents</a>
-                                //                 <a class="dropdown-item" onclick="changeStatus('8', '${ID}')" href="javascript:void(0);">8. LMIA process started, and job vacancy advertised</a>
-                                //                 <a class="dropdown-item" onclick="changeStatus('9', '${ID}')" href="javascript:void(0);">9. Other</a>
-                                //                 <a class="dropdown-item" onclick="InterViewSchedule('10', '${ID}')" href="javascript:void(0);">10. LMIA Approved</a>
-                                //             </div>
-                                //         </div>`;
-                                return `<div class="dropdown table-action">
+                                return window.canEditUser ? `<div class="dropdown table-action">
                                             <a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <a class="dropdown-item" onclick="changeStatus('1', '${ID}')" href="javascript:void(0);">1. Request received and approved</a>
                                                 <a class="dropdown-item" onclick="changeStatus('11', '${ID}')" href="javascript:void(0);">2. LMIA Denied</a>
                                             </div>
-                                        </div>`;
+                                        </div>` : '-';
                             }
                         },
                         {
@@ -619,8 +630,8 @@
                                 });
                                 var ID = row.id;
                                 if (row['status'] == "1") {
-                                    return `<div class="dropdown table-action">
-                                            <a href="#" class="btn btn-primary" onclick="assignEmployees('${ID}')">Assign</a></div>`;
+                                    return window.canEditUser ? `<div class="dropdown table-action">
+                                            <a href="#" class="btn btn-primary" onclick="assignEmployees('${ID}')">Assign</a></div>`: "-";
                                 } else {
                                     return '-';
                                 }
@@ -629,12 +640,10 @@
                         },
                         {
                             "render": function(data, type, row) {
-                                var lmiaDetail =
-                                    "{{ route('admin.lmia-detail', ['id' => '__ID__']) }}"
-                                    .replace('__ID__', row.id);
-                                return '<div class="dropdown table-action"><a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="' +
+                                var lmiaDetail = lmiaDetailUrl.replace('__ID__', row.id);
+                                return window.canViewUser ? '<div class="dropdown table-action"><a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="' +
                                     lmiaDetail +
-                                    '"><i class="ti ti-eye text-blue-light"></i> Preview</a></div></div>';
+                                    '"><i class="ti ti-eye text-blue-light"></i> Preview</a></div></div>' : '-';
                             }
                         }
                     ],
@@ -675,7 +684,7 @@
     <script>
         function changeStatus(status, id) {
             $.ajax({
-                url: "{{ route('admin.change-lmia-status') }}",
+                url: changeLmiaStatus,
                 type: "POST",
                 data: {
                     '_token': "{{ csrf_token() }}",
@@ -725,7 +734,7 @@
                 submitHandler: function(form) {
                     $('#assignEmployeeSubmitButton').prop('disabled', true);
                     $.ajax({
-                        url: "{{ route('admin.lmia-assign-employee') }}",
+                        url: lmiaAssignEmployee,
                         method: "POST",
                         data: $(form).serialize(),
 
@@ -825,7 +834,7 @@
                 submitHandler: function(form) {
                     $('#LmiaApprovedSubmitButton').prop('disabled', true);
                     $.ajax({
-                        url: "{{ route('admin.lmia-approved') }}",
+                        url: lmiaApproved,
                         method: "POST",
                         data: $(form).serialize(),
 
@@ -877,7 +886,7 @@
                 submitHandler: function(form) {
                     $('#InterviewSchuleSubmitButton').prop('disabled', true);
                     $.ajax({
-                        url: "{{ route('admin.lmia-interview-schedule') }}",
+                        url: lmiaInterviewSchedule,
                         method: "POST",
                         data: $(form).serialize(),
 

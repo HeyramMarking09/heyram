@@ -7,6 +7,7 @@ use App\Models\Country;
 use App\Services\LeadService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 
 class LeadController extends Controller
@@ -20,13 +21,14 @@ class LeadController extends Controller
     }
     public function index()
     {
-        try {
+        if (Gate::allows('access-permission', ['Leads', 'view'])) {
             $users = $this->UserService->getEmployees();
             $counties = Country::all();
             return view('Admin.leads',compact('users', 'counties'));
-        } catch (\Exception $th) {
-            Log::error("Error in LeadController.index() ". $th->getLine() .' '.$th->getMessage());
+        }else{
+            abort(403, 'Unauthorized action.');
         }
+        
     }
     public function createLead(Request $request)
     {

@@ -13,6 +13,8 @@ class Authenticate extends Middleware
                 return route('admin.login');
             } elseif ($request->is('employer/*')) {
                 return route('employer.login');
+            }elseif ($request->is('employee/*')) {
+                return route('employee.login');
             }
         }
     }

@@ -8,6 +8,7 @@ use App\Services\CompanyInformationService;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ManageUserController extends Controller
 {
@@ -20,7 +21,11 @@ class ManageUserController extends Controller
     }
     public function index()
     {
-        return view('Admin.manage-users');
+        if (Gate::allows('access-permission', ['Manage User', 'view'])) {
+            return view('Admin.manage-users');
+        }else{
+            abort(403, 'Unauthorized action.');
+        }
     }
     public function createUser(Request $request)
     {
@@ -57,7 +62,11 @@ class ManageUserController extends Controller
     }
     public function deleteRequest()
     {
-        return view('Admin.delete-request');
+        if (Gate::allows('access-permission', ['Delete Request', 'view'])) {
+            return view('Admin.delete-request');
+        }else{
+            abort(403, 'Unauthorized action.');
+        }
     }
     public function getDeleteRequest(Request $request)
     {
@@ -85,8 +94,12 @@ class ManageUserController extends Controller
     }
     public function employerDashboard()
     {
-        $UserData = $this->UserService->getEmployees();
-        return view('Admin.employer-dashboard',compact('UserData'));
+        if (Gate::allows('access-permission', ['Employers List', 'view'])) {
+            $UserData = $this->UserService->getEmployees();
+            return view('Admin.employer-dashboard',compact('UserData'));
+        }else{
+            abort(403, 'Unauthorized action.');
+        }
     }
     public function employers(Request $request)
     {

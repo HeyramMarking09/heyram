@@ -118,7 +118,18 @@ $(document).ready(function() {
                         var Lead_source = row['lead_source'];
                         var Country = row['country'];
                         var Assign_employee = row['assign_employee'];
-                        return `<div class="dropdown table-action"><a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" onclick="getEditLead('${ID}','${Name}','${Email}','${Phone}', '${Location}', '${Visa_type}', '${Is_active}', '${Lead_source}', '${Country}', '${Assign_employee}')" href="#"><i class="ti ti-edit text-blue"></i> Edit</a><a class="dropdown-item" href="#" data-bs-toggle="modal" onclick="deleteLead('${ID}')" data-bs-target="#delete_contact"><i class="ti ti-trash text-danger"></i> Delete</a></div></div>`;
+                        var canEdit = window.canEditUser ? `<a class="dropdown-item" onclick="getEditLead('${ID}','${Name}','${Email}','${Phone}', '${Location}', '${Visa_type}', '${Is_active}', '${Lead_source}', '${Country}', '${Assign_employee}')" href="#"><i class="ti ti-edit text-blue"></i> Edit</a>`:'';
+                        var canDelete = window.canDeleteUser ? `<a class="dropdown-item" href="#" data-bs-toggle="modal" onclick="deleteLead('${ID}')" data-bs-target="#delete_contact"><i class="ti ti-trash text-danger"></i> Delete</a>`:'';
+                        return `<div class="dropdown table-action">
+                                    <a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-v"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        
+                                        ${canEdit}
+                                        ${canDelete}
+                                    </div>
+                                </div>`;
                     }
                 }
             ],

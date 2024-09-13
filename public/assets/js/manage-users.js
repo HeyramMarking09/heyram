@@ -76,19 +76,26 @@ $(document).ready(function() {
                         var UserType = row.customer_no;
                         var LastName = row.last_name;
                         var isOnline = row.is_online;
+
+                        var editOption = window.canEditUser ? 
+                            `<a class="dropdown-item" onclick="openEditForm('${ID}', '${Name}','${Email}', '${Phone}', '${Status}','${UserType}','${LastName}','${isOnline}')" href="javascript:void(0);">
+                                <i class="ti ti-edit text-blue"></i> Edit
+                            </a>` : '';
+                     
+                        var deleteOption = window.canDeleteUser ? 
+                            `<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_contact" onclick="getIDForDelete(${ID})">
+                                <i class="ti ti-trash text-danger"></i> Delete
+                            </a>` : '';
+
                         return `<div class="dropdown table-action">
-                                <a href="#" class="action-icon" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-ellipsis-v"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" onclick="openEditForm('${ID}', '${Name}','${Email}', '${Phone}', '${Status}','${UserType}','${LastName}','${isOnline}')" href="javascript:void(0);">
-                                        <i class="ti ti-edit text-blue"></i> Edit
+                                    <a href="#" class="action-icon" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-v"></i>
                                     </a>
-                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_contact" onclick="getIDForDelete(${ID})">
-                                        <i class="ti ti-trash text-danger"></i> Delete
-                                    </a>
-                                </div>
-                            </div>`;
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        ${editOption}
+                                        ${deleteOption}
+                                    </div>
+                                </div>`;
                         }
                 }
             ],

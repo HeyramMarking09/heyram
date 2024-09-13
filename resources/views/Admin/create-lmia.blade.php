@@ -204,6 +204,15 @@
     <!-- /Main Wrapper -->
 @endsection
 @push('scripts')
+    @if (Auth::guard('admin')->check())
+        <script>
+            var LmiaForm = "{{ route('admin.lmia-form') }}"; 
+        </script>
+    @else
+        <script>
+            var LmiaForm = "{{ route('employee.lmia-form') }}"; 
+        </script>
+    @endif
     <!-- Wizard JS -->
     <script src="{{ asset('assets/plugins/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/twitter-bootstrap-wizard/prettify.js') }}"></script>
@@ -251,7 +260,7 @@
                     var companyInfoFormData = new FormData($("#lmia-form")[0]);
 
                     $.ajax({
-                        url: "{{ route('admin.lmia-form') }}", // Your endpoint to handle form submission
+                        url: LmiaForm, // Your endpoint to handle form submission
                         method: 'POST',
                         data: companyInfoFormData,
                         processData: false, // Prevent jQuery from automatically processing the data

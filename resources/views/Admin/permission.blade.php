@@ -16,7 +16,7 @@
                             </div>
                             <div class="col-4 text-end">
                                 <div class="head-icons">
-                                    <a href="{{ route('admin.permission', $role->id) }}" data-bs-toggle="tooltip"
+                                    <a href="@if (Auth::guard('admin')->check()) {{ route('admin.permission', $role->id) }} @else {{ route('employee.permission', $role->id) }} @endif " data-bs-toggle="tooltip"
                                         data-bs-placement="top" title="Refresh"><i class="ti ti-refresh-dot"></i></a>
                                     <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top"
                                         title="Collapse" id="collapse-header"><i class="ti ti-chevrons-up"></i></a>
@@ -156,6 +156,16 @@
     <!-- /Main Wrapper -->
 @endsection
 @push('scripts')
+    @if (Auth::guard('admin')->check())
+        <script>
+            var permissionUpdate = "{{ route('admin.permissions.update') }}";
+        </script>
+    @else
+        <script>
+            var permissionUpdate = "{{ route('employee.permissions.update') }}";
+        </script>
+    @endif
+
     <script>
         $(document).ready(function() {
             // When any permission checkbox is clicked
@@ -176,7 +186,7 @@
         // Function to send AJAX request
         function updatePermission(roleId, permissionId, permissionType, isChecked) {
             $.ajax({
-                url: '{{ route('admin.permissions.update') }}', // Update this with your route name
+                url: permissionUpdate, // Update this with your route name
                 type: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',

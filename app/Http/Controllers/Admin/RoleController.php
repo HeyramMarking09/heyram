@@ -5,13 +5,18 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 
 class RoleController extends Controller
 {
     public function index()
     {
-        return view('Admin.roles-permissions');
+        if (Gate::allows('access-permission', ['Roles And Permission', 'view'])) {
+            return view('Admin.roles-permissions');
+        }else{
+            abort(403, 'Unauthorized action.');
+        }
     }
     public function getRolesPermissions(Request $request)
     {

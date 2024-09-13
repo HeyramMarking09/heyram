@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Services\CallTaggingService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 
 class CallTaggingController extends Controller
@@ -15,7 +16,11 @@ class CallTaggingController extends Controller
         $this->CallTaggingService = $CallTaggingService;
     }
     public function index() {
-        return view('Admin.call-tagging');
+        if (Gate::allows('access-permission', ['Call Tagging', 'view'])) {
+            return view('Admin.call-tagging');
+        }else{
+            abort(403, 'Unauthorized action.');
+        }
     }
     public function create(Request $request)
     {
@@ -51,13 +56,12 @@ class CallTaggingController extends Controller
     }
     public function detail($id)
     {   
-        try{
+        if (Gate::allows('access-permission', ['Call Tagging', 'view'])) {
             $data = $this->CallTaggingService->detail($id);
-            Log::info($data);
             return view('Admin.call-tagging-detail', compact('data'));
-        }catch(\Exception $th){
-            Log::error('Error in CallTaggingController.addComment()'. $th->getLine() .' '.$th->getMessage());
-        }
+        }else{
+            abort(403, 'Unauthorized action.');
+        }        
     }
     public function update(Request $request)
     {

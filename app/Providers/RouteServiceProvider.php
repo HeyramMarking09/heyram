@@ -12,6 +12,7 @@ class RouteServiceProvider extends ServiceProvider
 {
     public const EMPLOYER_HOME = '/employer/dashboard';
     public const HOME = '/admin/dashboard';
+    public const EMPLOYEE_HOME = '/employee/dashboard';
 
     public function boot(): void
     {
@@ -35,6 +36,8 @@ class RouteServiceProvider extends ServiceProvider
             return self::HOME;
         } elseif (auth()->guard('employer')->check()) {
             return self::EMPLOYER_HOME;
+        } elseif (auth()->guard('employee')->check()) {
+            return self::EMPLOYEE_HOME;
         }
 
         return '/'; // Default redirect

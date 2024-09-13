@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Employer;
 use App\Http\Controllers\Controller;
 use App\Services\SupportService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 
 class SupportController extends Controller
@@ -28,8 +29,12 @@ class SupportController extends Controller
     }
     public function getIndex()
     {
-        $data = $this->SupportService->getALLForAdmin();
-        return view('Admin.support', compact('data'));
+        if (Gate::allows('access-permission', ['Support', 'view'])) {
+            $data = $this->SupportService->getALLForAdmin();
+            return view('Admin.support', compact('data'));
+        }else{
+            abort(403, 'Unauthorized action.');
+        }
     }
     public function addAnswer(Request $request)
     {

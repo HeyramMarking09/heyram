@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\LmiaService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 
 class LmiaController extends Controller
@@ -19,8 +20,12 @@ class LmiaController extends Controller
     }
     public function index()
     {
-        $UserData = $this->UserService->getEmployees();
-        return view('Admin.lmia',compact('UserData'));
+        if (Gate::allows('access-permission', ['Apply For An Lmia', 'view'])) {
+            $UserData = $this->UserService->getEmployees();
+            return view('Admin.lmia',compact('UserData'));
+        }else{
+            abort(403, 'Unauthorized action.');
+        }
     }
     public function lmiaDetail($id)
     {
@@ -38,8 +43,12 @@ class LmiaController extends Controller
     }
     public function applyForAnLmia()
     {
-        $UserData = $this->UserService->getEmployers();
-        return view('Admin.create-lmia', compact('UserData'));
+        if (Gate::allows('access-permission', ['Apply For An Lmia', 'create'])) {
+            $UserData = $this->UserService->getEmployers();
+            return view('Admin.create-lmia', compact('UserData'));
+        }else{
+            abort(403, 'Unauthorized action.');
+        }
     }
     public function getListOfLmias(Request $request)
     {

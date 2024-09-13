@@ -181,11 +181,26 @@
 @endsection
 
 @push('scripts')
-    {{-- <script src="{{ asset('assets/js/delete-request.js') }}"></script> --}}
+    @if (Auth::guard('admin')->check())
+        <script>
+            var csrf_token = "{{ csrf_token() }}";
+            var getDeleteRequest = "{{ route('admin.get-delete-request') }}";
+            var parmanentDeleteRequest = "{{ route('admin.permanent-delete-request') }}";
+            var recoverDeleteRequest  = "{{ route('admin.recover-delete-request') }}";
+        </script>
+    @else
+        <script>
+            var csrf_token = "{{ csrf_token() }}";
+            var getDeleteRequest = "{{ route('employee.get-delete-request') }}";
+            var parmanentDeleteRequest = "{{ route('employee.permanent-delete-request') }}";
+            var recoverDeleteRequest  = "{{ route('employee.recover-delete-request') }}";
+        </script>
+    @endif
     <script>
-        var csrf_token = "{{ csrf_token() }}";
-        var getDeleteRequest = "{{ route('admin.get-delete-request') }}";
+        window.canDeleteUser = @json(Auth::user()->can('access-permission', ['Delete Request', 'delete']));
+        window.canEditUser = @json(Auth::user()->can('access-permission', ['Delete Request', 'edit']));
     </script>
+
     <script>
         $(document).ready(function() {
             if ($('#delete_request').length > 0) {
@@ -195,7 +210,7 @@
                     "ordering": true,
                     "autoWidth": true,
                     "ajax": {
-                        "url": "{{ route('admin.get-delete-request') }}",
+                        "url": getDeleteRequest,
                         "type": "GET",
                         "data": function(d) {
                             d.customer_name = $('#custom-search').val(); // Add search value
@@ -241,7 +256,18 @@
                         },
                         {
                             "render": function(data, type, row) {
-                                return '<div class="dropdown table-action"><a href="#" class="action-icon" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete_account" onclick="getDelelePermanent(' +row.id +')"><i class="ti ti-eye text-blue-light"></i>Permanent Delete</a><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#recover_account" onclick="getDelelePermanent(' +row.id +')" ><i class="ti ti-trash text-blue-light"></i>Recover Again</a></div></div>';
+                                var optionDelete = window.canDeleteUser ? `<a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete_account" onclick="getDelelePermanent(` +row.id +`)"><i class="ti ti-eye text-blue-light"></i>Permanent Delete</a>` : '';
+                                var optionEdit = window.canEditUser ? `<a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#recover_account" onclick="getDelelePermanent(` +row.id +`)" ><i class="ti ti-trash text-blue-light"></i>Recover Again</a>` : '';
+
+                                return `<div class="dropdown table-action">
+                                            <a href="#" class="action-icon" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                ${optionDelete}
+                                                ${optionEdit}
+                                            </div>
+                                        </div>`;
                             }
                         },
                     ],
@@ -287,7 +313,7 @@
             var id = $('#deleteUserId').val();
             $('#deletePermanentUser').prop('disabled', true);
             $.ajax({
-                url: "{{ route('admin.permanent-delete-request') }}",
+                url: parmanentDeleteRequest,
                 method: "DELETE",
                 data: {
                     id: id,
@@ -323,7 +349,7 @@
             var id = $('#recoverUserId').val();
             $('#RecoverUser').prop('disabled', true);
             $.ajax({
-                url: "{{ route('admin.recover-delete-request') }}",
+                url: recoverDeleteRequest,
                 method: "DELETE",
                 data: {
                     id: id,

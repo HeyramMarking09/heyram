@@ -12,7 +12,7 @@
                         </div>
                         <div class="col-4 text-end">
                             <div class="head-icons">
-                                <a href="{{ route('admin.support') }}" data-bs-toggle="tooltip"
+                                <a href="@if (Auth::guard('admin')->check()) {{ route('admin.support') }} @else {{ route('employee.support') }} @endif" data-bs-toggle="tooltip"
                                     data-bs-placement="top" data-bs-original-title="Refresh"><i
                                         class="ti ti-refresh-dot"></i></a>
                                 <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -53,10 +53,17 @@
                                                     @if (!is_null($item->answer))
                                                         <p>{{ $item->answer }}</p>
                                                     @else
-                                                        <p class="mt-3">
-                                                            <a onclick="getValue('{{ $item->id }}')" href="javascript:void(0);" class="btn btn-primary add-popup"><i
-                                                                class="ti ti-square-rounded-plus"></i>Add Answer</a>
-                                                        </p>
+                                                        @can('access-permission', ['Support', 'edit'])
+                                                            <p class="mt-3">
+                                                                <a onclick="getValue('{{ $item->id }}')" href="javascript:void(0);" class="btn btn-primary add-popup"><i
+                                                                    class="ti ti-square-rounded-plus"></i> Add Answer</a>
+                                                            </p>
+                                                        @else
+                                                            <p class="mt-3">
+                                                                <a href="javascript:void(0);" class="btn btn-warning"><i
+                                                                    class="ti ti-square-rounded-plus"></i> Can't Answer</a>
+                                                            </p>
+                                                        @endcan
                                                     @endif
 
                                                 </div>
@@ -124,6 +131,15 @@
 @endsection
 
 @push('scripts')
+    @if (Auth::guard('admin')->check())
+        <script>
+            var addAnswerUrl = "{{ route('admin.add-answer') }}";
+        </script>
+    @else
+        <script>
+            var addAnswerUrl = "{{ route('employee.add-answer') }}";
+        </script>
+    @endif
     <script>
         function getValue(id)
         {
@@ -146,7 +162,7 @@
                 submitHandler: function(form) {
                     $('#answerSubmitButton').prop('disabled', true);
                     $.ajax({
-                        url: "{{ route('admin.add-answer') }}",
+                        url: addAnswerUrl,
                         method: "POST",
                         data: $(form).serialize(),
 
