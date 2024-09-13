@@ -17,7 +17,7 @@
                             </div>
                             <div class="col-sm-8 text-sm-end">
                                 <div class="head-icons">
-                                    <a href="{{ route('admin.lmia-detail', ['id' => request()->id]) }}"
+                                    <a href="@if (Auth::guard('admin')->check()) {{ route('admin.lmia-detail', ['id' => request()->id]) }} @else {{ route('employee.lmia-detail',['id'=>request()->id]) }}  @endif"
                                         data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Refresh"><i
                                             class="ti ti-refresh-dot"></i></a>
                                     <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -39,7 +39,7 @@
                         <div class="row align-items-center">
                             <div class="col-sm-6">
                                 <ul class="contact-breadcrumb">
-                                    <li><a href="{{ route('admin.lmia-request') }}"><i
+                                    <li><a href="@if (Auth::guard('admin')->check()) {{ route('admin.lmia-request') }} @else {{ route('employee.lmia-request') }} @endif"><i
                                                 class="ti ti-arrow-narrow-left"></i>Lmia</a></li>
                                     <li>{{ $data->users->name }} {{ $data->users->last_name }}</li>
                                 </ul>
@@ -613,6 +613,18 @@
 @endsection
 
 @push('scripts')
+    @if (Auth::guard('admin')->check())
+        <script>
+            var lmiaAssignEmployee  = "{{ route('admin.lmia-assign-employee') }}";
+            var lmiaApproved  = "{{ route('admin.lmia-approved') }}";
+        </script>
+    @else
+        <script>
+            var lmiaAssignEmployee  = "{{ route('employee.lmia-assign-employee') }}";
+            var lmiaApproved  = "{{ route('employee.lmia-approved') }}";
+        </script>
+    @endif
+
     <script>
         $(document).ready(function() {
             $("#AssignEmployeeForm").validate({
@@ -635,7 +647,7 @@
                 submitHandler: function(form) {
                     $('#assignEmployeeSubmitButton').prop('disabled', true);
                     $.ajax({
-                        url: "{{ route('admin.lmia-assign-employee') }}",
+                        url: lmiaAssignEmployee,
                         method: "POST",
                         data: $(form).serialize(),
                         headers: {
@@ -731,7 +743,7 @@
                     var changeStatusFormData = new FormData($("#changeStatusForm")[0]);
 
                     $.ajax({
-                        url: "{{ route('admin.lmia-approved') }}",
+                        url: lmiaApproved,
                         method: "POST",
                         data: changeStatusFormData,
                         processData: false, // Prevent jQuery from automatically processing the data

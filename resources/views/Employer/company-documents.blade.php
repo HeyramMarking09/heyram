@@ -144,10 +144,10 @@
                                                     <td>{{ $LISTNO2 }}</td>
                                                     <td>{{ $item->name }}</td>
                                                     <td>{{ $item->dead_line_date }}</td>
-                                                    <td><span> <a style="color:red" href="{{ route('admin.download.file', ['filename' => $item->simple_file]) }}"> <i class="ti ti-download text-danger"></i> Downlaod File</a></span></td>
+                                                    <td><span> <a style="color:red" href="@if (Auth::guard('admin')->check()) {{ route('admin.download.file', ['filename' => $item->simple_file]) }} @else {{ route('employee.download.file', ['filename' => $item->simple_file]) }} @endif "> <i class="ti ti-download text-danger"></i> Downlaod File</a></span></td>
                                                     <td>
                                                         @if (!is_null($item->docs_file))
-                                                            <span> <a style="color:red" href="{{ route('admin.download.file', ['filename' => $item->docs_file]) }}"><i class="ti ti-download text-danger"></i> Downlaod File</a></span></td>
+                                                            <span> <a style="color:red" href="@if (Auth::guard('admin')->check()) {{ route('admin.download.file', ['filename' => $item->docs_file]) }} @else {{ route('employee.download.file', ['filename' => $item->docs_file]) }} @endif"><i class="ti ti-download text-danger"></i> Downlaod File</a></span></td>
                                                         @else
                                                             <span style="color: red"> <a style="color: red" href="#" data-bs-toggle="modal" data-bs-target="#delete_contact" onclick="getIdOfAdditional('{{ $item->id }}')"><i class="ti ti-upload text-danger"></i> Upload File</a> </span>
                                                         @endif

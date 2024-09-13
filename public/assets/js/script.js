@@ -528,8 +528,10 @@ $(document).ready(function () {
 	// Date Range Picker
 
 	if ($('.bookingrange').length > 0) {
-		var start = moment().subtract(6, 'days');
-		var end = moment();
+		// var start = moment().subtract(29, 'days');
+		// var end = moment();
+		var start = moment().startOf('month');
+    	var end = moment().endOf('month');
 
 		function booking_range(start, end) {
 			$('.bookingrange span').html(start.format('M/D/YYYY') + ' - ' + end.format('M/D/YYYY'));

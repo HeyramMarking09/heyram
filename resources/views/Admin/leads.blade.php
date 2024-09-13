@@ -16,7 +16,7 @@
                             </div>
                             <div class="col-8 text-end">
                                 <div class="head-icons">
-                                    <a href="{{ route('admin.leads') }}" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    <a href=" @if (Auth::guard('admin')->check()) {{ route('admin.leads') }} @else {{ route('employee.leads') }}  @endif " data-bs-toggle="tooltip" data-bs-placement="top"
                                         data-bs-original-title="Refresh">
                                         <i class="ti ti-refresh-dot"></i>
                                     </a>
@@ -47,8 +47,10 @@
                                         <div class="export-list text-sm-end">
                                             <ul>
                                                 <li>
-                                                    <a href="javascript:void(0);" class="btn btn-primary add-popup"><i
-                                                            class="ti ti-square-rounded-plus"></i>Add Leads</a>
+                                                    @can('access-permission', ['Leads', 'create'])
+                                                        <a href="javascript:void(0);" class="btn btn-primary add-popup"><i
+                                                                class="ti ti-square-rounded-plus"></i>Add Leads</a>
+                                                    @endcan
                                                     <a href="javascript:void(0);" style="display: none"
                                                         class="btn btn-primary edit-popup"><i
                                                             class="ti ti-square-rounded-plus"></i>Edit Leads</a>
@@ -554,11 +556,25 @@
 @endsection
 @push('scripts')
     <script src="{{ asset('assets/js/custom/leads.js') }}"></script>
+    @if (Auth::guard('admin')->check())
+        <script>
+            var csrf_token = "{{csrf_token()}}";
+            var getLeadUrl = "{{ route('admin.get-leads') }}";
+            var createLeadUrl = "{{ route('admin.create-lead') }}";
+            var editLeadUrl = "{{ route('admin.edit-lead') }}";
+            var deleteLeadUrl = "{{ route('admin.lead-delete') }}";
+        </script>
+    @else
+        <script>
+            var csrf_token = "{{csrf_token()}}";
+            var getLeadUrl = "{{ route('employee.get-leads') }}";
+            var createLeadUrl = "{{ route('employee.create-lead') }}";
+            var editLeadUrl = "{{ route('employee.edit-lead') }}";
+            var deleteLeadUrl = "{{ route('employee.lead-delete') }}";
+        </script>
+    @endif
     <script>
-        var csrf_token = "{{csrf_token()}}";
-        var getLeadUrl = "{{ route('admin.get-leads') }}";
-        var createLeadUrl = "{{ route('admin.create-lead') }}";
-        var editLeadUrl = "{{ route('admin.edit-lead') }}";
-        var deleteLeadUrl = "{{ route('admin.lead-delete') }}";
+        window.canEditUser = @json(Auth::user()->can('access-permission', ['Leads', 'edit']));
+        window.canDeleteUser = @json(Auth::user()->can('access-permission', ['Leads', 'delete']));
     </script>
 @endpush

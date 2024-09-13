@@ -16,7 +16,7 @@
                             </div>
                             <div class="col-4 text-end">
                                 <div class="head-icons">
-                                    <a href="{{ route('admin.roles-permissions') }}" data-bs-toggle="tooltip"
+                                    <a href="@if (Auth::guard('admin')->check()) {{ route('admin.roles-permissions') }} @else {{ route('employee.roles-permissions') }} @endif" data-bs-toggle="tooltip"
                                         data-bs-placement="top" data-bs-original-title="Refresh"><i
                                             class="ti ti-refresh-dot"></i></a>
                                     <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -43,11 +43,13 @@
                                     <div class="col-md-7 col-sm-8">
                                         <div class="export-list text-sm-end">
                                             <ul>
-                                                <li>
-                                                    <a href="javascript:void(0);" class="btn btn-primary"
-                                                        data-bs-toggle="modal" data-bs-target="#add_role"><i
-                                                            class="ti ti-square-rounded-plus"></i>Add New Role</a>
-                                                </li>
+                                                @can('access-permission', ['Roles And Permission', 'create'])
+                                                    <li>
+                                                        <a href="javascript:void(0);" class="btn btn-primary"
+                                                            data-bs-toggle="modal" data-bs-target="#add_role"><i
+                                                                class="ti ti-square-rounded-plus"></i>Add New Role</a>
+                                                    </li>
+                                                @endcan
                                             </ul>
                                         </div>
                                     </div>
@@ -152,7 +154,29 @@
 @endsection
 
 @push('scripts')
+    @if (Auth::guard('admin')->check())
+        <script>
+            var getRolesPermissions = "{{ route('admin.get-roles-permissions') }}";
+            var permissionsURl = "{{ route('admin.permission', ['id' => '__ID__']) }}";
+            var createRolePermission  = "{{ route('admin.create-roles-permissions') }}";
+            var editRolesPermission = "{{ route('admin.edit-roles-permissions') }}";
+
+        </script>
+    @else
+        <script>
+            var getRolesPermissions = "{{ route('employee.get-roles-permissions') }}";
+            var permissionsURl = "{{ route('employee.permission', ['id' => '__ID__']) }}";
+            var createRolePermission  = "{{ route('employee.create-roles-permissions') }}";
+            var editRolesPermission = "{{ route('employee.edit-roles-permissions') }}";
+        </script>
+    @endif
     <script src="{{ asset('assets/js/roles-permissions.js') }}"></script>
+    <script>
+        // Check permissions in Blade and pass them to JavaScript
+        window.canViewRoleAndPermission = @json(Auth::user()->can('access-permission', ['Roles And Permission', 'view']));
+        window.canEditRoleAndPermission = @json(Auth::user()->can('access-permission', ['Roles And Permission', 'edit']));
+    </script>
+
     <script>
         var csrf_token = "{{ csrf_token() }}";
 
@@ -164,7 +188,7 @@
                 "ordering": true,
                 "autoWidth": true,
                 "ajax": {
-                    url: "{{ route('admin.get-roles-permissions') }}",
+                    url: getRolesPermissions,
                     type: "GET"
                 },
                 "language": {
@@ -192,9 +216,16 @@
                         "render": function(data, type, row) {
                             var ID = row.id;
                             var Name = row.name;
-                            var PermissionRoute = "{{ route('admin.permission', ['id' => '__ID__']) }}".replace('__ID__', row.id);
-
-                            return `<div class="dropdown table-action"><a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item edit-popup" href="javascript:void(0);" data-bs-toggle="modal" onclick="openEditForm('${ID}', '${Name}')" data-bs-target="#edit_role"><i class="ti ti-edit text-blue"></i> Edit</a><a class="dropdown-item" href="${PermissionRoute}"><i class="ti ti-shield text-success"></i> Permission</a></div></div>`;
+                            var PermissionRoute = permissionsURl.replace('__ID__', row.id);
+                            var canViewRoleAndPermission = window.canViewRoleAndPermission ? `<a class="dropdown-item" href="${PermissionRoute}"><i class="ti ti-shield text-success"></i> Permission</a>` : '';
+                            var canEditRoleAndPermission = window.canEditRoleAndPermission ? `<a class="dropdown-item edit-popup" href="javascript:void(0);" data-bs-toggle="modal" onclick="openEditForm('${ID}', '${Name}')" data-bs-target="#edit_role"><i class="ti ti-edit text-blue"></i> Edit</a>` : '';
+                            return `<div class="dropdown table-action">
+                                <a href="#" class="action-icon " data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    ${canEditRoleAndPermission}
+                                    ${canViewRoleAndPermission} 
+                                </div>
+                            </div>`;
                         }
                     }
                 ]
@@ -207,7 +238,7 @@
                 e.preventDefault(); // Prevent the default form submission
 
                 $.ajax({
-                    url: "{{ route('admin.create-roles-permissions') }}", // The route that handles the request
+                    url: createRolePermission, // The route that handles the request
                     type: 'POST',
                     data: $(this).serialize(), // Serialize the form data
                     success: function(response) {
@@ -262,7 +293,7 @@
                 e.preventDefault(); // Prevent the default form submission
 
                 $.ajax({
-                    url: "{{ route('admin.edit-roles-permissions') }}", // The route that handles the request
+                    url: editRolesPermission, // The route that handles the request
                     type: 'POST',
                     data: $(this).serialize(), // Serialize the form data
                     success: function(response) {

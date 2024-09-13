@@ -37,7 +37,7 @@
                             </div>
                             <div class="col-sm-8 text-sm-end">
                                 <div class="head-icons">
-                                    <a href="{{ route('admin.employer-detail', ['id' => request()->id]) }}"
+                                    <a href="@if (Auth::guard('admin')->check()) {{ route('admin.employer-detail', ['id' => request()->id]) }}" @else {{ route('employee.employer-detail',['id'=>request()->id]) }} @endif
                                         data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Refresh"><i
                                             class="ti ti-refresh-dot"></i></a>
                                     <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -60,7 +60,7 @@
                         <div class="row align-items-center">
                             <div class="col-sm-6">
                                 <ul class="contact-breadcrumb">
-                                    <li><a href="{{ route('admin.employer-dashboard') }}"><i
+                                    <li><a href="@if (Auth::guard('admin')->check()) {{ route('admin.employer-dashboard') }} @else {{ route('employee.employer-dashboard') }} @endif "><i
                                                 class="ti ti-arrow-narrow-left"></i>Employers</a></li>
                                     <li>{{ $data->name }} {{ $data->last_name }}</li>
                                 </ul>
@@ -344,10 +344,10 @@
                                                             @endphp
                                                             @foreach ($data->lmias as $item)
                                                                 <tr class="odd">
-                                                                    <td><a href="{{ route('admin.lmia-detail',['id'=>$item->id]) }}"
+                                                                    <td><a href="@if (Auth::guard('admin')->check()) {{ route('admin.lmia-detail',['id'=>$item->id]) }} @else {{ route('employee.lmia-detail', ['id'=>$item->id]) }} @endif"
                                                                             class="title-name">{{ $LISTNO }}</a>
                                                                     </td>
-                                                                    <td><a href="{{ route('admin.lmia-detail',['id'=>$item->id]) }}"
+                                                                    <td><a href="@if (Auth::guard('admin')->check()) {{ route('admin.lmia-detail',['id'=>$item->id]) }} @else {{ route('employee.lmia-detail', ['id'=>$item->id]) }} @endif"
                                                                             class="title-name">{{ $data->name }}
                                                                             {{ $data->last_name }}</a></td>
                                                                     <td>
@@ -441,22 +441,41 @@
                                                                 <div class="dropdown-menu dropdown-menu-end"
                                                                     style="">
                                                                     <ul>
-                                                                        <li>
-                                                                            <a
-                                                                                href="{{ route('admin.download.dynamic', ['type' => 'pdf', 'id' => $data->id]) }}">
-                                                                                <i
-                                                                                    class="ti ti-file-type-pdf text-danger"></i>
-                                                                                Export as PDF
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a
-                                                                                href="{{ route('admin.download.dynamic', ['type' => 'csv', 'id' => $data->id]) }}">
-                                                                                <i
-                                                                                    class="ti ti-file-type-xls text-green"></i>
-                                                                                Export as CSV
-                                                                            </a>
-                                                                        </li>
+                                                                        @if (Auth::guard('admin')->check())
+                                                                            <li>
+                                                                                <a
+                                                                                    href="{{ route('admin.download.dynamic', ['type' => 'pdf', 'id' => $data->id]) }}">
+                                                                                    <i
+                                                                                        class="ti ti-file-type-pdf text-danger"></i>
+                                                                                    Export as PDF
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a
+                                                                                    href="{{ route('admin.download.dynamic', ['type' => 'csv', 'id' => $data->id]) }}">
+                                                                                    <i
+                                                                                        class="ti ti-file-type-xls text-green"></i>
+                                                                                    Export as CSV
+                                                                                </a>
+                                                                            </li>
+                                                                        @else
+                                                                            <li>
+                                                                                <a
+                                                                                    href="{{ route('employee.download.dynamic', ['type' => 'pdf', 'id' => $data->id]) }}">
+                                                                                    <i
+                                                                                        class="ti ti-file-type-pdf text-danger"></i>
+                                                                                    Export as PDF
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a
+                                                                                    href="{{ route('employee.download.dynamic', ['type' => 'csv', 'id' => $data->id]) }}">
+                                                                                    <i
+                                                                                        class="ti ti-file-type-xls text-green"></i>
+                                                                                    Export as CSV
+                                                                                </a>
+                                                                            </li>
+                                                                        @endif
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -932,27 +951,47 @@
                                                         <label for="input-file" class="form-label">Certificate of
                                                             Incorporation</label>
                                                         @if (isset($data) && !empty($data->companyDoc))
-                                                            <span> <a style="color:red"
-                                                                    href="{{ route('admin.download.file', ['filename' => $data->companyDoc->certificate_of_incorporation]) }}">
-                                                                    Downlaod File</a></span>
+                                                            @if (Auth::guard('admin')->check())
+                                                                <span> <a style="color:red"
+                                                                        href="{{ route('admin.download.file', ['filename' => $data->companyDoc->certificate_of_incorporation]) }}">
+                                                                        Downlaod File</a></span>
+                                                            @else
+                                                                <span> <a style="color:red"
+                                                                        href="{{ route('employee.download.file', ['filename' => $data->companyDoc->certificate_of_incorporation]) }}">
+                                                                        Downlaod File</a></span>
+                                                            @endif
+                                                            
                                                         @endif
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="input-file" class="form-label">Valid Business
                                                             License</label>
                                                         @if (isset($data) && !empty($data->companyDoc))
-                                                            <span> <a style="color:red"
-                                                                    href="{{ route('admin.download.file', ['filename' => $data->companyDoc->valid_business_license]) }}">
+                                                            @if (Auth::guard('admin')->check())
+                                                                <span> <a style="color:red"
+                                                                        href="{{ route('admin.download.file', ['filename' => $data->companyDoc->valid_business_license]) }}">
+                                                                        Downlaod File</a></span>
+                                                            @else
+                                                                <span> <a style="color:red"
+                                                                    href="{{ route('employee.download.file', ['filename' => $data->companyDoc->valid_business_license]) }}">
                                                                     Downlaod File</a></span>
+                                                            @endif
                                                         @endif
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="input-file" class="form-label">T4 Summary of the
                                                             Company</label>
                                                         @if (isset($data) && !empty($data->companyDoc))
-                                                            <span> <a style="color:red"
-                                                                    href="{{ route('admin.download.file', ['filename' => $data->companyDoc->summary_of_company]) }}">
-                                                                    Downlaod File</a></span>
+                                                            @if (Auth::guard('admin')->check())
+                                                                <span> <a style="color:red"
+                                                                        href="{{ route('admin.download.file', ['filename' => $data->companyDoc->summary_of_company]) }}">
+                                                                        Downlaod File</a></span>
+                                                            @else
+                                                                <span> <a style="color:red"
+                                                                        href="{{ route('employee.download.file', ['filename' => $data->companyDoc->summary_of_company]) }}">
+                                                                        Downlaod File</a></span>
+                                                            @endif
+                                                            
                                                         @endif
                                                     </div>
                                                     <div class="mb-3">
@@ -994,19 +1033,36 @@
                                                         <label for="disabledSelect" class="form-label">Following
                                                             File</label>
                                                         @if (isset($data) && !empty($data->companyDoc))
+                                                            @if (Auth::guard('admin')->check())
                                                             <span> <a style="color:red"
                                                                     href="{{ route('admin.download.file', ['filename' => $data->companyDoc->following_document_file_one]) }}">
                                                                     Downlaod File</a></span>
+                                                            @else
+                                                                <span> <a style="color:red"
+                                                                        href="{{ route('employee.download.file', ['filename' => $data->companyDoc->following_document_file_one]) }}">
+                                                                        Downlaod File</a></span>
+                                                            @endif
+
                                                         @endif
                                                     </div>
                                                     @if (isset($data->companyDoc->following_document_file_two) && !is_null($data->companyDoc->following_document_file_two))
-                                                        <div class="mb-3">
-                                                            <label for="disabledSelect" class="form-label">Following
-                                                                File</label>
-                                                            <span> <a style="color:red"
-                                                                    href="{{ route('admin.download.file', ['filename' => $data->companyDoc->following_document_file_two]) }}">
-                                                                    Downlaod File</a></span>
-                                                        </div>
+                                                        @if (Auth::guard('admin')->check())
+                                                            <div class="mb-3">
+                                                                <label for="disabledSelect" class="form-label">Following
+                                                                    File</label>
+                                                                <span> <a style="color:red"
+                                                                        href="{{ route('admin.download.file', ['filename' => $data->companyDoc->following_document_file_two]) }}">
+                                                                        Downlaod File</a></span>
+                                                            </div>
+                                                        @else
+                                                            <div class="mb-3">
+                                                                <label for="disabledSelect" class="form-label">Following
+                                                                    File</label>
+                                                                <span> <a style="color:red"
+                                                                        href="{{ route('employee.download.file', ['filename' => $data->companyDoc->following_document_file_two]) }}">
+                                                                        Downlaod File</a></span>
+                                                            </div>
+                                                        @endif
                                                     @endif
                                                 </div>
                                             </div>
@@ -1058,13 +1114,13 @@
                                                                             <td>{{ $item->name }}</td>
                                                                             <td>{{ $item->dead_line_date }}</td>
                                                                             <td><span> <a style="color:red"
-                                                                                        href="{{ route('admin.download.file', ['filename' => $item->simple_file]) }}"><i
+                                                                                        href="@if (Auth::guard('admin')->check()) {{ route('admin.download.file', ['filename' => $item->simple_file]) }} @else {{ route('employee.download.file', ['filename' => $item->simple_file]) }} @endif"><i
                                                                                             class="ti ti-download text-danger"></i>
                                                                                         Downlaod File</a></span></td>
                                                                             <td>
                                                                                 @if (!is_null($item->docs_file))
                                                                                     <span> <a style="color:red"
-                                                                                            href="{{ route('admin.download.file', ['filename' => $item->docs_file]) }}"><i
+                                                                                            href="@if (Auth::guard('admin')->check()) {{ route('admin.download.file', ['filename' => $item->docs_file]) }} @else {{ route('employee.download.file', ['filename' => $item->docs_file]) }} @endif"><i
                                                                                                 class="ti ti-download text-danger"></i>
                                                                                             Downlaod File</a></span>
                                                                             </td>
@@ -1105,22 +1161,41 @@
                                                                 <div class="dropdown-menu dropdown-menu-end"
                                                                     style="">
                                                                     <ul>
-                                                                        <li>
-                                                                            <a
-                                                                                href="{{ route('admin.download.retainer_agreement', ['type' => 'pdf', 'id' => $data->id]) }}">
-                                                                                <i
-                                                                                    class="ti ti-file-type-pdf text-danger"></i>
-                                                                                Export as PDF
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a
-                                                                                href="{{ route('admin.download.retainer_agreement', ['type' => 'csv', 'id' => $data->id]) }}">
-                                                                                <i
-                                                                                    class="ti ti-file-type-xls text-green"></i>
-                                                                                Export as CSV
-                                                                            </a>
-                                                                        </li>
+                                                                        @if (Auth::guard('admin')->check())
+                                                                            <li>
+                                                                                <a
+                                                                                    href="{{ route('admin.download.retainer_agreement', ['type' => 'pdf', 'id' => $data->id]) }}">
+                                                                                    <i
+                                                                                        class="ti ti-file-type-pdf text-danger"></i>
+                                                                                    Export as PDF
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a
+                                                                                    href="{{ route('admin.download.retainer_agreement', ['type' => 'csv', 'id' => $data->id]) }}">
+                                                                                    <i
+                                                                                        class="ti ti-file-type-xls text-green"></i>
+                                                                                    Export as CSV
+                                                                                </a>
+                                                                            </li>
+                                                                        @else
+                                                                            <li>
+                                                                                <a
+                                                                                    href="{{ route('employee.download.retainer_agreement', ['type' => 'pdf', 'id' => $data->id]) }}">
+                                                                                    <i
+                                                                                        class="ti ti-file-type-pdf text-danger"></i>
+                                                                                    Export as PDF
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a
+                                                                                    href="{{ route('employee.download.retainer_agreement', ['type' => 'csv', 'id' => $data->id]) }}">
+                                                                                    <i
+                                                                                        class="ti ti-file-type-xls text-green"></i>
+                                                                                    Export as CSV
+                                                                                </a>
+                                                                            </li>
+                                                                        @endif
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -2423,6 +2498,21 @@
     <script src="{{ asset('assets/plugins/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/twitter-bootstrap-wizard/prettify.js') }}"></script>
     <script src="{{ asset('assets/plugins/twitter-bootstrap-wizard/form-wizard.js') }}"></script>
+    @if (Auth::guard('admin')->check())
+        <script>
+            var createJob  = "{{ route('admin.create-job') }}";
+            var addAdditionalDocs  =  "{{ route('admin.add-additional-docs') }}";
+            var deleteBankJob  =  "{{ route('admin.delete-bank-job') }}";
+            var updateJobUrl =  "{{ route('admin.update-job') }}";
+        </script>
+    @else
+        <script>
+            var createJob  = "{{ route('employee.create-job') }}";;
+            var addAdditionalDocs  =  "{{ route('employee.add-additional-docs') }}";
+            var deleteBankJob  =  "{{ route('employee.delete-bank-job') }}";
+            var updateJobUrl =  "{{ route('employee.update-job') }}";
+        </script>
+    @endif
     <script>
         function firstClick(type) {
             if (type == 1) {
@@ -2504,7 +2594,7 @@
                 submitHandler: function(form) {
                     $('#createUserSubmitButton').prop('disabled', true);
                     $.ajax({
-                        url: "{{ route('admin.create-job') }}",
+                        url: createJob,
                         method: "POST",
                         data: $(form).serialize(),
 
@@ -2567,7 +2657,7 @@
                     var AdditionalDocsData = new FormData($("#AdditionalDocs")[0]);
 
                     $.ajax({
-                        url: "{{ route('admin.add-additional-docs') }}",
+                        url: addAdditionalDocs,
                         method: "POST",
                         data: AdditionalDocsData,
                         processData: false, // Prevent jQuery from automatically processing the data
@@ -2640,7 +2730,7 @@
             var id = $('#job-bank-id').val();
             $('#deleteBankJobButton').prop('disabled', true);
             $.ajax({
-                url: "{{ route('admin.delete-bank-job') }}",
+                url: deleteBankJob,
                 method: "DELETE",
                 data: {
                     id: id,
@@ -2738,7 +2828,7 @@
                 submitHandler: function(form) {
                     $('#JobUpdateSubmitButton').prop('disabled', true);
                     $.ajax({
-                        url: "{{ route('admin.update-job') }}",
+                        url: updateJobUrl,
                         method: "POST",
                         data: $(form).serialize(),
 

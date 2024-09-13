@@ -12,7 +12,7 @@
                             </div>
                             <div class="col-4 text-end">
                                 <div class="head-icons">
-                                    <a href="{{ route('admin.employer-dashboard') }}" data-bs-toggle="tooltip"
+                                    <a href="@if (Auth::guard('admin')->check()) {{ route('admin.employer-dashboard') }} @else {{ route('employee.employer-dashboard') }} @endif" data-bs-toggle="tooltip"
                                         data-bs-placement="top" data-bs-original-title="Refresh"><i
                                             class="ti ti-refresh-dot"></i></a>
                                     <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -202,7 +202,7 @@
 						</button>
 					</div>
 					<div class="modal-body p-0">
-						<form action="{{ route('admin.assign.employee.form') }}" method="post">
+						<form action="@if (Auth::guard('admin')->check()) {{ route('admin.assign.employee.form') }} @else {{ route('employee.assign.employee.form') }} @endif " method="post">
                             @csrf
 							 <div class="form-wrap">
 								<label class="col-form-label">Employees <span class="text-danger"> *</span></label>
@@ -230,8 +230,20 @@
 
 @push('scripts')
     <script src="{{ asset('assets/js/custom/employer-dashbaord.js') }}"></script>
+    @if (Auth::guard('admin')->check())
+        <script>
+            var getManageUser = "{{ route('admin.employers') }}";
+            var detailURl = "{{ route('admin.employer-detail', ['id' => ':id']) }}";
+        </script>
+    @else
+        <script>
+            var getManageUser = "{{ route('employee.employers') }}";
+            var detailURl = "{{ route('employee.employer-detail', ['id' => ':id']) }}";
+        </script>
+    @endif
     <script>
-        var getManageUser = "{{ route('admin.employers') }}";
-        var detailURl = "{{ route('admin.employer-detail', ['id' => ':id']) }}";
+        window.canDeleteUser = @json(Auth::user()->can('access-permission', ['Employers List', 'delete']));
+        window.canEditUser = @json(Auth::user()->can('access-permission', ['Employers List', 'edit']));
+        window.canViewUser = @json(Auth::user()->can('access-permission', ['Employers List', 'view']));
     </script>
 @endpush

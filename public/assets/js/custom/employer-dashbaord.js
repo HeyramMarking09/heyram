@@ -82,7 +82,9 @@ $(document).ready(function () {
                         var employee_assign = 0;
                     }
                     // Build the dropdown menu for table action
-                    return '<a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#add_notes" onclick="getEmployerId('+ row.id +','+employee_assign+')" class="com-add btn btn-primary"><i class="ti ti-circle-plus me-1"></i>'+ ButtonText +'</a>';
+                    return window.canEditUser? `<a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#add_notes" onclick="getEmployerId('${row.id}','${employee_assign}')" class="com-add btn btn-primary"><i class="ti ti-circle-plus me-1"></i>${ButtonText}</a>'` : '-'; 
+                    
+                    // return '<a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#add_notes" onclick="getEmployerId('+ row.id +','+employee_assign+')" class="com-add btn btn-primary"><i class="ti ti-circle-plus me-1"></i>'+ ButtonText +'</a>';
                 }
             },
             {
@@ -92,9 +94,16 @@ $(document).ready(function () {
 
                     // Replace the placeholder with the actual row ID dynamically in JavaScript
                     employerDetail = employerDetail.replace(':id', row.id);
-
+                    var viewPreview = window.canViewUser? `<a class="dropdown-item" href="${employerDetail}"><i class="ti ti-eye text-blue-light"></i> Preview</a>` : ''; 
                     // Build the dropdown menu for table action
-                    return '<div class="dropdown table-action"><a href="#" class="action-icon" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="'+ employerDetail+'"><i class="ti ti-eye text-blue-light"></i> Preview</a></div></div>';
+                    return `<div class="dropdown table-action">
+                                <a href="#" class="action-icon" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-v"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    ${viewPreview}
+                                </div>
+                            </div>`;
                 }
             }
             ],

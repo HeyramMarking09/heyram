@@ -14,6 +14,8 @@ class RedirectIfAuthenticated
                 return redirect('/admin/dashboard');
             } elseif ($guard === 'employer') {
                 return redirect('/employer/dashboard');
+            }elseif ($guard === 'employee') {
+                return redirect('/employee/dashboard');
             }
         }
 

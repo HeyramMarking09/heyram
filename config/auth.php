@@ -48,6 +48,10 @@ return [
             'driver' => 'session',
             'provider' => 'employers', // Make sure you have this provider set up
         ],
+        'employee' => [
+            'driver' => 'session',
+            'provider' => 'employees', // Make sure you have this provider set up
+        ],
     ],
 
     /*
@@ -77,6 +81,10 @@ return [
             'model' => App\Models\Admin::class,
         ],
         'employers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class, // Point this to your Employer model
+        ],
+        'employees' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class, // Point this to your Employer model
         ],

@@ -6,19 +6,24 @@ use App\Http\Controllers\Controller;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 
 class PermissionController extends Controller
 {
     public function index($id)
     {
-        try {
-            $role = Role::with('permissions')->findOrFail($id);
-            $permissions = Permission::all(); // Or you can filter based on modules or other criteria
-            return view('Admin.permission', compact('role', 'permissions'));
-        } catch (\Exception $th) {
-            Log::error("Error in PermissionController.index() ". $th->getLine() .' '.$th->getMessage());
-        }
+        // try {
+            if (Gate::allows('access-permission', ['Roles And Permission', 'view'])) {
+                $role = Role::with('permissions')->findOrFail($id);
+                $permissions = Permission::all(); // Or you can filter based on modules or other criteria
+                return view('Admin.permission', compact('role', 'permissions'));
+            }else{
+                abort(403, 'Unauthorized action.');
+            }
+        // } catch (\Exception $th) {
+        //     Log::error("Error in PermissionController.index() ". $th->getLine() .' '.$th->getMessage());
+        // }
     }
     public function permissionUpdate(Request $request)
     {

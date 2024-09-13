@@ -12,7 +12,7 @@
                             </div>
                             <div class="col-4 text-end">
                                 <div class="head-icons">
-                                    <a href="{{ route('admin.manage-users') }}" data-bs-toggle="tooltip"
+                                    <a href="@if (Auth::guard('admin')->check()) {{ route('admin.manage-users') }} @else {{ route('employee.manage-users') }} @endif" data-bs-toggle="tooltip"
                                         data-bs-placement="top" data-bs-original-title="Refresh"><i
                                             class="ti ti-refresh-dot"></i></a>
                                     <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -468,11 +468,26 @@
 
 @push('scripts')
     <script src="{{ asset('assets/js/manage-users.js') }}"></script>
+    @if (Auth::guard('admin')->check())
+        <script>
+            var csrf_token = "{{ csrf_token() }}";
+            var getManageUser = "{{ route('admin.get-manage-users') }}";
+            var ManageUser = "{{ route('admin.manage.user.form') }}";
+            var UpdateManageUser = "{{ route('admin.update.manage.user') }}";
+            var deleteTheUserURl = "{{ route('admin.manage.user.delete') }}";
+        </script>
+    @else
+        <script>
+            var csrf_token = "{{ csrf_token() }}";
+            var getManageUser = "{{ route('employee.get-manage-users') }}";
+            var ManageUser = "{{ route('employee.manage.user.form') }}";
+            var UpdateManageUser = "{{ route('employee.update.manage.user') }}";
+            var deleteTheUserURl = "{{ route('employee.manage.user.delete') }}";
+        </script>
+    @endif
     <script>
-        var csrf_token = "{{ csrf_token() }}";
-        var getManageUser = "{{ route('admin.get-manage-users') }}";
-        var ManageUser = "{{ route('admin.manage.user.form') }}";
-        var UpdateManageUser = "{{ route('admin.update.manage.user') }}";
-        var deleteTheUserURl = "{{ route('admin.manage.user.delete') }}";
+        // Check permissions in Blade and pass them to JavaScript
+        window.canDeleteUser = @json(Auth::user()->can('access-permission', ['Manage User', 'delete']));
+        window.canEditUser = @json(Auth::user()->can('access-permission', ['Manage User', 'edit']));
     </script>
 @endpush

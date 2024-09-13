@@ -57,11 +57,11 @@
 
             <!-- Logo -->
             <div class="header-left active">
-                <a href="{{ route('admin.dashboard') }}" class="logo logo-normal">
+                <a href="@if (Auth::guard('admin')->check()) {{ route('admin.dashboard') }} @else {{ route('employee.dashboard') }} @endif " class="logo logo-normal">
                     <img src="{{ asset('assets/img/heyram-logo.jfif') }}" alt="Logo" style="height: 60px; width:auto;">
                     <img src="{{ asset('assets/img/heyram-logo.jfif') }}" class="white-logo" alt="Logo">
                 </a>
-                <a href="{{ route('admin.dashboard') }}" class="logo-small">
+                <a href="@if (Auth::guard('admin')->check()) {{ route('admin.dashboard') }} @else {{ route('employee.dashboard') }} @endif " class="logo-small">
                     <img src="{{ asset('assets/img/heyram-logo.jfif') }}" alt="Logo">
                 </a>
                 <a id="toggle_btn" href="javascript:void(0);">
@@ -352,15 +352,21 @@
                         </a>
                         <div class="dropdown-menu menu-drop-user">
                             <div class="profilename">
-                                <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
-                                    <i class="ti ti-layout-2"></i> Dashboard
-                                </a>
-                                {{-- <a class="dropdown-item" href="profile.html">
-									<i class="ti ti-user-pin"></i> My Profile
-								</a> --}}
-                                <a class="dropdown-item" href="{{ route('admin.logout') }}">
-                                    <i class="ti ti-lock"></i> Logout
-                                </a>
+								@if (Auth::guard('admin')->check())
+									<a class="dropdown-item" href="{{ route('admin.dashboard') }}">
+										<i class="ti ti-layout-2"></i> Dashboard
+									</a>
+									<a class="dropdown-item" href="{{ route('admin.logout') }}">
+										<i class="ti ti-lock"></i> Logout
+									</a>
+								@else
+									<a class="dropdown-item" href="{{ route('employee.dashboard') }}">
+										<i class="ti ti-layout-2"></i> Dashboard
+									</a>
+									<a class="dropdown-item" href="{{ route('employee.logout') }}">
+										<i class="ti ti-lock"></i> Logout
+									</a>
+								@endif
                             </div>
                         </div>
                     </li>
@@ -374,15 +380,21 @@
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
-                        <i class="ti ti-layout-2"></i> Dashboard
-                    </a>
-                    <a class="dropdown-item" href="profile.html">
-                        <i class="ti ti-user-pin"></i> My Profile
-                    </a>
-                    <a class="dropdown-item" href="{{ route('admin.logout') }}">
-                        <i class="ti ti-lock"></i> Logout
-                    </a>
+					@if (Auth::guard('admin')->check())
+						<a class="dropdown-item" href="{{ route('admin.dashboard') }}">
+							<i class="ti ti-layout-2"></i> Dashboard
+						</a>
+						<a class="dropdown-item" href="{{ route('admin.logout') }}">
+							<i class="ti ti-lock"></i> Logout
+						</a>
+					@else
+						<a class="dropdown-item" href="{{ route('employee.dashboard') }}">
+							<i class="ti ti-layout-2"></i> Dashboard
+						</a>
+						<a class="dropdown-item" href="{{ route('employee.logout') }}">
+							<i class="ti ti-lock"></i> Logout
+						</a>
+					@endif
                 </div>
             </div>
             <!-- /Mobile Menu -->
