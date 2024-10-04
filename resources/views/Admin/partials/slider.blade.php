@@ -106,18 +106,18 @@
                     @endif
                 </li>
                 <li>
-                    <h6 class="submenu-hdr">Support</h6>
-                    <ul>
-                        @if (Auth::guard('admin')->check())
-                            @can('access-permission', ['Support', 'view'])
-                                <li><a href="{{ route('admin.support') }}"><i class="ti ti-users"></i><span>Support</span></a></li>
-                            @endcan
-                        @else
-                            @can('access-permission', ['Support', 'view'])
-                                <li><a href="{{ route('employee.support') }}"><i class="ti ti-users"></i><span>Support</span></a></li>
-                            @endcan
-                        @endif
-                    </ul>
+                    @can('access-permission', ['Support', 'view'])
+                        <h6 class="submenu-hdr">Support</h6>
+                        <ul>
+                            @if (Auth::guard('admin')->check())
+                                    <li><a href="{{ route('admin.support') }}"><i class="ti ti-users"></i><span>Support</span></a></li>
+                                    <li><a href="{{ route('admin.chat') }}"><i class="ti ti-users"></i><span>Chat</span></a></li>
+                                    @else
+                                    <li><a href="{{ route('employee.support') }}"><i class="ti ti-users"></i><span>Support</span></a></li>
+                                    <li><a href="{{ route('employee.chat') }}"><i class="ti ti-users"></i><span>Chat</span></a></li>
+                            @endif
+                        </ul>
+                    @endcan
                 </li>
             </ul>
         </div>

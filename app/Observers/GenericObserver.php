@@ -42,7 +42,7 @@ class GenericObserver
             'model_id' => $model->id,
             'event' => $event,
             'changes' => $changes ? json_encode($changes) : null,
-            'user_id' => Auth::check() ? Auth::id() : null,
+            'user_id' => Auth::check() ? Auth::user()->id : null,
             'created_at' => now(),
         ]);
     }

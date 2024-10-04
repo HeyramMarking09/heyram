@@ -20,6 +20,15 @@
     <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
+
+	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datetimepicker.min.css') }}">
+	<!-- Mobile CSS-->
+	<link rel="stylesheet" href="{{ asset('assets/plugins/intltelinput/css/intlTelInput.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/plugins/intltelinput/css/demo.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/plugins/boxicons/css/boxicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/fancybox/jquery.fancybox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/swiper/swiper.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
     <!-- Wizard CSS -->
@@ -42,8 +51,13 @@
     </style>
 
 </head>
-
+@if (Route::currentRouteName() == 'admin.chat')
+    <body class="main-chat-blk">
+@elseif (Route::currentRouteName() == 'employee.chat')
+    <body class="main-chat-blk">
+@else
 <body>
+@endif
 
     <!-- Main Wrapper -->
     <div class="main-wrapper">
@@ -108,237 +122,9 @@
                                     <i class="ti ti-moon dark-mode"></i>
                                 </a>
                             </li>
-                            {{-- <li class="nav-item dropdown">
-								<a href="javascript:void(0);" class="btn btn-header-list" data-bs-toggle="dropdown">
-									<i class="ti ti-layout-grid-add"></i>
-								</a>
-								<div class="dropdown-menu dropdown-menu-end menus-info">
-									<div class="row">
-										<div class="col-md-6">
-											<ul class="menu-list">
-												<li>
-													<a href="contacts.html">
-														<div class="menu-details">
-															<span class="menu-list-icon bg-violet">
-																<i class="ti ti-user-up"></i>
-															</span>
-															<div class="menu-details-content">
-																<p>Contacts</p>
-																<span>Add New Contact</span>
-															</div>
-														</div>
-													</a>
-												</li>
-												<li>
-													<a href="pipeline.html">
-														<div class="menu-details">
-															<span class="menu-list-icon bg-green">
-																<i class="ti ti-timeline-event-exclamation"></i>
-															</span>
-															<div class="menu-details-content">
-																<p>Pipline</p>
-																<span>Add New Pipline</span>
-															</div>
-														</div>
-													</a>
-												</li>
-												<li>
-													<a href="activities.html">
-														<div class="menu-details">
-															<span class="menu-list-icon bg-pink">
-																<i class="ti ti-bounce-right"></i>
-															</span>
-															<div class="menu-details-content">
-																<p>Activities</p>
-																<span>Add New Activity</span>
-															</div>
-														</div>
-													</a>
-												</li>
-												<li>
-													<a href="analytics.html">
-														<div class="menu-details">
-															<span class="menu-list-icon bg-info">
-																<i class="ti ti-analyze"></i>
-															</span>
-															<div class="menu-details-content">
-																<p>Analytics</p>
-																<span>Shows All Information</span>
-															</div>
-														</div>
-													</a>
-												</li>
-												<li>
-													<a href="projects.html">
-														<div class="menu-details">
-															<span class="menu-list-icon bg-danger">
-																<i class="ti ti-atom-2"></i>
-															</span>
-															<div class="menu-details-content">
-																<p>Projects</p>
-																<span>Add New Project</span>
-															</div>
-														</div>
-													</a>
-												</li>
-											</ul>
-										</div>
-										<div class="col-md-6">
-											<ul class="menu-list">
-												<li>
-													<a href="deals.html">
-														<div class="menu-details">
-															<span class="menu-list-icon bg-info">
-																<i class="ti ti-medal"></i>
-															</span>
-															<div class="menu-details-content">
-																<p>Deals</p>
-																<span>Add New Deals</span>
-															</div>
-														</div>
-													</a>
-												</li>
-												<li>
-													<a href="leads.html">
-														<div class="menu-details">
-															<span class="menu-list-icon bg-secondary">
-																<i class="ti ti-chart-arcs"></i>
-															</span>
-															<div class="menu-details-content">
-																<p>Leads</p>
-																<span>Add New Leads</span>
-															</div>
-														</div>
-													</a>
-												</li>
-												<li>
-													<a href="companies.html">
-														<div class="menu-details">
-															<span class="menu-list-icon bg-tertiary">
-																<i class="ti ti-building-community"></i>
-															</span>
-															<div class="menu-details-content">
-																<p>Company</p>
-																<span>Add New Company</span>
-															</div>
-														</div>
-													</a>
-												</li>
-												<li>
-													<a href="tasks.html">
-														<div class="menu-details">
-															<span class="menu-list-icon bg-success">
-																<i class="ti ti-list-check"></i>
-															</span>
-															<div class="menu-details-content">
-																<p>Tasks</p>
-																<span>Add New Task</span>
-															</div>
-														</div>
-													</a>
-												</li>
-												<li>
-													<a href="campaign.html">
-														<div class="menu-details">
-															<span class="menu-list-icon bg-purple">
-																<i class="ti ti-brand-campaignmonitor"></i>
-															</span>
-															<div class="menu-details-content">
-																<p>Campaign</p>
-																<span>Add New Campaign</span>
-															</div>
-														</div>
-													</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</li> --}}
                         </ul>
                     </li>
                     <!-- /Nav List -->
-
-                    <!-- Email -->
-                    {{-- <li class="nav-item nav-item-email nav-item-box">
-						<a href="email.html">
-							<i class="ti ti-message-circle-exclamation"></i>
-							<span class="badge rounded-pill">14</span>
-						</a>
-					</li> --}}
-                    <!-- /Email -->
-
-                    <!-- Notifications -->
-                    {{-- <li class="nav-item dropdown nav-item-box">
-						<a href="javascript:void(0);" class="nav-link" data-bs-toggle="dropdown">
-							<i class="ti ti-bell"></i>
-							<span class="badge rounded-pill">13</span>
-						</a>
-						<div class="dropdown-menu dropdown-menu-end notification-dropdown">
-							<div class="topnav-dropdown-header">
-								<h4 class="notification-title">Notifications</h4>
-							</div>
-							<div class="noti-content">
-								<ul class="notification-list">
-									<li class="notification-message">
-										<a href="activities.html">
-											<div class="media d-flex">
-												<span class="avatar flex-shrink-0">
-													<img src="{{ asset('assets/img/profiles/avatar-02.jpg') }}" alt="Profile">
-													<span class="badge badge-info rounded-pill"></span>
-												</span>
-												<div class="media-body flex-grow-1">
-													<p class="noti-details">Ray Arnold left 6 comments on Isla Nublar SOC2 compliance report</p>
-													<p class="noti-time">Last Wednesday at 9:42 am</p>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li class="notification-message">
-										<a href="activities.html">
-											<div class="media d-flex">
-												<span class="avatar flex-shrink-0">
-													<img src="{{ asset('assets/img/profiles/avatar-03.jpg') }}" alt="Profile">
-												</span>
-												<div class="media-body flex-grow-1">
-													<p class="noti-details">Denise Nedry replied to Anna Srzand</p>
-													<p class="noti-sub-details">“Oh, I finished de-bugging the phones, but the system's compiling for eighteen minutes, or twenty.  So, some minor systems may go on and off for a while.”</p>
-													<p class="noti-time">Last Wednesday at 9:42 am</p>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li class="notification-message">
-										<a href="activities.html">
-											<div class="media d-flex">
-												<span class="avatar flex-shrink-0">
-													<img alt="" src="{{ asset('assets/img/profiles/avatar-06.jpg') }}">
-												</span>
-												<div class="media-body flex-grow-1">
-													<p class="noti-details">John Hammond attached a file to Isla Nublar SOC2 compliance report</p>
-													<div class="noti-pdf">
-														<div class="noti-pdf-icon">
-															<span><i class="ti ti-chart-pie"></i></span>
-														</div>
-														<div class="noti-pdf-text">
-															<p>EY_review.pdf</p>
-															<span>2mb</span>
-														</div>
-													</div>
-													<p class="noti-time">Last Wednesday at 9:42 am</p>
-												</div>
-											</div>
-										</a>
-									</li>
-								</ul>
-							</div>
-							<div class="topnav-dropdown-footer">
-								<a href="activities.html" class="view-link">View all</a>
-								<a href="javascript:void(0);" class="clear-link">Clear all</a>
-							</div>
-						</div>
-					</li> --}}
-                    <!-- /Notifications -->
 
                     <!-- Profile Dropdown -->
                     <li class="nav-item dropdown has-arrow main-drop">

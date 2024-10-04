@@ -16,6 +16,8 @@ class AuthController extends Controller
     public function loginForm(Request $request)
     {
         $credentials = $request->only('email', 'password');
+        // Add a condition to check if the user is an admin
+        $credentials['user_type'] = 'employee';
         if (Auth::guard('employee')->attempt($credentials)) {
             return ['status'=>true , 'message'=>'Login Successfuuly!'];
         }else{

@@ -27,17 +27,28 @@
 	<!-- Bootstrap Tagsinput JS -->
 	<script src="{{ asset('assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
 
+	
+
 	<!-- Select2 JS -->
 	<script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
 
 	<!-- Summernote JS -->
 	<script src="{{ asset('assets/plugins/summernote/summernote-lite.min.js') }}"></script>
 
+	<!-- Mobile Input -->
+	<script src="{{ asset('assets/plugins/intltelinput/js/intlTelInput.js') }}"></script>
+	
 	<!-- Custom Json Js -->	
 	<script src="{{ asset('assets/js/jsonscript.js') }}"></script>
 	
 	<!-- Datetimepicker JS -->
 	<script src="{{ asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
+
+	<!-- Swiper JS -->
+	<script src="{{ asset('assets/plugins/swiper/swiper.min.js') }}"></script>
+
+	<script src="{{ asset('assets/plugins/fancybox/jquery.fancybox.min.js') }}"></script>
+
 	@stack('scripts')
 
 </body>
