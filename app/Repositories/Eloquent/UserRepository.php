@@ -72,6 +72,9 @@ class UserRepository implements UserRepositoryInterface
     public function getEmployees($whereBy){
         return $this->model->where($whereBy)->get();
     }
+    public function usersSearch($whereBy){
+        return $this->model->where('id', '!=', $whereBy)->get();
+    }
     public function getAllDataOFFirst($whereBy)
     {
         return $this->model->with('companyInformation','retainerAgreements','lmias','companyDoc', 'jobBank','AdditionalDocument')->where($whereBy)->first();

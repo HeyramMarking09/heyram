@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdditionalDocumentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CallTaggingController;
+use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\JobBankController;
 use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Admin\LmiaController as AdminLmiaController;
@@ -78,6 +79,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Authenticated Routes
     Route::middleware('auth:admin')->group(function () {
         Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+        Route::post('save-token', [AuthController::class, 'saveToken'])->name('save-token');
+        Route::get('send-notification', [AuthController::class, 'sendNotification'])->name('send-notification');
+
+
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
         // Role and Permissions 
@@ -160,7 +165,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('call-tagging-detail/{id}', [CallTaggingController::class , 'detail' ])->name('call-tagging-detail');
         Route::post('update-call-tagging', [CallTaggingController::class , 'update' ])->name('update-call-tagging');
 
-
+        // Chats Routes
+        Route::get('chat', [ChatController::class , 'index'])->name('chat');
+        Route::post('send-message', [ChatController::class , 'sendMessage'])->name('send-message');
+        Route::get('get-messages', [ChatController::class , 'getMessages'])->name('get-messages');
 
     });
 });
@@ -259,7 +267,10 @@ Route::prefix('employee')->name('employee.')->group(function () {
         Route::get('call-tagging-detail/{id}', [CallTaggingController::class , 'detail' ])->name('call-tagging-detail');
         Route::post('update-call-tagging', [CallTaggingController::class , 'update' ])->name('update-call-tagging');
 
-
+        // Chats Routes
+        Route::get('chat', [ChatController::class , 'index'])->name('chat');
+        Route::post('send-message', [ChatController::class , 'sendMessage'])->name('send-message');
+        Route::get('get-messages', [ChatController::class , 'getMessages'])->name('get-messages');
 
     });
 });
