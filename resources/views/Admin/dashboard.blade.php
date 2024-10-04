@@ -11,10 +11,28 @@
                         <div class="row align-items-center ">
                             <div class="col-md-4">
                                 <h3 class="page-title">Deals Dashboard</h3>
-                                <a href="{{ route('admin.send-notification') }}" class="btn btn-primary">Send Notifications</a>
                             </div>
+                            {{-- <div class="col-md-8 float-end ms-auto">
+                                <div class="d-flex title-head">
+                                    <div class="daterange-picker d-flex align-items-center justify-content-center">
+                                        <div class="form-sort me-2">
+                                            <i class="ti ti-calendar"></i>
+                                            <input type="text" class="form-control  date-range bookingrange">
+                                        </div>
+                                        <div class="head-icons mb-0">
+                                            <a href="index.html" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-original-title="Refresh"><i class="ti ti-refresh-dot"></i></a>
+                                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-original-title="Collapse" id="collapse-header"><i
+                                                    class="ti ti-chevrons-up"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> --}}
                         </div>
                     </div>
+
+
                 </div>
             </div>
 
@@ -22,79 +40,7 @@
     </div>
     <!-- /Page Wrapper -->
 
+    </div>
+    <!-- /Main Wrapper -->
+    <!-- Add content specific to the admin dashboard here -->
 @endsection
-@push('scripts')
-<!-- Firebase Compatibility SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"></script>
-
-<script>
-    var firebaseConfig = {
-        apiKey: "AIzaSyDDb7Oo-8NgQiVRqLCWPGnnW4jomA04IMw",
-        authDomain: "fir-notifications-71c20.firebaseapp.com",
-        projectId: "fir-notifications-71c20",
-        storageBucket: "fir-notifications-71c20.appspot.com",
-        messagingSenderId: "96474935880",
-        appId: "1:96474935880:web:42396121bb953edf611e7d",
-        measurementId: "G-QJ5YBHHTG7"
-    };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const messaging = firebase.messaging();
-
-    function initFirebaseMessagingRegistration() {
-        // Ask for permission to show notifications
-        Notification.requestPermission().then(function (permission) {
-            if (permission === 'granted') {
-                // Get the token for the device
-                messaging.getToken({ vapidKey: 'BAJhy0lbBEF7gupn0BPfIv6IiUHITIRS0QirvHuL_jSzQQoMS8-XXTJP6AnZOHWcKcHQp6ifG8CiQ5A43OqtBe8' }).then(function (token) {
-                    // Make an AJAX request to save the token
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': "{{ csrf_token() }}",
-                        }
-                    });
-
-                    $.ajax({
-                        url: '{{ route("admin.save-token") }}',
-                        type: 'POST',
-                        data: {
-                            token: token
-                        },
-                        dataType: 'JSON',
-                        success: function (response) {
-                            console.log('Token saved successfully.');
-                        },
-                        error: function (err) {
-                            console.log('Error saving token:', err);
-                        },
-                    });
-
-                }).catch(function (error) {
-                    console.error('Error getting token:', error);
-                });
-
-            } else {
-                console.error('Notification permission denied.');
-            }
-        });
-    }
-
-    // Handle incoming messages
-    messaging.onMessage(function (payload) {
-        const noteTitle = payload.notification.title;
-        const noteOptions = {
-            body: payload.notification.body,
-            icon: payload.notification.icon,
-        };
-        new Notification(noteTitle, noteOptions);
-    });
-
-    // Initialize registration on document ready
-    $(document).ready(function () {
-        initFirebaseMessagingRegistration();
-    });
-</script>
-@endpush
-

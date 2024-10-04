@@ -7,7 +7,6 @@ use App\Models\Role;
 use App\Repositories\Eloquent\UserRepository;
 use Illuminate\Support\Facades\Log;
 use App\Services\SendMailService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -35,7 +34,7 @@ class UserService
             }
             $this->userRepository->create($data);
 
-            $login_link = env('APP_URL') . $data['user_type'] . '/login';
+            $login_link = env('APP_URL') .'employer'. '/login';
             $sendData = [
                 'name' => $data['name'],
                 'email' => $data['email'],
@@ -115,7 +114,7 @@ class UserService
             $this->userRepository->delete(['id' => $id]);
             return ['status' => true, 'message' => "User Deleted Successfully!"];
         } catch (\Exception $exception) {
-            Log::error("Error in UserService.deleteUser() " . $exception->getLine() . ' ' . $exception->getMessage());
+            Log::error("Error in UserService.createUser() " . $exception->getLine() . ' ' . $exception->getMessage());
         }
     }
     public function getDeleteRequest(array $data)
@@ -276,14 +275,5 @@ class UserService
         } catch (\Exception $exception) {
             Log::error("Error in UserService.getUsers() " . $exception->getLine() . ' ' . $exception->getMessage());
         }    
-    }
-    public function usersSearch()
-    {
-        try {
-            $userid = Auth::user()->id;
-            return $this->userRepository->usersSearch($userid);
-        } catch (\Exception $exception) {
-            Log::error("Error in UserService.usersSearch() " . $exception->getLine() . ' ' . $exception->getMessage());
-        }  
     }
 }
