@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\LmiaController as AdminLmiaController;
 use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\TaskManagementController;
 use App\Http\Controllers\CompanyInformationController;
 use App\Http\Controllers\Employee\AuthController as EmployeeAuthController;
 use App\Http\Controllers\Employer\AuthController as EmployerAuthController;
@@ -170,6 +171,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('send-message', [ChatController::class , 'sendMessage'])->name('send-message');
         Route::get('get-messages', [ChatController::class , 'getMessages'])->name('get-messages');
 
+
+        // Task Management Routes
+        Route::get('task-management', [TaskManagementController::class , 'index'])->name('task-management');
+        Route::post('create-task-management', [TaskManagementController::class , 'create'])->name('create-task-management');
+        Route::get('get-task-management', [TaskManagementController::class , 'getAll'])->name('get-task-management');
+        Route::delete('delete-task-management', [TaskManagementController::class , 'delete'])->name('delete-task-management');
+        Route::post('update-task-management', [TaskManagementController::class , 'update'])->name('update-task-management');
+
     });
 });
 
@@ -271,6 +280,6 @@ Route::prefix('employee')->name('employee.')->group(function () {
         Route::get('chat', [ChatController::class , 'index'])->name('chat');
         Route::post('send-message', [ChatController::class , 'sendMessage'])->name('send-message');
         Route::get('get-messages', [ChatController::class , 'getMessages'])->name('get-messages');
-
+        
     });
 });

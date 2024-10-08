@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
+use App\Models\User;
 use App\Services\FirebaseNotificationService;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Log;
@@ -52,7 +53,7 @@ class AuthController extends Controller
     }
     public function sendNotification(Request $request)
     {
-        $tokens = Admin::whereNotNull('fcm_token')->pluck('fcm_token')->all();
+        $tokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->all();
 
         $title = 'Title hai!!!!';
         $body = 'Boidy hai!!!';

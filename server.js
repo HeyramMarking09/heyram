@@ -24,53 +24,33 @@ io.on('connection', (socket) => {
         console.log(`User ${userId} connected with socket ID: ${socket.id}`);
     });
 
-    // socket.on('sendMessage', ({ message, targetUserId, senderId, audioBlob }) => {
-    //     const targetSocketId = users[targetUserId];
-
-    //     // Check if the message contains an audio file
-    //     const isAudioMessage = !!audioBlob;
-
-    //     // Send message or audio to the target user (receiver)
-    //     if (targetSocketId) {
-    //         io.to(targetSocketId).emit('receiveMessage', {
-    //             message, // Could be empty if it's an audio message
-    //             from: senderId,
-    //             to: targetUserId,
-    //             audioBlob, // Send the audio blob if available
-    //             senderSide: false // Indicates message is coming from another user
-    //         });
-    //     } else {
-    //         console.log(`Target user with ID ${targetUserId} is not connected.`);
-    //     }
-
-    //     // Send the message or audio to the sender to show it on their side
-    //     io.to(socket.id).emit('receiveMessage', {
-    //         message,
-    //         from: senderId,
-    //         to: targetUserId,
-    //         audioBlob, // Send the audio blob if available
-    //         senderSide: true // Indicates message is from the sender
-    //     });
-    // });
-
-    // Handle user disconnection
     socket.on('sendMessage', ({ message, targetUserId, senderId, audioBlob }) => {
         const targetSocketId = users[targetUserId];
-        
-        const isAudioMessage = !!audioBlob; // Check if audioBlob is provided (audio message)
-    
-        // If target user is connected
+
+        // Check if the message contains an audio file
+        const isAudioMessage = !!audioBlob;
+
+        // Send message or audio to the target user (receiver)
         if (targetSocketId) {
             io.to(targetSocketId).emit('receiveMessage', {
-                message,       // Text message
-                from: senderId, 
+                message, // Could be empty if it's an audio message
+                from: senderId,
                 to: targetUserId,
-                senderSide: senderId === userId, // Identify who sent the message
-                audioBlob      // Audio message data (if provided)
+                audioBlob, // Send the audio blob if available
+                senderSide: false // Indicates message is coming from another user
             });
         } else {
-            console.log(`User ${targetUserId} is not online.`);
+            console.log(`Target user with ID ${targetUserId} is not connected.`);
         }
+
+        // Send the message or audio to the sender to show it on their side
+        io.to(socket.id).emit('receiveMessage', {
+            message,
+            from: senderId,
+            to: targetUserId,
+            audioBlob, // Send the audio blob if available
+            senderSide: true // Indicates message is from the sender
+        });
     });
     
     socket.on('disconnect', () => {

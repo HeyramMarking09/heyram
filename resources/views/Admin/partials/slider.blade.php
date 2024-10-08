@@ -110,11 +110,21 @@
                         <h6 class="submenu-hdr">Support</h6>
                         <ul>
                             @if (Auth::guard('admin')->check())
-                                    <li><a href="{{ route('admin.support') }}"><i class="ti ti-users"></i><span>Support</span></a></li>
-                                    <li><a href="{{ route('admin.chat') }}"><i class="ti ti-users"></i><span>Chat</span></a></li>
-                                    @else
-                                    <li><a href="{{ route('employee.support') }}"><i class="ti ti-users"></i><span>Support</span></a></li>
-                                    <li><a href="{{ route('employee.chat') }}"><i class="ti ti-users"></i><span>Chat</span></a></li>
+                                <li><a href="{{ route('admin.support') }}"><i class="ti ti-users"></i><span>Support</span></a></li>
+                                <li><a href="{{ route('admin.chat') }}"><i class="ti ti-users"></i><span>Chat</span></a></li>
+                                @else
+                                <li><a href="{{ route('employee.support') }}"><i class="ti ti-users"></i><span>Support</span></a></li>
+                                <li><a href="{{ route('employee.chat') }}"><i class="ti ti-users"></i><span>Chat</span></a></li>
+                            @endif
+                        </ul>
+                    @endcan
+                </li>
+                <li>
+                    @can('access-permission', ['Task Management', 'view'])
+                        <h6 class="submenu-hdr">Task Management</h6>
+                        <ul>
+                            @if (Auth::guard('admin')->check())
+                                <li><a href="{{ route('admin.task-management') }}"><i class="ti ti-users"></i><span>Task Management</span></a></li>
                             @endif
                         </ul>
                     @endcan

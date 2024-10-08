@@ -122,7 +122,7 @@
                             </div>
                         </div>
                         <div class="chat-body" id="outer">
-                            <div class="messages" id="messages" style="margin-top: 35px;">
+                            <div class="messages" id="messages" style="margin-top: 59px;">
                                 <!-- Messages will be appended here -->
                             </div>
                         </div>
@@ -484,30 +484,6 @@
             $('#recordingControls').hide();
             $('#recordingTimer').text('00:00');
         }
-
-        // function sendAudioMessage(audioBlob) {
-        //     const formData = new FormData();
-        //     formData.append('audio_file', audioBlob, 'audioMessage.wav');
-        //     formData.append('sender_id', '{{ Auth::user()->id }}');
-        //     formData.append('receiver_id', $('#receiver_id').val());
-
-        //     $.ajax({
-        //         url: sendMessageUrl, // The appropriate URL for sending the message
-        //         type: 'POST',
-        //         headers: {
-        //             'X-CSRF-TOKEN': "{{ csrf_token() }}"
-        //         },
-        //         data: formData,
-        //         processData: false,
-        //         contentType: false,
-        //         success: function(response) {
-        //             console.log('Audio message sent successfully');
-        //         },
-        //         error: function(xhr) {
-        //             console.log('Error sending audio message:', xhr.responseText);
-        //         }
-        //     });
-        // }
         function sendAudioMessage(audioBlob) {
             const targetUserId = $('#receiver_id').val();
             const senderId = '{{ Auth::user()->id }}';
