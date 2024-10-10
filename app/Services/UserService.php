@@ -244,6 +244,14 @@ class UserService
             Log::error("Error in UserService.getEmployees() " . $exception->getLine() . ' ' . $exception->getMessage());
         }        
     }
+    public function getClients()
+    {
+        try {
+            return $this->userRepository->getEmployees(['user_type'=>'customer']);
+        } catch (\Exception $exception) {
+            Log::error("Error in UserService.getEmployees() " . $exception->getLine() . ' ' . $exception->getMessage());
+        }        
+    }
     public function getEmployers()
     {
         try {

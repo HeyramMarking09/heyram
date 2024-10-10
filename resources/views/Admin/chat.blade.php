@@ -212,7 +212,8 @@
 
     <script>
         // Initialize Socket.IO
-        const socket = io('http://127.0.0.1:3000');
+        // const socket = io('https://123.123.123.123:3000');
+        const socket = io('https://194.195.84.145:65002');
         const userId = "{{ Auth::user()->id }}"; // Current logged-in user
 
         // Register the user with a unique room

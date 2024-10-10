@@ -59,4 +59,8 @@ class User extends Authenticatable implements Roleable
     {
         return $this->hasMany(AdditionalDocument::class,'employer_id', 'id');
     }
+    public function updates()
+    {
+        return $this->belongsTo(Update::class,'client_id', 'id');
+    }
 }

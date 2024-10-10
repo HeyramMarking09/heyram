@@ -170,8 +170,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('chat', [ChatController::class , 'index'])->name('chat');
         Route::post('send-message', [ChatController::class , 'sendMessage'])->name('send-message');
         Route::get('get-messages', [ChatController::class , 'getMessages'])->name('get-messages');
-
-
+        
+        
+        
         // Task Management Routes
         Route::get('task-management', [TaskManagementController::class , 'index'])->name('task-management');
         Route::post('create-task-management', [TaskManagementController::class , 'create'])->name('create-task-management');
@@ -280,6 +281,6 @@ Route::prefix('employee')->name('employee.')->group(function () {
         Route::get('chat', [ChatController::class , 'index'])->name('chat');
         Route::post('send-message', [ChatController::class , 'sendMessage'])->name('send-message');
         Route::get('get-messages', [ChatController::class , 'getMessages'])->name('get-messages');
-        
+
     });
 });
