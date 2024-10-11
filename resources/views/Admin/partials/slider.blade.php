@@ -129,6 +129,16 @@
                         </ul>
                     @endcan
                 </li>
+                @can('access-permission', ['Updates', 'view'])
+                    <li>
+                        <h6 class="submenu-hdr">Updates</h6>
+                        <ul>
+                            @if (Auth::guard('admin')->check())
+                                <li><a href="{{ route('admin.update-index') }}"><i class="ti ti-users"></i><span>Updates</span></a></li>
+                            @endif
+                        </ul>
+                    </li>
+                @endcan
             </ul>
         </div>
     </div>

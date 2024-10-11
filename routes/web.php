@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\LmiaController as AdminLmiaController;
 use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UpdateController;
 use App\Http\Controllers\Admin\TaskManagementController;
 use App\Http\Controllers\CompanyInformationController;
 use App\Http\Controllers\Employee\AuthController as EmployeeAuthController;
@@ -179,6 +180,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('get-task-management', [TaskManagementController::class , 'getAll'])->name('get-task-management');
         Route::delete('delete-task-management', [TaskManagementController::class , 'delete'])->name('delete-task-management');
         Route::post('update-task-management', [TaskManagementController::class , 'update'])->name('update-task-management');
+
+        Route::get('update-index', [UpdateController::class , 'index'])->name('update-index');
+        Route::post('create-updates', [UpdateController::class , 'create'])->name('create-updates');
+        Route::get('get-updates', [UpdateController::class , 'getAll'])->name('get-updates');
+        Route::delete('delete-updates', [UpdateController::class , 'delete'])->name('delete-updates');
+        Route::post('update-update', [UpdateController::class , 'update'])->name('update-update');
+
 
     });
 });
